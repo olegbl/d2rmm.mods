@@ -1,0 +1,15 @@
+{
+  "name": "Guaranteed Drops",
+  "description": "Sets NoDrop to 0 which forces all monsters to drop at least 1 item.",
+  "author": "olegbl",
+  "website": "https://github.com/olegbl/d2rmm",
+  "config": [
+    {
+      "id": "fixcountess",
+      "type": "checkbox",
+      "name": "Fix Countess",
+      "description": "Make countess prefer to drop runes instead of items. Without this fix, the countess will never drop a full 3 runes with NoDrop set to 0.",
+      "defaultValue": true
+    }
+  ]
+}

@@ -1,15 +1,15 @@
 const inventoryFilename = "global\\excel\\inventory.txt";
 const inventory = await D2RMM.readTsv(inventoryFilename);
 inventory.rows.forEach((row) => {
-  const id = row["class"];
+  const id = row.class;
   if (
     id === "Bank Page 1" ||
     id === "Big Bank Page 1" ||
     id === "Bank Page2" ||
     id === "Big Bank Page2"
   ) {
-    row["gridX"] = 16;
-    row["gridY"] = 13;
+    row.gridX = 16;
+    row.gridY = 13;
   }
 });
 await D2RMM.writeTsv(inventoryFilename, inventory);

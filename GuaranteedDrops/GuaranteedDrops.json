@@ -2,7 +2,7 @@
   "name": "Guaranteed Drops",
   "description": "Sets NoDrop to 0 which forces all monsters to drop at least 1 item.",
   "author": "olegbl",
-  "website": "https://github.com/olegbl/d2rmm",
+  "website": "https://github.com/olegbl/d2rmm.mods",
   "config": [
     {
       "id": "fixcountess",

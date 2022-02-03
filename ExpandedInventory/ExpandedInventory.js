@@ -35,6 +35,7 @@ profileHD.PlayerInventoryPanelGoldAmountRect = {
   height: 48,
 };
 profileHD.PlayerInventoryPanelGoldButtonRect = { x: 480, y: 1613 };
+profileHD.RightPanelRectTopAligned = { ...profileHD.RightPanelRect, y: 0 };
 await D2RMM.writeJson(profileHDFilename, profileHD);
 
 const profileLVFilename = "global\\ui\\layouts\\_profilelv.json";
@@ -53,6 +54,7 @@ profileLV.PlayerInventoryPanelGoldAmountRect = {
   height: 48,
 };
 profileLV.PlayerInventoryPanelGoldButtonRect = { x: 750, y: 1613 };
+profileLV.RightPanelRectTopAligned = { ...profileLV.RightPanelRect, y: 0 };
 await D2RMM.writeJson(profileLVFilename, profileLV);
 
 const playerInventoryOriginalLayoutFilename =
@@ -60,6 +62,13 @@ const playerInventoryOriginalLayoutFilename =
 const playerInventoryOriginalLayout = await D2RMM.readJson(
   playerInventoryOriginalLayoutFilename
 );
+playerInventoryOriginalLayout.fields.rect = {
+  x: 0,
+  y: 0,
+  width: 320,
+  height: 432,
+};
+playerInventoryOriginalLayout.fields.anchor = { x: 1.0, y: 0 };
 playerInventoryOriginalLayout.children.forEach((child) => {
   if (child.name === "click_catcher") {
     child.fields.rect.width = 1320;
@@ -79,6 +88,8 @@ const playerInventoryOriginalLayoutHDFilename =
 const playerInventoryOriginalLayoutHD = await D2RMM.readJson(
   playerInventoryOriginalLayoutHDFilename
 );
+playerInventoryOriginalLayoutHD.fields.rect = "$RightPanelRectTopAligned";
+playerInventoryOriginalLayoutHD.fields.anchor = { x: 1.0, y: 0 };
 playerInventoryOriginalLayoutHD.children =
   playerInventoryOriginalLayoutHD.children.filter((child) => {
     if (child.name === "click_catcher") {

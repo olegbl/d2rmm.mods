@@ -24,6 +24,7 @@ profileHD.BankPanelGoldAmountRect = {
   height: 48,
 };
 profileHD.BankPanelGoldWithdrawRect = { x: 717, y: 1593 };
+profileHD.LeftPanelRectTopAligned = { ...profileHD.LeftPanelRect, y: 0 };
 await D2RMM.writeJson(profileHDFilename, profileHD);
 
 const profileLVFilename = "global\\ui\\layouts\\_profilelv.json";
@@ -42,11 +43,19 @@ profileLV.BankPanelGoldAmountRect = {
   height: 48,
 };
 profileLV.BankPanelGoldWithdrawRect = { x: 1080, y: 1593 };
+profileLV.LeftPanelRectTopAligned = { ...profileLV.LeftPanelRect, y: 0 };
 await D2RMM.writeJson(profileLVFilename, profileLV);
 
 const bankOriginalLayoutFilename =
   "global\\ui\\layouts\\bankoriginallayout.json";
 const bankOriginalLayout = await D2RMM.readJson(bankOriginalLayoutFilename);
+bankOriginalLayout.fields.rect = {
+  x: -320,
+  y: -240,
+  width: 320,
+  height: 432,
+};
+bankOriginalLayout.fields.anchor = { x: 0, y: 0 };
 bankOriginalLayout.children.forEach((child) => {
   if (child.name === "grid") {
     child.fields.cellCount.x = 16;
@@ -58,6 +67,8 @@ await D2RMM.writeJson(bankOriginalLayoutFilename, bankOriginalLayout);
 const bankOriginalLayoutHDFilename =
   "global\\ui\\layouts\\bankoriginallayouthd.json";
 const bankOriginalLayoutHD = await D2RMM.readJson(bankOriginalLayoutHDFilename);
+bankOriginalLayoutHD.fields.rect = "$LeftPanelRectTopAligned";
+bankOriginalLayoutHD.fields.anchor = { x: 0, y: 0 };
 bankOriginalLayoutHD.children.forEach((child) => {
   if (child.name === "grid") {
     child.fields.cellCount.x = 16;

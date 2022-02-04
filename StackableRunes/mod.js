@@ -25,14 +25,45 @@ for (let index in items) {
 }
 await D2RMM.writeJson(itemsFilename, newItems);
 
-const runesFilename = "\\hd\\items\\misc\\rune";
-const runes = await D2RMM.readDirectory(runesFilename, {
-  filesOnly: true,
-});
-for (let index in runes) {
-  const runeFilename = runesFilename + "\\" + runes[index];
-  const runeSingleFilename =
-    runesFilename + "\\" + runes[index].replace(".json", "_stack.json");
+const runes = [
+  "amn_rune",
+  "ber_rune",
+  "cham_rune",
+  "dol_rune",
+  "eld_rune",
+  "el_rune",
+  "eth_rune",
+  "fal_rune",
+  "gul_rune",
+  "hel_rune",
+  "io_rune",
+  "ist_rune",
+  "ith_rune",
+  "jah_rune",
+  "ko_rune",
+  "lem_rune",
+  "lo_rune",
+  "lum_rune",
+  "mal_rune",
+  "nef_rune",
+  "ohm_rune",
+  "ort_rune",
+  "pul_rune",
+  "ral_rune",
+  "shael_rune",
+  "sol_rune",
+  "sur_rune",
+  "tal_rune",
+  "thul_rune",
+  "tir_rune",
+  "um_rune",
+  "vex_rune",
+  "zod_rune",
+];
+const runeDirFilename = "hd\\items\\misc\\rune\\";
+for (let index in rune) {
+  const runeFilename = runeDirFilename + runes[index] + ".json";
+  const runeSingleFilename = runeDirFilename + runes[index] + "_stack.json";
   const rune = await D2RMM.readJson(runeFilename);
   await D2RMM.writeJson(runeSingleFilename, rune);
 }

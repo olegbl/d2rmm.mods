@@ -9,8 +9,8 @@ const COLOR_PURPLE = `${COLOR_PREFIX};`;
 
 const itemNamesFilename = 'local\\lng\\strings\\item-names.json';
 const itemNames = D2RMM.readJson(itemNamesFilename);
-itemNames.forEach((itemName) => {
-  const itemtype = itemName.Key;
+itemNames.forEach((item) => {
+  const itemtype = item.Key;
   let newName = null;
 
   // health
@@ -66,9 +66,9 @@ itemNames.forEach((itemName) => {
 
   if (newName != null) {
     // update all localizations
-    for (const key in itemName) {
+    for (const key in item) {
       if (key !== 'id' && key !== 'Key') {
-        itemName[key] = newName;
+        item[key] = newName;
       }
     }
   }

@@ -96,7 +96,7 @@ playerInventoryOriginalLayoutHD.children =
       child.fields.rect = { x: 0, y: 0, width: 1162, height: 1737 };
     }
     if (child.name === 'background') {
-      child.fields.filename = 'PANEL\\\\Inventory\\\\Background_Expanded2';
+      child.fields.filename = 'PANEL\\Inventory\\Background_Expanded2';
     }
     if (child.name === 'title') {
       return false;
@@ -167,7 +167,7 @@ playerInventoryExpansionLayoutHD.children =
       return false;
     }
     if (child.name === 'background') {
-      child.fields.filename = 'PANEL\\\\Inventory\\\\Background_Expanded2';
+      child.fields.filename = 'PANEL\\Inventory\\Background_Expanded2';
     }
     if (child.name === 'background_right_arm_selected') {
       child.fields.rect.y = 100;

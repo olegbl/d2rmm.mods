@@ -78,7 +78,7 @@ bankOriginalLayoutHD.children.forEach((child) => {
     child.fields.rect = { x: 0, y: 0, width: 1750, height: 1799 };
   }
   if (child.name === 'background') {
-    child.fields.filename = 'PANEL\\\\Stash\\\\StashPanel_BG2';
+    child.fields.filename = 'PANEL\\Stash\\StashPanel_BG2';
     child.fields.rect = { x: 0, y: 0 };
   }
   if (child.name === 'title') {
@@ -101,7 +101,7 @@ bankOriginalLayoutHD.children.push({
   fields: {
     rect: { x: 93, y: 160 },
     tabCount: 6,
-    filename: 'PANEL\\\\stash\\\\Stash_Tabs',
+    filename: 'PANEL\\stash\\Stash_Tabs',
     inactiveFrames: [0, 0, 0, 0, 0, 0],
     activeFrames: [1, 1, 1, 1, 1, 1],
     disabledFrames: [0, 0, 0, 0, 0, 0],
@@ -162,10 +162,10 @@ bankExpansionLayoutHD.children.forEach((child) => {
     delete child.fields;
   }
   if (child.name === 'background') {
-    child.fields.filename = 'PANEL\\\\Stash\\\\StashPanel_BG2';
+    child.fields.filename = 'PANEL\\Stash\\StashPanel_BG2';
   }
   if (child.name === 'BankTabs') {
-    child.fields.filename = 'PANEL\\\\stash\\\\Stash_Tabs_Blank';
+    child.fields.filename = 'PANEL\\stash\\Stash_Tabs_Blank';
     child.fields.tabCount = 8;
     child.fields.rect.y = 160;
     child.fields.tabSize.x = 195;

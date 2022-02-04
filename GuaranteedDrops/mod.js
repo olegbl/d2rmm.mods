@@ -1,16 +1,16 @@
-const treasureclassexFilename = "global\\excel\\treasureclassex.txt";
-const treasureclassex = await D2RMM.readTsv(treasureclassexFilename);
+const treasureclassexFilename = 'global\\excel\\treasureclassex.txt';
+const treasureclassex = D2RMM.readTsv(treasureclassexFilename);
 treasureclassex.rows.forEach((row) => {
-  const treasureClass = row["Treasure Class"];
+  const treasureClass = row['Treasure Class'];
   // not all rows are valid entries
-  if (treasureClass !== "") {
+  if (treasureClass !== '') {
     row.NoDrop = 1;
     // fix Countess items if necessary
     if (config.fixcountess) {
       if (
-        treasureClass === "Countess" ||
-        treasureClass === "Countess (N)" ||
-        treasureClass === "Countess (H)"
+        treasureClass === 'Countess' ||
+        treasureClass === 'Countess (N)' ||
+        treasureClass === 'Countess (H)'
       ) {
         // swap the order of 'Countess Rune' and 'Countess Item' to make
         // the countess prefer to drop runes over items
@@ -22,4 +22,4 @@ treasureclassex.rows.forEach((row) => {
     }
   }
 });
-await D2RMM.writeTsv(treasureclassexFilename, treasureclassex);
+D2RMM.writeTsv(treasureclassexFilename, treasureclassex);

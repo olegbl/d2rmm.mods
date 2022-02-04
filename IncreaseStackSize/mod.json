@@ -1,0 +1,7 @@
+{
+  "name": "Increase Stack Size",
+  "description": "Increases stack size of tomes, quivers and keys to 500.",
+  "author": "olegbl",
+  "website": "https://github.com/olegbl/d2rmm.mods",
+  "version": "1.0"
+}

@@ -4,8 +4,7 @@ const STACK_ITEM_CODE = 'sgem';
 const ITEM_TYPES = [];
 function converItemTypeToStackItemType(itemtype) {
   if (itemtype != null && ITEM_TYPES.indexOf(itemtype) !== -1) {
-    // can't use "s" as prefix due to conflict with scy, spc, spr, etc...
-    return itemtype.replace(/^./, 'z');
+    return `q${itemtype.slice(1)}`;
   }
   return itemtype;
 }
@@ -19,7 +18,11 @@ for (const index in items) {
   const item = items[index];
   for (const itemtype in item) {
     const asset = item[itemtype].asset;
-    if (asset.startsWith(`${SINGLE_ITEM_CODE}/`) && !asset.endsWith('_stack')) {
+    if (
+      asset.startsWith(`${SINGLE_ITEM_CODE}/`) &&
+      !asset.endsWith('_stack') &&
+      itemtype !== 'jew' // exclude jewels
+    ) {
       ITEM_TYPES.push(itemtype);
       const itemtypeStack = converItemTypeToStackItemType(itemtype);
       newItems.push({ [itemtypeStack]: { asset: `${asset}_stack` } });
@@ -91,7 +94,7 @@ D2RMM.writeTsv(miscFilename, misc);
 
 const cubemainFilename = 'global\\excel\\cubemain.txt';
 const cubemain = D2RMM.readTsv(cubemainFilename);
-for (let i = 0; i < ITEM_TYPES.length; i += 1) {
+for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
   const itemtype = ITEM_TYPES[i];
   const stacktype = converItemTypeToStackItemType(itemtype);
   // convert from single to stack
@@ -125,7 +128,7 @@ if (
     (row) => row.description === 'Stack of 2 -> Stack of 1 and Stack of 1'
   ) == null
 ) {
-  for (let i = 2; i <= 500; i += 1) {
+  for (let i = 2; i <= 500; i = i + 1) {
     cubemain.rows.push({
       description: `Stack of ${i} -> Stack of ${i - 1} and Stack of 1`,
       enabled: 1,

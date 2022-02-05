@@ -135,6 +135,25 @@ if (
 }
 D2RMM.writeTsv(cubemainFilename, cubemain);
 
+// D2R colors runes as orange by default, but it seems to be based on item type
+// rather than localization strings so it does not apply to the stacked versions
+// we update the localization file to manually color the names of runes here
+// so that it will also apply to the stacked versions of the runes
+const itemRunesFilename = 'local\\lng\\strings\\item-runes.json';
+const itemRunes = D2RMM.readJson(itemRunesFilename);
+itemRunes.forEach((item) => {
+  const itemtype = item.Key;
+  if (itemtype.match(/^r[0-9]{2}$/) != null) {
+    // update all localizations
+    for (const key in item) {
+      if (key !== 'id' && key !== 'Key') {
+        item[key] = `ÿc8${item[key]}`;
+      }
+    }
+  }
+});
+D2RMM.writeJson(itemRunesFilename, itemRunes);
+
 D2RMM.copyFile(
   'hd', // <mod folder>\hd
   'hd', // <diablo 2 folder>\mods\<modname>\<modname>.mpq\data\hd

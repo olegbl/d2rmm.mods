@@ -26,7 +26,7 @@ itemNames.forEach((item) => {
   // rejuvenation
   if (['rvl', 'rvs'].indexOf(itemtype) !== -1) {
     const suffix = itemtype.endsWith('l') ? '2' : '1';
-    newName = `${COLOR_PURPLE}RP${suffix}`;
+    newName = `${COLOR_PURPLE}JP${suffix}`;
   }
 
   // strangling gas / choking gas / rancid
@@ -36,7 +36,7 @@ itemNames.forEach((item) => {
       : itemtype.endsWith('m')
       ? '2'
       : '1';
-    newName = `${COLOR_GREEN}GP${suffix}`;
+    newName = `${COLOR_GREEN}GAS${suffix}`;
   }
 
   // fulmigating / exploding / oil
@@ -46,22 +46,22 @@ itemNames.forEach((item) => {
       : itemtype.endsWith('m')
       ? '2'
       : '1';
-    newName = `${COLOR_ORANGE}EP${suffix}`;
+    newName = `${COLOR_ORANGE}OIL${suffix}`;
   }
 
   // antidote
   if (itemtype === 'yps') {
-    newName = `${COLOR_GRAY}AP`;
+    newName = `${COLOR_GRAY}ANTI`;
   }
 
   // thawing
   if (itemtype === 'wms') {
-    newName = `${COLOR_YELLOW}TP`;
+    newName = `${COLOR_YELLOW}THAW`;
   }
 
   // stamina
   if (itemtype === 'vps') {
-    newName = `${COLOR_GRAY}SP`;
+    newName = `${COLOR_GRAY}STAM`;
   }
 
   if (newName != null) {

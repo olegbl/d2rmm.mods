@@ -4,7 +4,10 @@ const STACK_ITEM_CODE = 'sgem';
 const ITEM_TYPES = [];
 function converItemTypeToStackItemType(itemtype) {
   if (itemtype != null && ITEM_TYPES.indexOf(itemtype) !== -1) {
-    return `q${itemtype.slice(1)}`;
+    // original idea to use "z" as prefix ran into issues due to "zlb" already being taken
+    // in favor of backwards compatibility, only changing this one conflict
+    const prefix = itemtype === 'glb' ? 'q' : 'z';
+    return `${prefix}${itemtype.slice(1)}`;
   }
   return itemtype;
 }

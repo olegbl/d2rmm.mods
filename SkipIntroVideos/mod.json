@@ -1,0 +1,7 @@
+{
+  "name": "Skip Intro Videos",
+  "description": "Skips intro videos when starting D2R by replacing them with empty files.",
+  "author": "olegbl",
+  "website": "https://github.com/olegbl/d2rmm.mods",
+  "version": "1.0"
+}

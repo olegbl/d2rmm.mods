@@ -15,8 +15,33 @@
     {
       "id": "runesScaling",
       "type": "number",
-      "name": "Rune Droprate",
+      "name": "Rune Droprate Multiplier",
       "description": "1 = vanilla. 10 = Zod is about 10x as likely, more mid runes, fewer low runes. 100 = fairly even distribution, but more HRs than LRs/MRs.",
+      "defaultValue": 10,
+      "minValue": 1,
+      "maxValue": 100
+    },
+    {
+      "id": "equipment",
+      "type": "checkbox",
+      "name": "Adjust Equipment Droprate",
+      "description": "Disable to not modify the droprate of equipment.",
+      "defaultValue": true
+    },
+    {
+      "id": "equipmentChance",
+      "type": "number",
+      "name": "Equipment Droprate Multiplier",
+      "description": "Divides base chance by this value in itemratio.txt. 1 = vanilla. 400 ~= everything is unique.",
+      "defaultValue": 20,
+      "minValue": 1,
+      "maxValue": 400
+    },
+    {
+      "id": "equipmentMin",
+      "type": "number",
+      "name": "Equipment Droprate Minimum Rarity Multiplier",
+      "description": "Divides minimum rarity by this value (*128) in itemratio.txt. 1 = vanilla. 50 = no minimum rarity.",
       "defaultValue": 10,
       "minValue": 1,
       "maxValue": 100

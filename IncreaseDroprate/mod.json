@@ -1,0 +1,25 @@
+{
+  "name": "Increase Droprate",
+  "description": "Increases the droprate of items.",
+  "author": "olegbl",
+  "website": "https://github.com/olegbl/d2rmm.mods",
+  "version": "1.0",
+  "config": [
+    {
+      "id": "runes",
+      "type": "checkbox",
+      "name": "Adjust Rune Droprate",
+      "description": "Disable to not modify the droprate of runes.",
+      "defaultValue": true
+    },
+    {
+      "id": "runesScaling",
+      "type": "number",
+      "name": "Rune Droprate",
+      "description": "1 = vanilla. 10 = Zod is about 10x as likely, more mid runes, fewer low runes. 100 = fairly even distribution, but more HRs than LRs/MRs.",
+      "defaultValue": 10,
+      "minValue": 1,
+      "maxValue": 100
+    }
+  ]
+}

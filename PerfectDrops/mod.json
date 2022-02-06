@@ -1,0 +1,30 @@
+{
+  "name": "Perfect Drops",
+  "description": "Makes all items drop with perfect rolls.",
+  "author": "olegbl",
+  "website": "https://github.com/olegbl/d2rmm.mods",
+  "version": "1.0",
+  "config": [
+    {
+      "id": "blue",
+      "type": "checkbox",
+      "name": "Perfect Blue Items",
+      "description": "Enable to force even blue items to have perfect rolls. Disable to only have perfect unique, set and runeword items.",
+      "defaultValue": true
+    },
+    {
+      "id": "equalchances",
+      "type": "checkbox",
+      "name": "Equalize Affix Rarity",
+      "description": "Enable to make higher level affixes appear as frequently as lower level affixes.",
+      "defaultValue": true
+    },
+    {
+      "id": "skilltab3",
+      "type": "checkbox",
+      "name": "Always +3 to Skill Trees",
+      "description": "Enable to force all affixes that give a bonus to a specific skill tree to always give a bonus of 3 levels.",
+      "defaultValue": true
+    }
+  ]
+}

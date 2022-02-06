@@ -1,0 +1,16 @@
+{
+  "name": "Town Cast",
+  "description": "Allows you to cast more skills in town.",
+  "author": "olegbl",
+  "website": "https://github.com/olegbl/d2rmm.mods",
+  "version": "1.0",
+  "config": [
+    {
+      "id": "allskills",
+      "type": "checkbox",
+      "name": "All Skills",
+      "description": "Enable to allow all skills to be used in town. Disable to only additionally allow movement and buff skills.",
+      "defaultValue": false
+    }
+  ]
+}

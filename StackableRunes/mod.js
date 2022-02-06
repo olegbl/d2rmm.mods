@@ -83,7 +83,7 @@ D2RMM.writeTsv(miscFilename, misc);
 
 const cubemainFilename = 'global\\excel\\cubemain.txt';
 const cubemain = D2RMM.readTsv(cubemainFilename);
-for (let i = 0; i < ITEM_TYPES.length; i += 1) {
+for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
   const itemtype = ITEM_TYPES[i];
   const stacktype = converItemTypeToStackItemType(itemtype);
   // convert from single to stack
@@ -117,7 +117,7 @@ if (
     (row) => row.description === 'Stack of 2 -> Stack of 1 and Stack of 1'
   ) == null
 ) {
-  for (let i = 2; i <= 500; i += 1) {
+  for (let i = 2; i <= 500; i = i + 1) {
     cubemain.rows.push({
       description: `Stack of ${i} -> Stack of ${i - 1} and Stack of 1`,
       enabled: 1,
@@ -154,8 +154,16 @@ itemRunes.forEach((item) => {
 });
 D2RMM.writeJson(itemRunesFilename, itemRunes);
 
-D2RMM.copyFile(
-  'hd', // <mod folder>\hd
-  'hd', // <diablo 2 folder>\mods\<modname>\<modname>.mpq\data\hd
-  true // overwrite any conflicts
-);
+if (config.usenewsprites) {
+  D2RMM.copyFile(
+    'named\\hd', // <mod folder>\hd
+    'hd', // <diablo 2 folder>\mods\<modname>\<modname>.mpq\data\hd
+    true // overwrite any conflicts
+  );
+} else {
+  D2RMM.copyFile(
+    'classic\\hd', // <mod folder>\hd
+    'hd', // <diablo 2 folder>\mods\<modname>\<modname>.mpq\data\hd
+    true // overwrite any conflicts
+  );
+}

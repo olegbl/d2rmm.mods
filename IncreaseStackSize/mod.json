@@ -1,7 +1,23 @@
 {
   "name": "Increase Stack Size",
-  "description": "Increases stack size of tomes, quivers and keys to 500.",
+  "description": "Increases stack size of various items.",
   "author": "olegbl",
   "website": "https://github.com/olegbl/d2rmm.mods",
-  "version": "1.0"
+  "version": "1.1",
+  "config": [
+    {
+      "id": "items",
+      "type": "checkbox",
+      "name": "Increase Items Stack Size",
+      "description": "Enable to increase the stack size of tomes, keys and quivers to 500.",
+      "defaultValue": true
+    },
+    {
+      "id": "weapons",
+      "type": "checkbox",
+      "name": "Increase Weapon Stack Size",
+      "description": "Enable to increase the stack size of all throwing weapons to 500.",
+      "defaultValue": true
+    }
+  ]
 }

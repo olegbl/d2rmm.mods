@@ -2,7 +2,12 @@ if (config.weapons) {
   const miscFilename = 'global\\excel\\weapons.txt';
   const misc = D2RMM.readTsv(miscFilename);
   misc.rows.forEach((row) => {
-    row.ShowLevel = 1;
+    if (
+      // don't modify throwing potions (gas, oil pots)
+      row.type !== 'tpot'
+    ) {
+      row.ShowLevel = 1;
+    }
   });
   D2RMM.writeTsv(miscFilename, misc);
 }

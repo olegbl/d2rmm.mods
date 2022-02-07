@@ -1,0 +1,23 @@
+{
+  "name": "Remove Monster Immunities",
+  "description": "Reduces maximum elemental resistances of monsters to remove their immunities in nightmare and hell difficulties.",
+  "author": "olegbl",
+  "website": "https://github.com/olegbl/d2rmm.mods",
+  "version": "1.0",
+  "config": [
+    {
+      "id": "maxres",
+      "type": "number",
+      "name": "Maximum Resistance",
+      "description": "Sets monster resistances to a maximum of this value.",
+      "defaultValue": 90
+    },
+    {
+      "id": "disableaffixes",
+      "type": "checkbox",
+      "name": "Disable Monster Affixes",
+      "description": "Disable certain monster affixes (Enchanted, Stone Skin, Resistant) that increase reistances and can cause the monsters to become immune even with a lower than 100 maximum resistance.",
+      "defaultValue": true
+    }
+  ]
+}

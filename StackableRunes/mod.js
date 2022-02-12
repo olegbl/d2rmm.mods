@@ -75,11 +75,35 @@ misc.rows.forEach((item) => {
       minstack: 1,
       maxstack: 500,
       spawnstack: 1,
+      spelldesc: 1,
+      spelldescstr: 'StackableRune',
+      spelldesccolor: 0,
     });
     item.spawnable = 0;
   }
 });
 D2RMM.writeTsv(miscFilename, misc);
+
+const itemModifiersFilename = 'local\\lng\\strings\\item-modifiers.json';
+const itemModifiers = D2RMM.readJson(itemModifiersFilename);
+itemModifiers.push({
+  id: 29401, // TODO: is there a good way to make sure this avoids conflicts without scanning every .json file?
+  Key: 'StackableRune',
+  enUS: 'Can be transmuted into a usable rune',
+  zhTW: '可以转化为可用的符文',
+  deDE: 'Kann in eine nutzbare Rune umgewandelt werden',
+  esES: 'Se puede transmutar en una runa utilizable',
+  frFR: 'Peut être transmuté en une rune utilisable',
+  itIT: 'Può essere trasmutato in una runa utilizzabile',
+  koKR: '사용 가능한 룬으로 변환할 수 있습니다',
+  plPL: 'Może zostać przemieniony w użyteczną runę',
+  esMX: 'Se puede transmutar en una runa utilizable',
+  jaJP: '使用可能なルーンに変換できます',
+  ptBR: 'Pode ser transmutado em uma runa utilizável',
+  ruRU: 'Может быть преобразован в полезную руну',
+  zhCN: '可以转化为可用的符文',
+});
+D2RMM.writeJson(itemModifiersFilename, itemModifiers);
 
 const cubemainFilename = 'global\\excel\\cubemain.txt';
 const cubemain = D2RMM.readTsv(cubemainFilename);

@@ -3,7 +3,7 @@
   "description": "Adds another variation of runes that can stack together. Transmute a rune in the Cube to convert it between the two variants. Based on https://www.nexusmods.com/diablo2resurrected/mods/80 and https://www.nexusmods.com/diablo2resurrected/mods/77.",
   "author": "olegbl",
   "website": "https://github.com/olegbl/d2rmm.mods",
-  "version": "1.2",
+  "version": "1.3",
   "config": [
     {
       "id": "usenewsprites",

@@ -87,6 +87,9 @@ misc.rows.forEach((item) => {
       minstack: 1,
       maxstack: 500,
       spawnstack: 1,
+      spelldesc: 1,
+      spelldescstr: 'StackableGem',
+      spelldesccolor: 0,
     };
     delete itemStack.type2;
     misc.rows.push(itemStack);
@@ -94,6 +97,27 @@ misc.rows.forEach((item) => {
   }
 });
 D2RMM.writeTsv(miscFilename, misc);
+
+const itemModifiersFilename = 'local\\lng\\strings\\item-modifiers.json';
+const itemModifiers = D2RMM.readJson(itemModifiersFilename);
+itemModifiers.push({
+  id: 29402, // TODO: is there a good way to make sure this avoids conflicts without scanning every .json file?
+  Key: 'StackableGem',
+  enUS: 'Can be transmuted into a usable gem',
+  zhTW: '可以转化为可用的宝石',
+  deDE: 'Kann in einen nutzbaren Edelstein umgewandelt werden',
+  esES: 'Se puede transmutar en una gema utilizable',
+  frFR: 'Peut être transmuté en gemme utilisable',
+  itIT: 'Può essere trasmutato in una gemma utilizzabile',
+  koKR: '사용 가능한 보석으로 변환할 수 있습니다',
+  plPL: 'Może zostać przekształcony w użyteczny klejnot',
+  esMX: 'Se puede transmutar en una gema utilizable',
+  jaJP: '使用可能な宝石に変換することができます',
+  ptBR: 'Pode ser transmutado em uma gema utilizável',
+  ruRU: 'Может быть превращен в полезный драгоценный камень',
+  zhCN: '可以转化为可用的宝石',
+});
+D2RMM.writeJson(itemModifiersFilename, itemModifiers);
 
 const cubemainFilename = 'global\\excel\\cubemain.txt';
 const cubemain = D2RMM.readTsv(cubemainFilename);

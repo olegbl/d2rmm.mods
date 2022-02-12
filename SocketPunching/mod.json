@@ -1,0 +1,23 @@
+{
+  "name": "Socket Punching",
+  "description": "Allows socketing and unsocketing an item using jewels.",
+  "author": "olegbl",
+  "website": "https://github.com/olegbl/d2rmm.mods",
+  "version": "1.0",
+  "config": [
+    {
+      "id": "socket",
+      "type": "checkbox",
+      "name": "Socket Punching",
+      "description": "Enable to allow socketing an unsocketed item by transmuting it together with 1-6 jewels.",
+      "defaultValue": true
+    },
+    {
+      "id": "unsocket",
+      "type": "checkbox",
+      "name": "Socket Filling",
+      "description": "Enable to allow removing an item's sockets' contents by transmuting it together with a jewel.",
+      "defaultValue": true
+    }
+  ]
+}

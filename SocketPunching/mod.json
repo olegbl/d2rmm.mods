@@ -8,14 +8,14 @@
     {
       "id": "socket",
       "type": "checkbox",
-      "name": "Socket Punching",
+      "name": "Socketing Recipes",
       "description": "Enable to allow socketing an unsocketed item by transmuting it together with 1-6 jewels.",
       "defaultValue": true
     },
     {
       "id": "unsocket",
       "type": "checkbox",
-      "name": "Socket Filling",
+      "name": "Socket Emptying Recipes",
       "description": "Enable to allow removing an item's sockets' contents by transmuting it together with a jewel.",
       "defaultValue": true
     }

@@ -87,7 +87,7 @@ misc.rows.forEach((item) => {
       minstack: 1,
       maxstack: 500,
       spawnstack: 1,
-      spelldesc: 1,
+      spelldesc: 2,
       spelldescstr: 'StackableGem',
       spelldesccolor: 0,
     };

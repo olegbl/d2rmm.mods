@@ -3,7 +3,7 @@
   "description": "Shows item level in the name.",
   "author": "olegbl",
   "website": "https://github.com/olegbl/d2rmm.mods",
-  "version": "1.1",
+  "version": "1.2",
   "config": [
     {
       "id": "weapons",
@@ -24,6 +24,13 @@
       "type": "checkbox",
       "name": "Jewelry",
       "description": "Show item level on jewelry",
+      "defaultValue": true
+    },
+    {
+      "id": "charms",
+      "type": "checkbox",
+      "name": "Charms",
+      "description": "Show item level on charms",
       "defaultValue": true
     }
   ]

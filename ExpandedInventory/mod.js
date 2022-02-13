@@ -108,10 +108,6 @@ playerInventoryOriginalLayoutHD.children =
       child.fields.rect = '$PlayerInventoryPanelGoldButtonRect';
       child.fields.hoveredFrame = 0;
     }
-    if (child.name === 'close') {
-      child.fields.rect.x = 1080;
-      child.fields.rect.y = 1;
-    }
     if (child.name === 'grid') {
       child.fields.cellCount.y = 8;
       child.fields.rect.y = 819;
@@ -211,6 +207,7 @@ const playerInventoryOriginalControllerLayoutHDFilename =
 const playerInventoryOriginalControllerLayoutHD = D2RMM.readJson(
   playerInventoryOriginalControllerLayoutHDFilename
 );
+playerInventoryOriginalControllerLayoutHD.fields.anchor = { x: 0.5, y: 0.397 };
 playerInventoryOriginalControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'background') {
     child.fields.filename =

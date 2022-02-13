@@ -26,6 +26,8 @@ horadricCubeLayout.children.forEach((child) => {
     child.fields.cellCount.x = 6;
     child.fields.cellCount.y = 4;
     // TODO: shift left for new sprite
+    // one cell = 29px, add 1 column to left and 2 columns to right of original space
+    child.fields.rect.x = child.fields.rect.x - 29;
   }
   // TODO: new sprite
 });
@@ -53,11 +55,9 @@ const controllerHoradricCubeHDLayout = D2RMM.readJson(
 );
 controllerHoradricCubeHDLayout.children.forEach((child) => {
   if (child.name === 'grid') {
-    // TODO: shift left for new sprite
-    // child.fields.rect.x = child.fields.rect.x - 144;
+    child.fields.rect.x = child.fields.rect.x - 142;
   }
   if (child.name === 'background') {
-    // TODO: new sprite
     child.fields.filename =
       'Controller/Panel/HoradricCube/V2/HoradricCubeBG_Expanded';
   }

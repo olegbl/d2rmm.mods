@@ -9,12 +9,12 @@ const ITEMS = [
   {
     id: 'DIAMOND',
     color: `${COLOR_PREFIX}5`,
-    codes: ['gcw', 'gfw', 'gsw', 'gzw', 'gpw'],
+    codes: ['gcw', 'gfw', 'gsw', 'glw', 'gpw'],
   },
   {
     id: 'EMERALD',
     color: `${COLOR_PREFIX}2`,
-    codes: ['gcg', 'gfg', 'gsg', 'gzg', 'gpg'],
+    codes: ['gcg', 'gfg', 'gsg', 'glg', 'gpg'],
   },
   {
     id: 'RUBY',

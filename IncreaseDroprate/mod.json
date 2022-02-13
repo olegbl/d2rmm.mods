@@ -3,7 +3,7 @@
   "description": "Increases the droprate of items.",
   "author": "olegbl",
   "website": "https://github.com/olegbl/d2rmm.mods",
-  "version": "1.0",
+  "version": "1.1",
   "config": [
     {
       "id": "runes",

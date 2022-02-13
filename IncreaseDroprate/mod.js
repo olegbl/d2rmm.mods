@@ -25,17 +25,34 @@ if (config.equipment) {
   const treasureclassexFilename = 'global\\excel\\itemratio.txt';
   const treasureclassex = D2RMM.readTsv(treasureclassexFilename);
   treasureclassex.rows.forEach((row) => {
-    row.Unique = Math.max(1, Math.floor(row.Unique / equipmentChance));
+    row.Unique = Math.max(
+      Math.min(4, row.Unique),
+      Math.floor(row.Unique / equipmentChance)
+    );
     row.UniqueMin = Math.max(1, Math.floor(row.UniqueMin / equipmentMin));
 
-    row.Set = Math.max(1, Math.floor(row.Set / equipmentChance));
+    row.Set = Math.max(
+      Math.min(4, row.Set),
+      Math.floor(row.Set / equipmentChance)
+    );
     row.SetMin = Math.max(1, Math.floor(row.SetMin / equipmentMin));
 
-    row.Rare = Math.max(1, Math.floor(row.Rare / equipmentChance));
+    row.Rare = Math.max(
+      Math.min(4, row.Rare),
+      Math.floor(row.Rare / equipmentChance)
+    );
     row.RareMin = Math.max(1, Math.floor(row.RareMin / equipmentMin));
 
-    row.Magic = Math.max(1, Math.floor(row.Magic / equipmentChance));
+    row.Magic = Math.max(
+      Math.min(4, row.Magic),
+      Math.floor(row.Magic / equipmentChance)
+    );
     row.MagicMin = Math.max(1, Math.floor(row.MagicMin / equipmentMin));
+
+    row.HiQuality = Math.max(
+      Math.min(4, row.HiQuality),
+      Math.floor(row.HiQuality / equipmentChance)
+    );
   });
   D2RMM.writeTsv(treasureclassexFilename, treasureclassex);
 }

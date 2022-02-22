@@ -200,14 +200,13 @@ const bankOriginalControllerLayoutHD = D2RMM.readJson(
 );
 bankOriginalControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'background') {
-    // TODO: extend the panel background so it doesn't look as broken
     child.fields.filename =
       'Controller/Panel/Stash/V2/Classic_StashPanelBG_Expanded';
-    child.fields.rect.x = child.fields.rect.x - 285;
-    child.fields.rect.y = child.fields.rect.y + 17;
+    child.fields.rect.x = child.fields.rect.x - 285 - 81;
+    child.fields.rect.y = child.fields.rect.y + 17 - 293;
   }
   if (child.name === 'gold_amount' || child.name === 'gold_withdraw') {
-    child.fields.rect.x = child.fields.rect.x - 476;
+    child.fields.rect.x = child.fields.rect.x - 476 - 280;
     child.fields.rect.y = child.fields.rect.y - 1404;
   }
   if (child.name === 'gold_max') {
@@ -215,7 +214,7 @@ bankOriginalControllerLayoutHD.children.forEach((child) => {
     child.fields.rect.y = child.fields.rect.y - 1404 - 90;
   }
   if (child.name === 'grid') {
-    child.fields.rect.x = -285;
+    child.fields.rect.x = -285 + 9;
     child.fields.rect.y = 119;
   }
 });
@@ -231,13 +230,12 @@ const bankExpansionControllerLayoutHD = D2RMM.readJson(
 );
 bankExpansionControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'background') {
-    // TODO: extend the panel background so it doesn't look as broken
     child.fields.filename = 'Controller/Panel/Stash/V2/StashPanelBG_Expanded';
-    child.fields.rect.x = child.fields.rect.x - 285;
-    child.fields.rect.y = child.fields.rect.y + 17;
+    child.fields.rect.x = child.fields.rect.x - 285 - 81;
+    child.fields.rect.y = child.fields.rect.y + 17 - 293;
   }
   if (child.name === 'gold_amount' || child.name === 'gold_withdraw') {
-    child.fields.rect.x = child.fields.rect.x - 476;
+    child.fields.rect.x = child.fields.rect.x - 476 - 280;
     child.fields.rect.y = child.fields.rect.y - 1404;
   }
   if (child.name === 'gold_max') {
@@ -247,11 +245,13 @@ bankExpansionControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'grid') {
     child.fields.cellCount.x = 16;
     child.fields.cellCount.y = 13;
-    child.fields.rect.x = -285;
+    child.fields.rect.x = -285 + 9;
     child.fields.rect.y = 119;
   }
   if (child.name === 'BankTabs') {
     child.fields.filename = 'Controller/Panel/Stash/V2/StashTabs_Expanded';
+    child.fields.focusIndicatorFilename =
+      'Controller/HoverImages/StashTab_Hover_Expanded';
     child.fields.rect.x = child.fields.rect.x - 300;
     child.fields.rect.y = child.fields.rect.y + 10;
     child.fields.tabCount = 8;
@@ -272,7 +272,6 @@ bankExpansionControllerLayoutHD.children.forEach((child) => {
     ];
     child.fields.tabLeftIndicatorPosition = { x: -42, y: -2 };
     child.fields.tabRightIndicatorPosition = { x: 1135 + 300, y: -2 };
-    // TODO: fix highlighting rectangles being off (focusIndicatorFilename = Controller/HoverImages/StashTab_Hover)
   }
 });
 D2RMM.writeJson(

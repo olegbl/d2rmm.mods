@@ -16,46 +16,37 @@ D2RMM.writeTsv(inventoryFilename, inventory);
 
 const profileHDFilename = 'global\\ui\\layouts\\_profilehd.json';
 const profileHD = D2RMM.readJson(profileHDFilename);
-profileHD.BankPanelRect = { x: 236, y: 210, width: 1750, height: 1799 };
-profileHD.BankPanelGoldAmountRect = {
-  x: 777,
-  y: 1596,
-  width: 249,
-  height: 48,
+profileHD.LeftPanelRect_ExpandedStash = {
+  x: 236,
+  y: -651,
+  width: 1687,
+  height: 1507,
 };
-profileHD.BankPanelGoldWithdrawRect = { x: 717, y: 1593 };
-profileHD.LeftPanelRectTopAligned = { ...profileHD.LeftPanelRect, y: 0 };
+profileHD.PanelClickCatcherRect_ExpandedStash = {
+  x: 0,
+  y: 0,
+  width: 1687,
+  height: 1507,
+};
+// offset the left hinge so that it doesn't overlap with content of the left panel
+profileHD.LeftHingeRect = { x: -236 - 25, y: 630 };
 D2RMM.writeJson(profileHDFilename, profileHD);
 
 const profileLVFilename = 'global\\ui\\layouts\\_profilelv.json';
 const profileLV = D2RMM.readJson(profileLVFilename);
-profileLV.BankPanelRect = {
+profileLV.LeftPanelRect_ExpandedStash = {
   x: 0,
-  y: 0,
-  width: 1750,
-  height: 1799,
+  y: -856,
+  width: 1687,
+  height: 1507,
   scale: 1.16,
 };
-profileLV.BankPanelGoldAmountRect = {
-  x: 1135,
-  y: 1596,
-  width: 249,
-  height: 48,
-};
-profileLV.BankPanelGoldWithdrawRect = { x: 1080, y: 1593 };
-profileLV.LeftPanelRectTopAligned = { ...profileLV.LeftPanelRect, y: 0 };
 D2RMM.writeJson(profileLVFilename, profileLV);
 
 const bankOriginalLayoutFilename =
   'global\\ui\\layouts\\bankoriginallayout.json';
 const bankOriginalLayout = D2RMM.readJson(bankOriginalLayoutFilename);
-bankOriginalLayout.fields.rect = {
-  x: -320,
-  y: -240,
-  width: 320,
-  height: 432,
-};
-bankOriginalLayout.fields.anchor = { x: 0, y: 0 };
+// TODO: new sprite & layout for classic UI
 bankOriginalLayout.children.forEach((child) => {
   if (child.name === 'grid') {
     child.fields.cellCount.x = 16;
@@ -64,68 +55,10 @@ bankOriginalLayout.children.forEach((child) => {
 });
 D2RMM.writeJson(bankOriginalLayoutFilename, bankOriginalLayout);
 
-const bankOriginalLayoutHDFilename =
-  'global\\ui\\layouts\\bankoriginallayouthd.json';
-const bankOriginalLayoutHD = D2RMM.readJson(bankOriginalLayoutHDFilename);
-bankOriginalLayoutHD.fields.rect = '$LeftPanelRectTopAligned';
-bankOriginalLayoutHD.fields.anchor = { x: 0, y: 0 };
-bankOriginalLayoutHD.children.forEach((child) => {
-  if (child.name === 'grid') {
-    child.fields.cellCount.x = 16;
-    child.fields.cellCount.y = 13;
-  }
-  if (child.name === 'click_catcher') {
-    child.fields.rect = { x: 0, y: 0, width: 1750, height: 1799 };
-  }
-  if (child.name === 'background') {
-    child.fields.filename = 'PANEL\\Stash\\StashPanel_BG2';
-    child.fields.rect = { x: 0, y: 0 };
-  }
-  if (child.name === 'title') {
-    child.fields.rect = { x: 877, y: 100 };
-  }
-  if (child.name === 'gold_amount') {
-    child.fields.rect = '$BankPanelGoldAmountRect';
-  }
-  if (child.name === 'gold_withdraw') {
-    child.fields.rect = '$BankPanelGoldWithdrawRect';
-  }
-  if (child.name === 'close') {
-    child.fields.rect.x = 1675;
-    child.fields.rect.y = 0;
-  }
-});
-bankOriginalLayoutHD.children.push({
-  type: 'TabBarWidget',
-  name: 'BankTabs',
-  fields: {
-    rect: { x: 93, y: 160 },
-    tabCount: 6,
-    filename: 'PANEL\\stash\\Stash_Tabs',
-    inactiveFrames: [0, 0, 0, 0, 0, 0],
-    activeFrames: [1, 1, 1, 1, 1, 1],
-    disabledFrames: [0, 0, 0, 0, 0, 0],
-    textStrings: [
-      '@personal',
-      'Classic',
-      'Classic',
-      'Classic',
-      'Classic',
-      'Classic',
-    ],
-    textStyle: { pointSize: '$SmallPanelFontSize' },
-    activeTextColor: '$TabsActiveTextColor',
-    inactiveTextColor: '$TabsInactiveTextColor',
-    tabSize: { x: 249, y: 75 },
-    tabPadding: { x: 12, y: 0 },
-    onSwitchTabMessage: 'BankPanelMessage:SelectTab',
-  },
-});
-D2RMM.writeJson(bankOriginalLayoutHDFilename, bankOriginalLayoutHD);
-
 const bankExpansionLayoutFilename =
   'global\\ui\\layouts\\bankexpansionlayout.json';
 const bankExpansionLayout = D2RMM.readJson(bankExpansionLayoutFilename);
+// TODO: new sprite & layout for classic UI
 bankExpansionLayout.children.forEach((child) => {
   if (child.name === 'grid') {
     child.fields.cellCount.x = 16;
@@ -147,45 +80,118 @@ bankExpansionLayout.children.forEach((child) => {
 });
 D2RMM.writeJson(bankExpansionLayoutFilename, bankExpansionLayout);
 
-const bankExpansionLayoutHDFilename =
-  'global\\ui\\layouts\\bankexpansionlayouthd.json';
-const bankExpansionLayoutHD = D2RMM.readJson(bankExpansionLayoutHDFilename);
-bankExpansionLayoutHD.children.forEach((child) => {
+const bankOriginalLayoutHDFilename =
+  'global\\ui\\layouts\\bankoriginallayouthd.json';
+const bankOriginalLayoutHD = D2RMM.readJson(bankOriginalLayoutHDFilename);
+bankOriginalLayoutHD.fields.rect = '$LeftPanelRect_ExpandedStash';
+bankOriginalLayoutHD.children.forEach((child) => {
   if (child.name === 'grid') {
     child.fields.cellCount.x = 16;
     child.fields.cellCount.y = 13;
+    child.fields.rect.x = child.fields.rect.x - 229;
+    child.fields.rect.y = child.fields.rect.y - 572;
   }
-  if (child.name === 'gold_amount') {
-    delete child.fields;
-  }
-  if (child.name === 'gold_withdraw') {
-    delete child.fields;
+  if (child.name === 'click_catcher') {
+    child.fields.rect = '$PanelClickCatcherRect_ExpandedStash';
   }
   if (child.name === 'background') {
-    child.fields.filename = 'PANEL\\Stash\\StashPanel_BG2';
+    child.fields.filename = 'PANEL\\Stash\\StashPanel_BG_Expanded';
+    child.fields.rect = { x: 0, y: 0 };
   }
-  if (child.name === 'BankTabs') {
-    child.fields.filename = 'PANEL\\stash\\Stash_Tabs_Blank';
-    child.fields.tabCount = 8;
-    child.fields.rect.y = 160;
-    child.fields.tabSize.x = 195;
-    child.fields.tabPadding.x = 4;
-    child.fields.inactiveFrames = [0, 0, 0, 0, 0, 0, 0, 0];
-    child.fields.activeFrames = [1, 1, 1, 1, 1, 1, 1, 1];
-    child.fields.disabledFrames = [0, 0, 0, 0, 0, 0, 0, 0];
-    child.fields.textStrings = [
-      '@personal',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
-    ];
+  if (child.name === 'gold_amount') {
+    child.fields.rect.x = 60 + 60 + 16;
+    child.fields.rect.y = 61 + 16;
+  }
+  if (child.name === 'gold_withdraw') {
+    child.fields.rect.x = 60 + 16;
+    child.fields.rect.y = 58 + 16;
+  }
+  if (child.name === 'title') {
+    child.fields.rect = {
+      x: 91 + (1687 - 1162) / 2,
+      y: 64,
+      width: 972,
+      height: 71,
+    };
+  }
+  if (child.name === 'close') {
+    child.fields.rect.x = child.fields.rect.x + (1687 - 1162);
   }
 });
+D2RMM.writeJson(bankOriginalLayoutHDFilename, bankOriginalLayoutHD);
+
+const bankExpansionLayoutHDFilename =
+  'global\\ui\\layouts\\bankexpansionlayouthd.json';
+const bankExpansionLayoutHD = D2RMM.readJson(bankExpansionLayoutHDFilename);
+bankExpansionLayoutHD.children = bankExpansionLayoutHD.children.filter(
+  (child) => {
+    if (child.name === 'grid') {
+      child.fields.cellCount.x = 16;
+      child.fields.cellCount.y = 13;
+      child.fields.rect.x = child.fields.rect.x - 37;
+      child.fields.rect.y = child.fields.rect.y - 58;
+    }
+    if (child.name === 'background') {
+      child.fields.filename = 'PANEL\\Stash\\StashPanel_BG_Expanded';
+    }
+    if (child.name === 'BankTabs') {
+      child.fields.filename = 'PANEL\\stash\\Stash_Tabs_Expanded';
+      child.fields.rect.x = child.fields.rect.x - 30;
+      child.fields.rect.y = child.fields.rect.y - 56;
+      child.fields.tabCount = 8;
+      // 249 x 80 -> 197 x 80 (bottom 5 pixels are overlay)
+      child.fields.tabSize = { x: 197, y: 75 };
+      child.fields.tabPadding = { x: 0, y: 0 };
+      child.fields.inactiveFrames = [0, 0, 0, 0, 0, 0, 0, 0];
+      child.fields.activeFrames = [1, 1, 1, 1, 1, 1, 1, 1];
+      child.fields.disabledFrames = [0, 0, 0, 0, 0, 0, 0, 0];
+      child.fields.textStrings = [
+        '@personal',
+        '@shared',
+        '@shared',
+        '@shared',
+        '@shared',
+        '@shared',
+        '@shared',
+        '@shared',
+      ];
+    }
+    if (child.name === 'gold_amount') {
+      child.fields.rect.x = 60 + 60;
+      child.fields.rect.y = 61;
+    }
+    if (child.name === 'gold_withdraw') {
+      child.fields.rect.x = 60;
+      child.fields.rect.y = 58;
+    }
+    if (child.name === 'title') {
+      // hide title
+      return false;
+    }
+    return true;
+  }
+);
 D2RMM.writeJson(bankExpansionLayoutHDFilename, bankExpansionLayoutHD);
+
+const controllerOverlayHDFilename =
+  'global\\ui\\layouts\\controller\\controlleroverlayhd.json';
+const controllerOverlayHD = D2RMM.readJson(controllerOverlayHDFilename);
+controllerOverlayHD.children.forEach((child) => {
+  if (child.name === 'Anchor') {
+    child.children.forEach((subchild) => {
+      if (subchild.name === 'ControllerCursorBounds') {
+        delete subchild.fields.fitToParent;
+        subchild.fields.rect = {
+          x: -285,
+          y: 0,
+          width: 2880 + 285,
+          height: 1763,
+        };
+      }
+    });
+  }
+});
+D2RMM.writeJson(controllerOverlayHDFilename, controllerOverlayHD);
 
 const bankOriginalControllerLayoutHDFilename =
   'global\\ui\\layouts\\controller\\bankoriginallayouthd.json';
@@ -194,28 +200,23 @@ const bankOriginalControllerLayoutHD = D2RMM.readJson(
 );
 bankOriginalControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'background') {
-    child.fields.filename = 'Controller/Panel/Stash/V2/StashPanelBG_Edit';
-    child.fields.rect.x = -325;
-    child.fields.rect.y = 160;
+    // TODO: extend the panel background so it doesn't look as broken
+    child.fields.filename =
+      'Controller/Panel/Stash/V2/Classic_StashPanelBG_Expanded';
+    child.fields.rect.x = child.fields.rect.x - 285;
+    child.fields.rect.y = child.fields.rect.y + 17;
+  }
+  if (child.name === 'gold_amount' || child.name === 'gold_withdraw') {
+    child.fields.rect.x = child.fields.rect.x - 476;
+    child.fields.rect.y = child.fields.rect.y - 1404;
   }
   if (child.name === 'gold_max') {
-    child.fields.rect.x = 314;
-    child.fields.rect.y = 1722;
-  }
-  if (child.name === 'gold_amount') {
-    child.fields.rect.x = 389;
-    child.fields.rect.y = 1627;
-    child.fields.rect.width = 242;
-    child.fields.rect.height = 59;
-  }
-  if (child.name === 'gold_withdraw') {
-    child.fields.rect.x = 328;
-    child.fields.rect.y = 1624;
-    child.fields.rect.height = 59;
+    child.fields.rect.x = child.fields.rect.x - 476 + 927;
+    child.fields.rect.y = child.fields.rect.y - 1404 - 90;
   }
   if (child.name === 'grid') {
-    child.fields.rect.x = -295;
-    child.fields.rect.y = 273;
+    child.fields.rect.x = -285;
+    child.fields.rect.y = 119;
   }
 });
 D2RMM.writeJson(
@@ -230,31 +231,48 @@ const bankExpansionControllerLayoutHD = D2RMM.readJson(
 );
 bankExpansionControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'background') {
-    child.fields.filename = 'Controller/Panel/Stash/V2/StashPanelBG_Edit';
-    child.fields.rect.x = -325;
-    child.fields.rect.y = 160;
+    // TODO: extend the panel background so it doesn't look as broken
+    child.fields.filename = 'Controller/Panel/Stash/V2/StashPanelBG_Expanded';
+    child.fields.rect.x = child.fields.rect.x - 285;
+    child.fields.rect.y = child.fields.rect.y + 17;
+  }
+  if (child.name === 'gold_amount' || child.name === 'gold_withdraw') {
+    child.fields.rect.x = child.fields.rect.x - 476;
+    child.fields.rect.y = child.fields.rect.y - 1404;
   }
   if (child.name === 'gold_max') {
-    child.fields.rect.x = 314;
-    child.fields.rect.y = 1722;
-  }
-  if (child.name === 'gold_amount') {
-    child.fields.rect.x = 389;
-    child.fields.rect.y = 1627;
-    child.fields.rect.width = 250;
-    child.fields.rect.height = 59;
-  }
-  if (child.name === 'gold_withdraw') {
-    child.fields.rect.x = 328;
-    child.fields.rect.y = 1624;
-    child.fields.rect.width = 304;
-    child.fields.rect.height = 59;
+    child.fields.rect.x = child.fields.rect.x - 476 + 927;
+    child.fields.rect.y = child.fields.rect.y - 1404 - 90;
   }
   if (child.name === 'grid') {
-    child.fields.rect.x = -295;
-    child.fields.rect.y = 273;
     child.fields.cellCount.x = 16;
     child.fields.cellCount.y = 13;
+    child.fields.rect.x = -285;
+    child.fields.rect.y = 119;
+  }
+  if (child.name === 'BankTabs') {
+    child.fields.filename = 'Controller/Panel/Stash/V2/StashTabs_Expanded';
+    child.fields.rect.x = child.fields.rect.x - 300;
+    child.fields.rect.y = child.fields.rect.y + 10;
+    child.fields.tabCount = 8;
+    child.fields.tabSize = { x: 175, y: 120 };
+    child.fields.tabPadding = { x: 0, y: 0 };
+    child.fields.inactiveFrames = [1, 1, 1, 1, 1, 1, 1, 1];
+    child.fields.activeFrames = [0, 0, 0, 0, 0, 0, 0, 0];
+    child.fields.disabledFrames = [1, 1, 1, 1, 1, 1, 1, 1];
+    child.fields.textStrings = [
+      '@personal',
+      '@shared',
+      '@shared',
+      '@shared',
+      '@shared',
+      '@shared',
+      '@shared',
+      '@shared',
+    ];
+    child.fields.tabLeftIndicatorPosition = { x: -42, y: -2 };
+    child.fields.tabRightIndicatorPosition = { x: 1135 + 300, y: -2 };
+    // TODO: fix highlighting rectangles being off (focusIndicatorFilename = Controller/HoverImages/StashTab_Hover)
   }
 });
 D2RMM.writeJson(

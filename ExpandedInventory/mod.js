@@ -15,6 +15,7 @@ inventory.rows.forEach((row) => {
     classes.indexOf(id) !== -1 ||
     classes.map((cls) => `${cls}2`).indexOf(id) !== -1
   ) {
+    row.gridX = 13;
     row.gridY = 8;
   }
 });
@@ -22,39 +23,35 @@ D2RMM.writeTsv(inventoryFilename, inventory);
 
 const profileHDFilename = 'global\\ui\\layouts\\_profilehd.json';
 const profileHD = D2RMM.readJson(profileHDFilename);
-profileHD.PlayerInventoryPanelRect = {
-  x: -1394,
+profileHD.RightPanelRect_ExpandedInventory = {
+  x: -1394 - (1382 - 1162),
+  y: -651,
+  width: 1382,
+  height: 1507,
+};
+profileHD.PanelClickCatcherRect_ExpandedInventory = {
+  x: 0,
   y: 0,
   width: 1162,
-  height: 1737,
+  height: 1507,
 };
-profileHD.PlayerInventoryPanelGoldAmountRect = {
-  x: 544,
-  y: 1611,
-  width: 249,
-  height: 48,
+// offset the right hinge so that it doesn't overlap with content of the right panel
+profileHD.RightHingeRect = { x: 1076 + 20, y: 630 };
+profileHD.RightHingeRect_ExpandedInventory = {
+  x: 1076 + (1382 - 1162) + 20,
+  y: 630,
 };
-profileHD.PlayerInventoryPanelGoldButtonRect = { x: 480, y: 1613 };
-profileHD.RightPanelRectTopAligned = { ...profileHD.RightPanelRect, y: 0 };
 D2RMM.writeJson(profileHDFilename, profileHD);
 
 const profileLVFilename = 'global\\ui\\layouts\\_profilelv.json';
 const profileLV = D2RMM.readJson(profileLVFilename);
-profileLV.PlayerInventoryPanelRect = {
-  x: -1346,
-  y: 0,
-  width: 1162,
-  height: 1737,
+profileLV.RightPanelRect_ExpandedInventory = {
+  x: -1346 - (1382 - 1162) * 1.16,
+  y: -856,
+  width: 1382,
+  height: 1507,
   scale: 1.16,
 };
-profileLV.PlayerInventoryPanelGoldAmountRect = {
-  x: 819,
-  y: 1614,
-  width: 249,
-  height: 48,
-};
-profileLV.PlayerInventoryPanelGoldButtonRect = { x: 750, y: 1613 };
-profileLV.RightPanelRectTopAligned = { ...profileLV.RightPanelRect, y: 0 };
 D2RMM.writeJson(profileLVFilename, profileLV);
 
 const playerInventoryOriginalLayoutFilename =
@@ -62,19 +59,10 @@ const playerInventoryOriginalLayoutFilename =
 const playerInventoryOriginalLayout = D2RMM.readJson(
   playerInventoryOriginalLayoutFilename
 );
-playerInventoryOriginalLayout.fields.rect = {
-  x: 0,
-  y: 0,
-  width: 320,
-  height: 432,
-};
-playerInventoryOriginalLayout.fields.anchor = { x: 1.0, y: 0 };
+// TODO: new sprite & layout for classic UI
 playerInventoryOriginalLayout.children.forEach((child) => {
-  if (child.name === 'click_catcher') {
-    child.fields.rect.width = 1320;
-    child.fields.rect.height = 2432;
-  }
   if (child.name === 'grid') {
+    child.fields.cellCount.x = 13;
     child.fields.cellCount.y = 8;
   }
 });
@@ -88,62 +76,79 @@ const playerInventoryOriginalLayoutHDFilename =
 const playerInventoryOriginalLayoutHD = D2RMM.readJson(
   playerInventoryOriginalLayoutHDFilename
 );
-playerInventoryOriginalLayoutHD.fields.rect = '$RightPanelRectTopAligned';
-playerInventoryOriginalLayoutHD.fields.anchor = { x: 1.0, y: 0 };
+playerInventoryOriginalLayoutHD.fields.rect =
+  '$RightPanelRect_ExpandedInventory';
 playerInventoryOriginalLayoutHD.children =
   playerInventoryOriginalLayoutHD.children.filter((child) => {
-    if (child.name === 'click_catcher') {
-      child.fields.rect = { x: 0, y: 0, width: 1162, height: 1737 };
-    }
     if (child.name === 'background') {
-      child.fields.filename = 'PANEL\\Inventory\\Background_Expanded2';
+      child.fields.filename = 'PANEL\\Inventory\\Classic_Background_Expanded';
+    }
+    if (child.name === 'click_catcher') {
+      child.fields.rect = { x: 0, y: 45, width: 1093, height: 1495 };
+    }
+    if (child.name === 'RightHinge') {
+      child.fields.rect = '$RightHingeRect_ExpandedInventory';
     }
     if (child.name === 'title') {
-      return false;
+      child.fields.rect = {
+        x: 91 + (1382 - 1162) / 2,
+        y: 64,
+        width: 972,
+        height: 71,
+      };
     }
-    if (child.name === 'gold_amount') {
-      child.fields.rect = '$PlayerInventoryPanelGoldAmountRect';
-    }
-    if (child.name === 'gold_button') {
-      child.fields.rect = '$PlayerInventoryPanelGoldButtonRect';
-      child.fields.hoveredFrame = 0;
+    if (child.name === 'close') {
+      child.fields.rect.x = child.fields.rect.x + (1382 - 1162);
     }
     if (child.name === 'grid') {
+      child.fields.cellCount.x = 13;
       child.fields.cellCount.y = 8;
-      child.fields.rect.y = 819;
-    }
-    if (child.name === 'slot_head') {
-      child.fields.rect.y = 105;
-    }
-    if (child.name === 'slot_neck') {
-      child.fields.rect.y = 273;
-    }
-    if (child.name === 'slot_torso') {
-      child.fields.rect.y = 348;
+      child.fields.rect.x = child.fields.rect.x - 37;
+      child.fields.rect.y = child.fields.rect.y - 229;
     }
     if (child.name === 'slot_right_arm') {
-      child.fields.rect.x = 109;
-      child.fields.rect.y = 152;
+      child.fields.rect.x = child.fields.rect.x - 14;
+      child.fields.rect.y = child.fields.rect.y + 12;
     }
     if (child.name === 'slot_left_arm') {
-      child.fields.rect.x = 861;
-      child.fields.rect.y = 152;
+      child.fields.rect.x = child.fields.rect.x + 227;
+      child.fields.rect.y = child.fields.rect.y + 12;
     }
-    if (child.name === 'slot_right_hand') {
-      child.fields.rect.y = 690;
+    if (child.name === 'slot_torso') {
+      child.fields.rect.x = child.fields.rect.x + 101;
+      child.fields.rect.y = child.fields.rect.y - 229;
     }
-    if (child.name === 'slot_left_hand') {
-      child.fields.rect.y = 689;
-    }
-    if (child.name === 'slot_belt') {
-      child.fields.rect.y = 689;
-    }
-    if (child.name === 'slot_feet') {
-      child.fields.rect.x = 860;
-      child.fields.rect.y = 588;
+    if (child.name === 'slot_head') {
+      child.fields.rect.x = child.fields.rect.x - 144;
+      child.fields.rect.y = child.fields.rect.y + 12;
     }
     if (child.name === 'slot_gloves') {
-      child.fields.rect.y = 588;
+      child.fields.rect.x = child.fields.rect.x + 231;
+      child.fields.rect.y = child.fields.rect.y - 233;
+    }
+    if (child.name === 'slot_feet') {
+      child.fields.rect.x = child.fields.rect.x - 26;
+      child.fields.rect.y = child.fields.rect.y - 231;
+    }
+    if (child.name === 'slot_belt') {
+      child.fields.rect.x = child.fields.rect.x + 101;
+      child.fields.rect.y = child.fields.rect.y - 234;
+    }
+    if (child.name === 'slot_neck') {
+      child.fields.rect.x = child.fields.rect.x + 99;
+      child.fields.rect.y = child.fields.rect.y - 182;
+    }
+    if (child.name === 'slot_right_hand') {
+      child.fields.rect.x = child.fields.rect.x + 474;
+      child.fields.rect.y = child.fields.rect.y - 466;
+    }
+    if (child.name === 'slot_left_hand') {
+      child.fields.rect.x = child.fields.rect.x + 232;
+      child.fields.rect.y = child.fields.rect.y - 466;
+    }
+    if (child.name === 'gold_amount' || child.name === 'gold_button') {
+      child.fields.rect.x = child.fields.rect.x - 291;
+      child.fields.rect.y = child.fields.rect.y - 1267;
     }
     return true;
   });
@@ -160,40 +165,31 @@ const playerInventoryExpansionLayoutHD = D2RMM.readJson(
 playerInventoryExpansionLayoutHD.children =
   playerInventoryExpansionLayoutHD.children.filter((child) => {
     if (child.name === 'click_catcher') {
+      // make click catcher work the same way as in the originallayouthd file
       return false;
     }
     if (child.name === 'background') {
-      child.fields.filename = 'PANEL\\Inventory\\Background_Expanded2';
+      child.fields.filename = 'PANEL\\Inventory\\Background_Expanded';
     }
-    if (child.name === 'background_right_arm_selected') {
-      child.fields.rect.y = 100;
+    if (
+      child.name === 'background_right_arm' ||
+      child.name === 'background_right_arm_selected' ||
+      child.name === 'weaponswap_right_arm' ||
+      child.name === 'text_i_left' ||
+      child.name === 'text_ii_left'
+    ) {
+      child.fields.rect.x = child.fields.rect.x - 14;
+      child.fields.rect.y = child.fields.rect.y + 12;
     }
-    if (child.name === 'background_left_arm_selected') {
-      child.fields.rect.y = 100;
-    }
-    if (child.name === 'background_right_arm') {
-      child.fields.rect.y = 100;
-    }
-    if (child.name === 'background_left_arm') {
-      child.fields.rect.y = 100;
-    }
-    if (child.name === 'text_i_left') {
-      child.fields.rect.y = 100;
-    }
-    if (child.name === 'text_ii_left') {
-      child.fields.rect.y = 100;
-    }
-    if (child.name === 'text_i_right') {
-      child.fields.rect.y = 100;
-    }
-    if (child.name === 'text_ii_right') {
-      child.fields.rect.y = 100;
-    }
-    if (child.name === 'weaponswap_right_arm') {
-      child.fields.rect.y = 100;
-    }
-    if (child.name === 'weaponswap_left_arm') {
-      child.fields.rect.y = 100;
+    if (
+      child.name === 'background_left_arm' ||
+      child.name === 'background_left_arm_selected' ||
+      child.name === 'weaponswap_left_arm' ||
+      child.name === 'text_i_right' ||
+      child.name === 'text_ii_right'
+    ) {
+      child.fields.rect.x = child.fields.rect.x + 227;
+      child.fields.rect.y = child.fields.rect.y + 12;
     }
     return true;
   });
@@ -207,17 +203,75 @@ const playerInventoryOriginalControllerLayoutHDFilename =
 const playerInventoryOriginalControllerLayoutHD = D2RMM.readJson(
   playerInventoryOriginalControllerLayoutHDFilename
 );
-playerInventoryOriginalControllerLayoutHD.fields.anchor = { x: 0.5, y: 0.397 };
 playerInventoryOriginalControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'background') {
     child.fields.filename =
-      'Controller/Panel/InventoryPanel/V2/InventoryBG_Edit';
+      'Controller/Panel/InventoryPanel/V2/InventoryBG_Classic_Expanded';
   }
-  if (child.name === 'gold_amount') {
-    child.fields.rect.y = 1729;
+  if (child.name === 'grid') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x - 37;
+    child.fields.rect.y = child.fields.rect.y - 229;
   }
-  if (child.name === 'gold_button') {
-    child.fields.rect.y = 1729;
+  if (child.name === 'slot_right_arm') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x - 14;
+    child.fields.rect.y = child.fields.rect.y + 12;
+  }
+  if (child.name === 'slot_left_arm') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x + 227;
+    child.fields.rect.y = child.fields.rect.y + 12;
+  }
+  if (child.name === 'slot_torso') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x + 101;
+    child.fields.rect.y = child.fields.rect.y - 229;
+  }
+  if (child.name === 'slot_head') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x - 144;
+    child.fields.rect.y = child.fields.rect.y + 12;
+  }
+  if (child.name === 'slot_gloves') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x + 231;
+    child.fields.rect.y = child.fields.rect.y - 233;
+  }
+  if (child.name === 'slot_feet') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x - 26;
+    child.fields.rect.y = child.fields.rect.y - 231;
+  }
+  if (child.name === 'slot_belt') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x + 101;
+    child.fields.rect.y = child.fields.rect.y - 234;
+  }
+  if (child.name === 'slot_neck') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x + 99;
+    child.fields.rect.y = child.fields.rect.y - 182;
+  }
+  if (child.name === 'slot_right_hand') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x + 474;
+    child.fields.rect.y = child.fields.rect.y - 466;
+  }
+  if (child.name === 'slot_left_hand') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x + 232;
+    child.fields.rect.y = child.fields.rect.y - 466;
+  }
+  if (child.name === 'Belt') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x + 101;
+    child.fields.rect.y = child.fields.rect.y - 234;
+  }
+  if (child.name === 'gold_amount' || child.name === 'gold_button') {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x - 291;
+    child.fields.rect.y = child.fields.rect.y - 1267;
   }
 });
 D2RMM.writeJson(
@@ -233,7 +287,29 @@ const playerInventoryExpansionControllerLayoutHD = D2RMM.readJson(
 playerInventoryExpansionControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'background') {
     child.fields.filename =
-      'Controller/Panel/InventoryPanel/V2/InventoryBG_Edit';
+      'Controller/Panel/InventoryPanel/V2/InventoryBG_Expanded';
+  }
+  if (
+    child.name === 'background_right_arm' ||
+    child.name === 'background_right_arm_selected' ||
+    child.name === 'WeaponSwapLeftLegend' ||
+    child.name === 'text_i_left' ||
+    child.name === 'text_ii_left'
+  ) {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x - 14;
+    child.fields.rect.y = child.fields.rect.y + 12;
+  }
+  if (
+    child.name === 'background_left_arm' ||
+    child.name === 'background_left_arm_selected' ||
+    child.name === 'WeaponSwapRightLegend' ||
+    child.name === 'text_i_right' ||
+    child.name === 'text_ii_right'
+  ) {
+    // TODO
+    child.fields.rect.x = child.fields.rect.x + 227;
+    child.fields.rect.y = child.fields.rect.y + 12;
   }
 });
 D2RMM.writeJson(

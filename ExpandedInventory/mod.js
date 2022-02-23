@@ -207,71 +207,60 @@ playerInventoryOriginalControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'background') {
     child.fields.filename =
       'Controller/Panel/InventoryPanel/V2/InventoryBG_Classic_Expanded';
+    child.fields.rect.x = child.fields.rect.x - 166;
+    child.fields.rect.y = child.fields.rect.y - 160;
   }
   if (child.name === 'grid') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x - 37;
-    child.fields.rect.y = child.fields.rect.y - 229;
+    child.fields.rect.x = child.fields.rect.x - 132;
+    child.fields.rect.y = child.fields.rect.y - 344;
   }
   if (child.name === 'slot_right_arm') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x - 14;
-    child.fields.rect.y = child.fields.rect.y + 12;
+    child.fields.rect.x = child.fields.rect.x - 99;
+    child.fields.rect.y = child.fields.rect.y - 60;
   }
   if (child.name === 'slot_left_arm') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x + 227;
-    child.fields.rect.y = child.fields.rect.y + 12;
+    child.fields.rect.x = child.fields.rect.x + 123;
+    child.fields.rect.y = child.fields.rect.y - 62;
   }
   if (child.name === 'slot_torso') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x + 101;
-    child.fields.rect.y = child.fields.rect.y - 229;
+    child.fields.rect.x = child.fields.rect.x + 6;
+    child.fields.rect.y = child.fields.rect.y - 199;
   }
   if (child.name === 'slot_head') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x - 144;
-    child.fields.rect.y = child.fields.rect.y + 12;
+    child.fields.rect.x = child.fields.rect.x - 239;
+    child.fields.rect.y = child.fields.rect.y + 21;
   }
   if (child.name === 'slot_gloves') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x + 231;
-    child.fields.rect.y = child.fields.rect.y - 233;
+    child.fields.rect.x = child.fields.rect.x + 146;
+    child.fields.rect.y = child.fields.rect.y - 282;
   }
   if (child.name === 'slot_feet') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x - 26;
-    child.fields.rect.y = child.fields.rect.y - 231;
+    child.fields.rect.x = child.fields.rect.x - 130;
+    child.fields.rect.y = child.fields.rect.y - 281;
   }
   if (child.name === 'slot_belt') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x + 101;
-    child.fields.rect.y = child.fields.rect.y - 234;
+    child.fields.rect.x = child.fields.rect.x + 7;
+    child.fields.rect.y = child.fields.rect.y - 185;
   }
   if (child.name === 'slot_neck') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x + 99;
-    child.fields.rect.y = child.fields.rect.y - 182;
+    child.fields.rect.x = child.fields.rect.x - 3;
+    child.fields.rect.y = child.fields.rect.y - 167;
   }
   if (child.name === 'slot_right_hand') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x + 474;
-    child.fields.rect.y = child.fields.rect.y - 466;
+    child.fields.rect.x = child.fields.rect.x + 389;
+    child.fields.rect.y = child.fields.rect.y - 417;
   }
   if (child.name === 'slot_left_hand') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x + 232;
-    child.fields.rect.y = child.fields.rect.y - 466;
+    child.fields.rect.x = child.fields.rect.x + 126;
+    child.fields.rect.y = child.fields.rect.y - 417;
   }
   if (child.name === 'Belt') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x + 101;
-    child.fields.rect.y = child.fields.rect.y - 234;
+    child.fields.rect.x = child.fields.rect.x + 15;
+    child.fields.rect.y = child.fields.rect.y + 595;
   }
   if (child.name === 'gold_amount' || child.name === 'gold_button') {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x - 291;
-    child.fields.rect.y = child.fields.rect.y - 1267;
+    child.fields.rect.x = child.fields.rect.x - 474;
+    child.fields.rect.y = child.fields.rect.y - 1454;
   }
 });
 D2RMM.writeJson(
@@ -292,24 +281,22 @@ playerInventoryExpansionControllerLayoutHD.children.forEach((child) => {
   if (
     child.name === 'background_right_arm' ||
     child.name === 'background_right_arm_selected' ||
-    child.name === 'WeaponSwapLeftLegend' ||
+    child.name === 'WeaponSwapRightLegend' ||
     child.name === 'text_i_left' ||
     child.name === 'text_ii_left'
   ) {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x - 14;
-    child.fields.rect.y = child.fields.rect.y + 12;
+    child.fields.rect.x = child.fields.rect.x - 99;
+    child.fields.rect.y = child.fields.rect.y - 60;
   }
   if (
     child.name === 'background_left_arm' ||
     child.name === 'background_left_arm_selected' ||
-    child.name === 'WeaponSwapRightLegend' ||
+    child.name === 'WeaponSwapLeftLegend' ||
     child.name === 'text_i_right' ||
     child.name === 'text_ii_right'
   ) {
-    // TODO
-    child.fields.rect.x = child.fields.rect.x + 227;
-    child.fields.rect.y = child.fields.rect.y + 12;
+    child.fields.rect.x = child.fields.rect.x + 123;
+    child.fields.rect.y = child.fields.rect.y - 62;
   }
 });
 D2RMM.writeJson(

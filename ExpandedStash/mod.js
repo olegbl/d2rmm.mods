@@ -202,16 +202,16 @@ bankOriginalControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'background') {
     child.fields.filename =
       'Controller/Panel/Stash/V2/Classic_StashPanelBG_Expanded';
-    child.fields.rect.x = child.fields.rect.x - 285 - 81;
-    child.fields.rect.y = child.fields.rect.y + 17 - 293;
+    child.fields.rect.x = child.fields.rect.x - 285 - 81 - 2 - 120;
+    child.fields.rect.y = child.fields.rect.y + 17 - 293 + 100;
   }
   if (child.name === 'gold_amount' || child.name === 'gold_withdraw') {
     child.fields.rect.x = child.fields.rect.x - 476 - 280;
-    child.fields.rect.y = child.fields.rect.y - 1404;
+    child.fields.rect.y = child.fields.rect.y - 1404 + 30;
   }
   if (child.name === 'gold_max') {
     child.fields.rect.x = child.fields.rect.x - 476 + 927;
-    child.fields.rect.y = child.fields.rect.y - 1404 - 90;
+    child.fields.rect.y = child.fields.rect.y - 1404 - 90 + 25;
   }
   if (child.name === 'grid') {
     child.fields.rect.x = -285 + 9;

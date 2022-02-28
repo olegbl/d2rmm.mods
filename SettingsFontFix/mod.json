@@ -1,0 +1,7 @@
+{
+  "name": "Settings Font Fix",
+  "description": "Fixed font size in the Settings menu when using any font that needs to modify _profilehd.json",
+  "author": "olegbl",
+  "website": "https://github.com/olegbl/d2rmm.mods",
+  "version": "1.0"
+}

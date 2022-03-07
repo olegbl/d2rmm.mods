@@ -149,8 +149,32 @@ for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
   });
 }
 
+// this is behind a config option because it's *a lot* of recipes...
+if (config.convertWhenDestacking) {
+  for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
+    const itemtype = ITEM_TYPES[i];
+    const stacktype = converItemTypeToStackItemType(itemtype);
+    for (let j = 2; j <= 500; j = j + 1) {
+      cubemain.rows.push({
+        description: `Stack of ${j} ${itemtype} -> Stack of ${
+          j - 1
+        } and Stack of 1`,
+        enabled: 1,
+        version: 0,
+        op: 18, // skip recipe if item's Stat.Accr(param) != value
+        param: 70, // quantity (itemstatcost.txt)
+        value: j, // only execute rule if quantity == j
+        numinputs: 1,
+        'input 1': stacktype,
+        output: `"${stacktype},qty=${j - 1}"`,
+        'output b': `"${itemtype},qty=1"`,
+        '*eol': 0,
+      });
+    }
+  }
+}
 // if another mod already added destacking, don't add it again
-if (
+else if (
   cubemain.rows.find(
     (row) => row.description === 'Stack of 2 -> Stack of 1 and Stack of 1'
   ) == null

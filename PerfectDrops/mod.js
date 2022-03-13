@@ -29,8 +29,8 @@ const EXCLUDE_CODES = [
 
 function UpdateRow(row, codeKey, minKey, maxKey) {
   const code = row[codeKey];
-  const minValue = row[minKey];
-  const maxValue = row[maxKey];
+  const minValue = +row[minKey];
+  const maxValue = +row[maxKey];
 
   if (EXCLUDE_CODES.indexOf(code) === -1 && minValue < maxValue) {
     row[minKey] = row[maxKey];
@@ -137,4 +137,15 @@ if (config.blue || config.skilltab3) {
   const magicsuffix = D2RMM.readTsv(magicsuffixFilename);
   magicsuffix.rows.forEach(adjustAffixRow);
   D2RMM.writeTsv(magicsuffixFilename, magicsuffix);
+}
+
+if (config.defense) {
+  const armorFilename = 'global\\excel\\armor.txt';
+  const armor = D2RMM.readTsv(armorFilename);
+  armor.rows.forEach((row) => {
+    if (+row.maxac > +row.minac) {
+      row.minac = row.maxac;
+    }
+  });
+  D2RMM.writeTsv(armorFilename, armor);
 }

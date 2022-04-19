@@ -59,7 +59,13 @@ const bankExpansionLayoutFilename =
   'global\\ui\\layouts\\bankexpansionlayout.json';
 const bankExpansionLayout = D2RMM.readJson(bankExpansionLayoutFilename);
 // TODO: new sprite & layout for classic UI
-bankExpansionLayout.children.forEach((child) => {
+bankExpansionLayout.children = bankExpansionLayout.children.map((child) => {
+  if (
+    child.name === 'PreviousSeasonToggleDisplay' ||
+    child.name === 'PreviousLadderSeasonBankTabs'
+  ) {
+    return false;
+  }
   if (child.name === 'grid') {
     child.fields.cellCount.x = 16;
     child.fields.cellCount.y = 13;
@@ -77,6 +83,7 @@ bankExpansionLayout.children.forEach((child) => {
       '@shared',
     ];
   }
+  return true;
 });
 D2RMM.writeJson(bankExpansionLayoutFilename, bankExpansionLayout);
 
@@ -125,6 +132,12 @@ const bankExpansionLayoutHDFilename =
 const bankExpansionLayoutHD = D2RMM.readJson(bankExpansionLayoutHDFilename);
 bankExpansionLayoutHD.children = bankExpansionLayoutHD.children.filter(
   (child) => {
+    if (
+      child.name === 'PreviousSeasonToggleDisplay' ||
+      child.name === 'PreviousLadderSeasonBankTabs'
+    ) {
+      return false;
+    }
     if (child.name === 'grid') {
       child.fields.cellCount.x = 16;
       child.fields.cellCount.y = 13;

@@ -195,7 +195,9 @@ itemRunes.forEach((item) => {
     // update all localizations
     for (const key in item) {
       if (key !== 'id' && key !== 'Key') {
-        item[key] = `ÿc8${item[key]}`;
+        // no idea what this is, but color codes before [fs] don't work
+        const [, prefix = '', value] = item[key].match(/^(\[fs\])?(.*)$/);
+        item[key] = `${prefix}ÿc8${value}`;
       }
     }
   }

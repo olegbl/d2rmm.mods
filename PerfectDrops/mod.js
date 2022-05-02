@@ -14,17 +14,29 @@ runes.rows.forEach((row) => {
 D2RMM.writeTsv(runesFilename, runes);
 
 const EXCLUDE_CODES = [
+  // add skill points to class
   // value is class
   'randclassskill',
+  // add skill points to specific skill
   // value is skill
   'skill-rand',
   // param = spell, min = charges, max = level
   // min/max can also be nagative: https://d2mods.info/forum/viewtopic.php?p=67042&highlight=magicsuffix+charged#67042
   'charged',
+  // cast skill on action
   // param = spell, min = chance, max = level
   'att-skill',
   'gethit-skill',
   'hit-skill',
+  // variable damage affixes (e.g. +15-45 cold damage, randomized on each hit)
+  // param = spell, min = min damage, max = max damage
+  'dmg-fire',
+  'dmg-ltng',
+  'dmg-mag',
+  'dmg-pois',
+  'dmg-throw',
+  'dmg-norm',
+  'dmg-elem',
 ];
 
 function UpdateRow(row, codeKey, minKey, maxKey) {

@@ -8,8 +8,8 @@
     {
       "id": "blue",
       "type": "checkbox",
-      "name": "Perfect Blue Items",
-      "description": "Enable to force even blue items to have perfect rolls. Disable to only have perfect unique, set and runeword items.",
+      "name": "Perfect Magic/Rare Items",
+      "description": "Enable to force even magic and rare items to have perfect rolls. Disable to only have perfect unique, set and runeword items.",
       "defaultValue": true
     },
     {

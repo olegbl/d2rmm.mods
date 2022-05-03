@@ -33,6 +33,7 @@ const EXCLUDE_CODES = [
   'dmg-fire',
   'dmg-ltng',
   'dmg-mag',
+  'dmg-cold',
   'dmg-pois',
   'dmg-throw',
   'dmg-norm',

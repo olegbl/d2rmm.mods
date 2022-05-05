@@ -1,0 +1,51 @@
+{
+  "name": "Horadric Forging",
+  "description": "Adds new Horadric Cube recipes that allow rerolling items in various ways.",
+  "author": "olegbl",
+  "website": "https://github.com/olegbl/d2rmm.mods",
+  "version": "1.0",
+  "config": [
+    {
+      "id": "reforge",
+      "type": "checkbox",
+      "name": "Allow Reforging",
+      "description": "Cube an item with a Dol Rune to convert it into a normal quality item. A normal item item will become high quality.",
+      "defaultValue": true
+    },
+    {
+      "id": "freeReforge",
+      "type": "checkbox",
+      "name": "Free Reforging",
+      "description": "Do not consume the rune when reforging.",
+      "defaultValue": false
+    },
+    {
+      "id": "reroll",
+      "type": "checkbox",
+      "name": "Allow Rerolling",
+      "description": "Cube an item with an Um Rune to reroll it with random stats (preserving the same quality).",
+      "defaultValue": true
+    },
+    {
+      "id": "freeReroll",
+      "type": "checkbox",
+      "name": "Free Rerolling",
+      "description": "Do not consume the rune when rerolling.",
+      "defaultValue": false
+    },
+    {
+      "id": "relevel",
+      "type": "checkbox",
+      "name": "Allow Releveling",
+      "description": "Cube an item with a Fal/Lem/Pul Rune to change its item level to 25/40/99 respectively. Warning: unfortunately, this will also reroll the item.",
+      "defaultValue": true
+    },
+    {
+      "id": "freeRelevel",
+      "type": "checkbox",
+      "name": "Free Releveling",
+      "description": "Do not consume the rune when releveling.",
+      "defaultValue": false
+    }
+  ]
+}

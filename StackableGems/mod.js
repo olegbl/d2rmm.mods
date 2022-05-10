@@ -156,17 +156,17 @@ if (config.convertWhenDestacking) {
     const stacktype_cur = converItemTypeToStackItemType(itemtype_cur);
     const itemtype_up = ITEM_TYPES[i + 1];
     const stacktype_up = converItemTypeToStackItemType(itemtype_up);
-    for (let i = 3; i <= config.maxInStack; i = i + 1) {
+    for (let j = 3; j <= config.maxInStack; j = j + 1) {
       cubemain.rows.push({
-        description: `Stack of ${i} ${stacktype_cur} -> Stack of ${i - 2} ${stacktype_cur} and ${itemtype_cur}`,
+        description: `Stack of ${j} ${stacktype_cur} -> Stack of ${j - 2} ${stacktype_cur} and ${itemtype_cur}`,
         enabled: 1,
         version: 0,
         op: 18, // skip recipe if item's Stat.Accr(param) != value
         param: 70, // quantity (itemstatcost.txt)
-        value: i, // only execute rule if quantity == i
+        value: j, // only execute rule if quantity == j
         numinputs: 1,
         'input 1': stacktype_cur,
-        output: `"${stacktype_cur},qty=${i - 2}"`,
+        output: `"${stacktype_cur},qty=${j - 2}"`,
         'output b': `"${itemtype_cur},qty=1"`,
         '*eol': 0,
       });

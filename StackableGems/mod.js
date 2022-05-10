@@ -85,7 +85,7 @@ misc.rows.forEach((item) => {
       code: converItemTypeToStackItemType(item.code),
       stackable: 1,
       minstack: 1,
-      maxstack: 500,
+      maxstack: 10,
       spawnstack: 1,
       spelldesc: 2,
       spelldescstr: 'StackableGem',
@@ -151,25 +151,58 @@ for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
 
 // this is behind a config option because it's *a lot* of recipes...
 if (config.convertWhenDestacking) {
-  for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
-    const itemtype = ITEM_TYPES[i];
-    const stacktype = converItemTypeToStackItemType(itemtype);
-    for (let j = 2; j <= 500; j = j + 1) {
+  for (let i = 0; i < ITEM_TYPES.length - 1; i = i + 1) {
+    const itemtype_cur = ITEM_TYPES[i];
+    const stacktype_cur = converItemTypeToStackItemType(itemtype_cur);
+    const itemtype_up = ITEM_TYPES[i + 1];
+    const stacktype_up = converItemTypeToStackItemType(itemtype_up);
+    for (let i = 3; i <= config.maxInStack; i = i + 1) {
       cubemain.rows.push({
-        description: `Stack of ${j} ${itemtype} -> Stack of ${
-          j - 1
-        } and Stack of 1`,
+        description: `Stack of ${i} ${stacktype_cur} -> Stack of ${i - 2} ${stacktype_cur} and ${itemtype_cur}`,
         enabled: 1,
         version: 0,
         op: 18, // skip recipe if item's Stat.Accr(param) != value
         param: 70, // quantity (itemstatcost.txt)
-        value: j, // only execute rule if quantity == j
+        value: i, // only execute rule if quantity == i
         numinputs: 1,
-        'input 1': stacktype,
-        output: `"${stacktype},qty=${j - 1}"`,
-        'output b': `"${itemtype},qty=1"`,
+        'input 1': stacktype_cur,
+        output: `"${stacktype_cur},qty=${i - 2}"`,
+        'output b': `"${itemtype_cur},qty=1"`,
         '*eol': 0,
       });
+    }
+    if (config.upgradeStack) {      
+      cubemain.rows.push({
+        description: `Stack of 2 ${stacktype_cur} and ${itemtype_cur} -> Stack of 1 ${stacktype_up}`,
+        enabled: 1,
+        version: 0,
+        op: 18, // skip recipe if item's Stat.Accr(param) != value
+        param: 70, // quantity (itemstatcost.txt)
+        value: 2, // only execute rule if quantity == j
+        numinputs: 2,
+        'input 1': stacktype_cur,
+        'input 2': itemtype_cur,
+        'output': `"${stacktype_up},qty=1"`,
+        '*eol': 0,
+      });
+      for (let j = 3; j <= config.maxInStack; j = j + 1) {
+        cubemain.rows.push({
+          description: `Stack of ${j} ${stacktype_cur} and ${itemtype_cur} -> Stack of ${
+            j - 2
+          } ${stacktype_cur} and Stack of 1 ${stacktype_up}`,
+          enabled: 1,
+          version: 0,
+          op: 18, // skip recipe if item's Stat.Accr(param) != value
+          param: 70, // quantity (itemstatcost.txt)
+          value: j, // only execute rule if quantity == j
+          numinputs: 2,
+          'input 1': stacktype_cur,
+          'input 2': itemtype_cur,
+          output: `"${stacktype_cur},qty=${j - 2}"`,
+          'output b': `"${stacktype_up},qty=1"`,
+          '*eol': 0,
+        });
+      }
     }
   }
 }
@@ -179,7 +212,7 @@ else if (
     (row) => row.description === 'Stack of 2 -> Stack of 1 and Stack of 1'
   ) == null
 ) {
-  for (let i = 2; i <= 500; i = i + 1) {
+  for (let i = 2; i <= 10; i = i + 1) {
     cubemain.rows.push({
       description: `Stack of ${i} -> Stack of ${i - 1} and Stack of 1`,
       enabled: 1,

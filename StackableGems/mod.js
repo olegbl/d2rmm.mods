@@ -85,7 +85,7 @@ misc.rows.forEach((item) => {
       code: converItemTypeToStackItemType(item.code),
       stackable: 1,
       minstack: 1,
-      maxstack: 10,
+      maxstack: config.maxInStack,
       spawnstack: 1,
       spelldesc: 2,
       spelldescstr: 'StackableGem',
@@ -212,7 +212,7 @@ else if (
     (row) => row.description === 'Stack of 2 -> Stack of 1 and Stack of 1'
   ) == null
 ) {
-  for (let i = 2; i <= 10; i = i + 1) {
+  for (let i = 2; i <= config.maxInStack; i = i + 1) {
     cubemain.rows.push({
       description: `Stack of ${i} -> Stack of ${i - 1} and Stack of 1`,
       enabled: 1,

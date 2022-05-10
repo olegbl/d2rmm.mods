@@ -1,15 +1,38 @@
 {
-  "name": "Stackable Gems",
-  "description": "Adds another variation of gems that can stack together. Transmute a gem in the Cube to convert it between the two variants. Based on https://www.nexusmods.com/diablo2resurrected/mods/80.",
+  "name": "Stackable Runes",
+  "description": "Adds another variation of runes that can stack together. Transmute a rune in the Cube to convert it between the two variants. Easy upgrade stack of runes. Based on https://www.nexusmods.com/diablo2resurrected/mods/80 and https://www.nexusmods.com/diablo2resurrected/mods/77.",
   "author": "olegbl",
   "website": "https://github.com/olegbl/d2rmm.mods",
-  "version": "1.4",
+  "version": "1.7",
   "config": [
+    {
+      "id": "usenewsprites",
+      "type": "checkbox",
+      "name": "Better Rune Visibility",
+      "description": "Enable to use new rune sprites with rune name and number on the picture. Disable to use classic sprites.",
+      "defaultValue": true
+    },
+    {
+      "id": "maxInStack",
+      "type": "number",
+      "name": "Maximum items in stack",
+      "description": "Maximum items in stack. ",
+      "defaultValue": 10,
+      "minValue": 1,
+      "maxValue": 500
+    },
     {
       "id": "convertWhenDestacking",
       "type": "checkbox",
       "name": "Convert When Destacking",
-      "description": "Enable to have the split off gem automatically convert to a non-stackable variant when splitting a stack. Warning: this adds 15k+ cube recipes which slows down the game's startup.",
+      "description": "Enable to have the split off rune automatically convert to a non-stackable variant when splitting a stack. Warning: this adds 15k+ (max stack => 500) cube recipes which slows down the game's startup.",
+      "defaultValue": false
+    },
+    {
+      "id": "upgradeStack",
+      "type": "checkbox",
+      "name": "Recipe to upgrade stack of runes",
+      "description": "Add recipes to upgrade stack of rune. Stack of runes + rune => rune one tier higher. Use with \"Convert When Destacking\" => checked. Warning: this adds 700+ (every 10 max stack) cube recipes which slows down the game's startup.",
       "defaultValue": false
     }
   ]

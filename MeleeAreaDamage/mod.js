@@ -1,17 +1,21 @@
-const magicprefixFilename = 'global\\excel\\magicprefix.txt';
-const magicprefix = D2RMM.readTsv(magicprefixFilename);
-const magicprefixGroup = Math.max(...magicprefix.rows.map((row) => row.group));
-magicprefix.rows.push({
-  // TODO: modify item-nameaffixes.json
-  Name: 'Massive', // links with item-nameaffixes.json
+if (D2RMM.getVersion == null || D2RMM.getVersion() < 1.4) {
+  D2RMM.error('Requires D2RMM version 1.4 or higher.');
+  return;
+}
+
+const magicsuffixFilename = 'global\\excel\\magicsuffix.txt';
+const magicsuffix = D2RMM.readTsv(magicsuffixFilename);
+magicsuffix.rows.push({
+  Name: 'of Area Damage', // links with item-nameaffixes.json
   version: 1, // availabe in both Classic and LoD
   spawnable: 1, // can spawn
   rare: 1, // can appear on both magic and rare items
-  level: 1, // minimum item level for the prefix to spawn
-  levelreq: 1, // minimum character level to use item with prefix
+  level: 1, // minimum item level for the affix to spawn
+  levelreq: 1, // minimum character level to use item with affix
   // TODO: set to a reasonable number, like 100
-  frequency: 1000000, // frequency of prefix appearing
-  group: magicprefixGroup + 1, // group for deduplicating prefixes (use some non-existant one)
+  frequency: 1000000, // frequency of affix appearing
+  // group for deduplicating affixes (use some non-existant one)
+  group: Math.max(...magicsuffix.rows.map((row) => row.group)) + 1,
   mod1code: 'dmg-meleearea', // links with properties.txt
   mod1param: 'Melee Area Damage', // links with skills.txt
   mod1min: 100, // % Chance (If 0, then default to 5)
@@ -22,7 +26,7 @@ magicprefix.rows.push({
   add: 0, // item price modifier
   '*eol\r': 0,
 });
-D2RMM.writeTsv(magicprefixFilename, magicprefix);
+D2RMM.writeTsv(magicsuffixFilename, magicsuffix);
 
 const propertiesFilename = 'global\\excel\\properties.txt';
 const properties = D2RMM.readTsv(propertiesFilename);
@@ -31,7 +35,7 @@ properties.rows.push({
   '*Enabled': 1,
   func1: 11, // event-based skills
   stat1: 'item_meleeareadamage', // linked with itemstatcost.txt
-  '*Tooltip': '#% Chance of Melee Area Damage',
+  '*Tooltip': '#% Chance of Area Damage',
   '*Parameter': 'Skill',
   '*Min': '% Chance (If 0, then default to 5)',
   '*Max': 'Skill Level',
@@ -60,10 +64,9 @@ itemstatcost.rows.push({
   itemevent1: 'domeleedamage', // when melee damage is done
   itemeventfunc1: 20, // based on item_skillonhit
   descpriority: 200, // description priority (display earlier)
-  descfunc: 19, // format in value + label ("#% Chance of Melee Area Damage") format
-  // TODO: modify item-modifiers.json
-  descstrpos: 'ModStr5c', // links with item-modifiers.json
-  descstrneg: 'ModStr5c', // links with item-modifiers.json
+  descfunc: 19, // format in value + label ("#% Chance of Area Damage") format
+  descstrpos: 'MeleeAreaDamage', // links with item-modifiers.json
+  descstrneg: 'MeleeAreaDamage', // links with item-modifiers.json
   '*eol\r': 0,
 });
 D2RMM.writeTsv(itemstatcostFilename, itemstatcost);
@@ -151,3 +154,45 @@ missiles.rows.push({
   '*eol\r': 0,
 });
 D2RMM.writeTsv(missilesFilename, missiles);
+
+const itemNameAffixesFilename = 'local\\lng\\strings\\item-nameaffixes.json';
+const itemNameAffixes = D2RMM.readJson(itemNameAffixesFilename);
+itemNameAffixes.push({
+  id: D2RMM.getNextStringID(),
+  Key: 'of Area Damage',
+  enUS: 'of Area Damage',
+  zhTW: '穿透之', // TODO
+  deDE: 'des Durchstoßens', // TODO
+  esES: 'de perforación', // TODO
+  frFR: 'd’empalement', // TODO
+  itIT: 'della Penetrazione', // TODO
+  koKR: '관통의', // TODO
+  plPL: 'Przeszycia', // TODO
+  esMX: 'de penetración', // TODO
+  jaJP: '貫通の', // TODO
+  ptBR: 'da Furação', // TODO
+  ruRU: 'пронзания', // TODO
+  zhCN: '刺穿之', // TODO
+});
+D2RMM.writeJson(itemNameAffixesFilename, itemNameAffixes);
+
+const itemModifiersFilename = 'local\\lng\\strings\\item-modifiers.json';
+const itemModifiers = D2RMM.readJson(itemModifiersFilename);
+itemModifiers.push({
+  id: D2RMM.getNextStringID(),
+  Key: 'MeleeAreaDamage',
+  enUS: '%d%% Chance of Area Damage',
+  zhTW: '%d%% 機率造成粉碎打擊', // TODO
+  deDE: '%d%% Chance auf vernichtenden Schlag', // TODO
+  esES: '%d%% de probabilidad de ataque aplastante', // TODO
+  frFR: '%d%% de chances de coups écrasants', // TODO
+  itIT: 'Probabilità di colpo frantumante aumentata del %d%%', // TODO
+  koKR: '강타 확률 %d%%', // TODO
+  plPL: '%d%% szansy na druzgocące uderzenie', // TODO
+  esMX: '%d%% de probabilidad de golpe aplastante', // TODO
+  jaJP: 'クラッシング・ブロー（%d%%の確率）', // TODO
+  ptBR: '%d%% de chance de Golpe Esmagador', // TODO
+  ruRU: 'Вероятность %d%% нанести сокрушительный удар', // TODO
+  zhCN: '%d%% 几率粉碎打击', // TODO
+});
+D2RMM.writeJson(itemModifiersFilename, itemModifiers);

@@ -3,30 +3,54 @@ if (D2RMM.getVersion == null || D2RMM.getVersion() < 1.4) {
   return;
 }
 
-const magicsuffixFilename = 'global\\excel\\magicsuffix.txt';
-const magicsuffix = D2RMM.readTsv(magicsuffixFilename);
-magicsuffix.rows.push({
-  Name: 'of Area Damage', // links with item-nameaffixes.json
-  version: 1, // availabe in both Classic and LoD
-  spawnable: 1, // can spawn
-  rare: 1, // can appear on both magic and rare items
-  level: 1, // minimum item level for the affix to spawn
-  levelreq: 1, // minimum character level to use item with affix
-  // TODO: set to a reasonable number, like 100
-  frequency: 1000000, // frequency of affix appearing
-  // group for deduplicating affixes (use some non-existant one)
-  group: Math.max(...magicsuffix.rows.map((row) => row.group)) + 1,
-  mod1code: 'dmg-meleearea', // links with properties.txt
-  mod1param: 'Melee Area Damage', // links with skills.txt
-  mod1min: 100, // % Chance (If 0, then default to 5)
-  mod1max: 1, // Skill Level
-  transformcolor: 'blac', // doesn't matter for charms
-  itype1: 'scha', // only applicable to small charms
-  multiply: 0, // item price multiplier
-  add: 0, // item price modifier
-  '*eol\r': 0,
-});
-D2RMM.writeTsv(magicsuffixFilename, magicsuffix);
+if (config.scha || config.mcha || config.lcha) {
+  const magicsuffixFilename = 'global\\excel\\magicsuffix.txt';
+  const magicsuffix = D2RMM.readTsv(magicsuffixFilename);
+
+  const group = Math.max(...magicsuffix.rows.map((row) => row.group)) + 1;
+
+  [
+    // multiple tiers of affixes
+    { chance: 20, level: 1, levelreq: 1, frequency: 10 },
+    { chance: 40, level: 10, levelreq: 5, frequency: 8 },
+    { chance: 60, level: 20, levelreq: 15, frequency: 6 },
+    { chance: 80, level: 30, levelreq: 25, frequency: 4 },
+    { chance: 100, level: 40, levelreq: 35, frequency: 2 },
+  ].forEach(({ chance, level, levelreq, frequency }) => {
+    const itypes = [
+      config.scha ? 'scha' : null,
+      config.mcha ? 'mcha' : null,
+      config.lcha ? 'lcha' : null,
+    ]
+      .filter((itype) => itype != null)
+      .reduce(
+        (agg, itype, index) => ({ ...agg, [`itype${index + 1}`]: itype }),
+        {}
+      );
+
+    magicsuffix.rows.push({
+      Name: 'of Area Damage', // links with item-nameaffixes.json
+      version: 1, // availabe in both Classic and LoD
+      spawnable: 1, // can spawn
+      rare: 1, // can appear on both magic and rare items
+      level, // minimum item level for the affix to spawn
+      levelreq, // minimum character level to use item with affix
+      frequency, // frequency of affix appearing
+      group, // group for deduplicating affixes (use some non-existant one)
+      mod1code: 'dmg-meleearea', // links with properties.txt
+      mod1param: 'Melee Area Damage', // links with skills.txt
+      mod1min: chance, // % Chance (If 0, then default to 5)
+      mod1max: 1, // Skill Level
+      transformcolor: 'blac', // doesn't matter for charms
+      multiply: 0, // item price multiplier
+      add: 0, // item price modifier
+      '*eol\r': 0,
+      ...itypes,
+    });
+  });
+
+  D2RMM.writeTsv(magicsuffixFilename, magicsuffix);
+}
 
 const propertiesFilename = 'global\\excel\\properties.txt';
 const properties = D2RMM.readTsv(propertiesFilename);

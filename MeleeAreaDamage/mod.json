@@ -3,5 +3,28 @@
   "description": "Adds a new Melee Area Damage item property.",
   "author": "olegbl",
   "website": "https://github.com/olegbl/d2rmm.mods",
-  "version": "1.0"
+  "version": "1.0",
+  "config": [
+    {
+      "id": "scha",
+      "type": "checkbox",
+      "name": "Small Charms",
+      "description": "Spawn area damage affixes on small charms.",
+      "defaultValue": true
+    },
+    {
+      "id": "mcha",
+      "type": "checkbox",
+      "name": "Large Charms",
+      "description": "Spawn area damage affixes on large charms.",
+      "defaultValue": true
+    },
+    {
+      "id": "lcha",
+      "type": "checkbox",
+      "name": "Grand Charms",
+      "description": "Spawn area damage affixes on grand charms.",
+      "defaultValue": true
+    }
+  ]
 }

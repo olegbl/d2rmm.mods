@@ -1,3 +1,8 @@
+if (D2RMM.getVersion == null || D2RMM.getVersion() < 1.4) {
+  D2RMM.error('Requires D2RMM version 1.4 or higher.');
+  return;
+}
+
 const SINGLE_ITEM_CODE = 'rune';
 const STACK_ITEM_CODE = 'runs';
 
@@ -87,7 +92,7 @@ D2RMM.writeTsv(miscFilename, misc);
 const itemModifiersFilename = 'local\\lng\\strings\\item-modifiers.json';
 const itemModifiers = D2RMM.readJson(itemModifiersFilename);
 itemModifiers.push({
-  id: 29401, // TODO: is there a good way to make sure this avoids conflicts without scanning every .json file?
+  id: D2RMM.getNextStringID(),
   Key: 'StackableRune',
   enUS: 'Can be transmuted into a usable rune',
   zhTW: '可以转化为可用的符文',

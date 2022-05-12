@@ -1,3 +1,8 @@
+if (D2RMM.getVersion == null || D2RMM.getVersion() < 1.4) {
+  D2RMM.error('Requires D2RMM version 1.4 or higher.');
+  return;
+}
+
 const SINGLE_ITEM_CODE = 'gem';
 const STACK_ITEM_CODE = 'sgem';
 
@@ -101,7 +106,7 @@ D2RMM.writeTsv(miscFilename, misc);
 const itemModifiersFilename = 'local\\lng\\strings\\item-modifiers.json';
 const itemModifiers = D2RMM.readJson(itemModifiersFilename);
 itemModifiers.push({
-  id: 29402, // TODO: is there a good way to make sure this avoids conflicts without scanning every .json file?
+  id: D2RMM.getNextStringID(),
   Key: 'StackableGem',
   enUS: 'Can be transmuted into a usable gem',
   zhTW: '可以转化为可用的宝石',

@@ -99,7 +99,6 @@ const skillsFilename = 'global\\excel\\skills.txt';
 const skills = D2RMM.readTsv(skillsFilename);
 const skillsID = Math.max(...skills.rows.map((row) => row['*Id']));
 skills.rows.push({
-  // based on "Frost Nova"
   skill: 'Melee Area Damage', // links with missiles.txt
   '*Id': skillsID + 1,
   srvdofunc: 68, // shout nova
@@ -118,7 +117,7 @@ skills.rows.push({
   minanim: 'xx', // animation used for monsters - doesn't really matter
   UseAttackRate: 1, // unknown, doesn't seem to do anything
   ItemEffect: 36, // fire missile from target rather than player
-  ItemCtlEffect: 10, // fire missile from target rather than player
+  ItemCltEffect: 10, // fire missile from target rather than player
   minmana: 0, // minimum mana cost
   manashift: 8, // mana cost precision
   mana: 0, // mana cost at level 1
@@ -145,19 +144,18 @@ missiles.rows.push({
   pSrvDoFunc: 1,
   // about 48 pixels total makes the area damage apply to enemies nearby
   // the enemy that was hit but not other enemies nearby the character
-  Vel: 12, // pixels / frame
-  MaxVel: 12, // pixels / frame
+  Vel: 6, // pixels / frame
+  MaxVel: 6, // pixels / frame
   Accel: 0, // pixels / frame / frame
-  Range: 4, // number of frames
+  Range: 8, // number of frames
   Red: 192,
   Green: 192,
   Blue: 192,
   InitSteps: 1,
   Activate: 0,
   LoopAnim: 0,
-  // for some reason, the actual projectile is not visible for *any* row in missiles.txt
-  // that's added (beyond the vanilla ones) - even if the data in the row is ~100% identical
-  // to an existing row - I have no idea why
+  // TODO: this doesn't show anything in classic graphics mode
+  // should probably use something else instead...
   CelFile: 'BAYellShockWave01', // the DCC file
   animrate: 1024,
   AnimLen: 15,
@@ -178,6 +176,74 @@ missiles.rows.push({
   '*eol\r': 0,
 });
 D2RMM.writeTsv(missilesFilename, missiles);
+
+const hdmissilesFilename = 'hd\\missiles\\missiles.json';
+const hdmissiles = D2RMM.readJson(hdmissilesFilename);
+hdmissiles.meleeareadamage = 'melee_area_damage';
+D2RMM.writeJson(hdmissilesFilename, hdmissiles);
+
+D2RMM.writeJson('hd\\missiles\\melee_area_damage.json', {
+  dependencies: {
+    particles: [
+      {
+        path: 'data/hd/vfx/particles/missiles/explosion_spark_small/vfx_explosion_spark_small.particles',
+      },
+    ],
+    models: [],
+    skeletons: [],
+    animations: [],
+    textures: [],
+    physics: [],
+    json: [],
+    variantdata: [],
+    objecteffects: [],
+    other: [],
+  },
+  type: 'UnitDefinition',
+  name: 'melee_area_damage',
+  entities: [
+    {
+      type: 'Entity',
+      name: 'entity_root',
+      id: 2527807554 + 1, // TODO: how to get a unique ID here?
+      components: [
+        {
+          type: 'UnitRootComponent',
+          name: 'component_root',
+          state_machine_filename: '',
+          doNotInheritRotation: false,
+          rotationOverride: { x: 0, y: 0.3826834, z: 0, w: 0.9238795 },
+          doNotUseHDHeight: false,
+          hideAllMeshWhenInOpenedMode: false,
+          onCreateEventName: '',
+          animations: [],
+        },
+      ],
+    },
+    {
+      type: 'Entity',
+      name: 'entity_vfx1',
+      id: 3060251343 + 1, // TODO: how to get a unique ID here?
+      components: [
+        {
+          type: 'TransformDefinitionComponent',
+          name: 'component_transform1',
+          position: { x: 0, y: 2, z: 0 },
+          orientation: { x: 0, y: 0, z: 0, w: 1 },
+          scale: { x: 1, y: 1, z: 1 },
+          inheritOnlyPosition: false,
+        },
+        {
+          type: 'VfxDefinitionComponent',
+          name: 'entity_vfx1_VfxDefinition',
+          filename:
+            'data/hd/vfx/particles/missiles/explosion_spark_small/vfx_explosion_spark_small.particles',
+          hardKillOnDestroy: false,
+        },
+      ],
+    },
+  ],
+});
 
 const itemNameAffixesFilename = 'local\\lng\\strings\\item-nameaffixes.json';
 const itemNameAffixes = D2RMM.readJson(itemNameAffixesFilename);

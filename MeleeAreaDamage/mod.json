@@ -6,6 +6,15 @@
   "version": "1.0",
   "config": [
     {
+      "id": "damage",
+      "type": "number",
+      "name": "Damage",
+      "description": "Percentage of weapon damage that affects enemies in an area.",
+      "defaultValue": 50,
+      "minValue": 1,
+      "maxValue": 100
+    },
+    {
       "id": "scha",
       "type": "checkbox",
       "name": "Small Charms",

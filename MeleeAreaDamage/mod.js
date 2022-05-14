@@ -1,3 +1,5 @@
+const { config } = require('process');
+
 if (D2RMM.getVersion == null || D2RMM.getVersion() < 1.4) {
   D2RMM.error('Requires D2RMM version 1.4 or higher.');
   return;
@@ -11,11 +13,11 @@ if (config.scha || config.mcha || config.lcha) {
 
   [
     // multiple tiers of affixes
-    { chance: 20, level: 1, levelreq: 1, frequency: 10 },
-    { chance: 40, level: 10, levelreq: 5, frequency: 8 },
-    { chance: 60, level: 20, levelreq: 15, frequency: 6 },
-    { chance: 80, level: 30, levelreq: 25, frequency: 4 },
-    { chance: 100, level: 40, levelreq: 35, frequency: 2 },
+    { chance: 20, level: 1, levelreq: 1, frequency: 5 },
+    { chance: 40, level: 10, levelreq: 5, frequency: 4 },
+    { chance: 60, level: 20, levelreq: 15, frequency: 3 },
+    { chance: 80, level: 30, levelreq: 25, frequency: 2 },
+    { chance: 100, level: 40, levelreq: 35, frequency: 1 },
   ].forEach(({ chance, level, levelreq, frequency }) => {
     const itypes = [
       config.scha ? 'scha' : null,
@@ -126,7 +128,7 @@ skills.rows.push({
   interrupt: 0, // can be interrupted while casting
   InGame: 1, // skill is available in game
   HitShift: 8, // precision of damage (8 = 256/256 = 100%)
-  SrcDam: 64, // percentage of weapon damage applied to skill (base 128)
+  SrcDam: Math.max(1, Math.min(128, Math.round((128 * config.damage) / 100))), // percentage of weapon damage applied to skill (base 128)
   'cost mult': 384, // base price of item is multiplied by this value when affix is present
   'cost add': 8000, // base price of item is modified by this value when affix is present
   '*eol\r': 0,

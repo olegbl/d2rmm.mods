@@ -30,7 +30,7 @@ const VALID_TYPES = {
   hiq: ['armo', 'weap'],
   mag: ['armo', 'weap', 'ring', 'amul', 'scha', 'mcha', 'lcha', 'jewl'],
   rar: ['armo', 'weap', 'ring', 'amul', 'scha', 'mcha', 'lcha', 'jewl'],
-  uni: ['armo', 'weap', 'ring', 'amul'],
+  uni: ['armo', 'weap', 'ring', 'amul', 'scha', 'mcha', 'lcha', 'jewl'],
   set: ['armo', 'weap', 'ring', 'amul'],
   crf: ['armo', 'weap', 'ring', 'amul'],
   tmp: ['armo', 'weap', 'ring', 'amul'],

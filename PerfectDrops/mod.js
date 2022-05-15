@@ -162,3 +162,18 @@ if (config.defense) {
   });
   D2RMM.writeTsv(armorFilename, armor);
 }
+
+if (config.crafted) {
+  const cubemainFilename = 'global\\excel\\cubemain.txt';
+  const cubemain = D2RMM.readTsv(cubemainFilename);
+  cubemain.rows.forEach((row) => {
+    if (row.output === '"usetype,crf"') {
+      UpdateRow(row, 'mod 1', 'mod 1 min', 'mod 1 max');
+      UpdateRow(row, 'mod 2', 'mod 2 min', 'mod 2 max');
+      UpdateRow(row, 'mod 3', 'mod 3 min', 'mod 3 max');
+      UpdateRow(row, 'mod 4', 'mod 4 min', 'mod 4 max');
+      UpdateRow(row, 'mod 5', 'mod 5 min', 'mod 5 max');
+    }
+  });
+  D2RMM.writeTsv(cubemainFilename, cubemain);
+}

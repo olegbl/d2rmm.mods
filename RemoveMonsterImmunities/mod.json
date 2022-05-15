@@ -2,7 +2,7 @@
   "name": "Remove Monster Immunities",
   "description": "Reduces maximum elemental resistances of monsters to remove their immunities in nightmare and hell difficulties.",
   "author": "olegbl",
-  "website": "https://github.com/olegbl/d2rmm.mods",
+  "website": "https://www.nexusmods.com/diablo2resurrected/mods/185",
   "version": "1.0",
   "config": [
     {

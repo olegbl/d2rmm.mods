@@ -2,7 +2,7 @@
   "name": "Custom Item Colors",
   "description": "Customize the colors of various item types as they appear when on the ground. This does *not* change the color of items in their tooltips while in inventory/stash.",
   "author": "olegbl",
-  "website": "https://github.com/olegbl/d2rmm.mods",
+  "website": "https://www.nexusmods.com/diablo2resurrected/mods/190",
   "version": "1.0",
   "config": [
     {

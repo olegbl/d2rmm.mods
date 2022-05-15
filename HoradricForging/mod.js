@@ -13,6 +13,11 @@ const RARITY_LABEL = {
   tmp: 'tempered',
 };
 
+const ETHEREAL_LABEL = {
+  eth: 'ethereal',
+  noe: 'normal',
+};
+
 const TYPE_LABEL = {
   armo: 'armor',
   weap: 'weapon',
@@ -34,100 +39,148 @@ const VALID_TYPES = {
   set: ['armo', 'weap', 'ring', 'amul'],
   crf: ['armo', 'weap', 'ring', 'amul'],
   tmp: ['armo', 'weap', 'ring', 'amul'],
+  eth: ['armo','weap'],
 };
 
 if (config.reforge) {
   const rune = config.reforgeIngredient;
 
-  [
-    ['low', 'nor'],
-    ['nor', 'hiq'],
-    ['hiq', 'nor'],
-    ['mag', 'nor'],
-    ['rar', 'nor'],
-    ['crf', 'nor'],
-    ['tmp', 'nor'],
-  ].forEach(([fromRarity, toRarity]) => {
-    const fromRarityLabel = RARITY_LABEL[fromRarity];
-    const toRarityLabel = RARITY_LABEL[toRarity];
-    VALID_TYPES[fromRarity].forEach((type) => {
-      const typeLabel = TYPE_LABEL[type];
-      const recipe = {
-        description: `Convert ${fromRarityLabel} ${typeLabel} to ${toRarityLabel}`,
-        enabled: 1,
-        version: 100,
-        numinputs: 2,
-        'input 1': `${type},${fromRarity}`,
-        'input 2': rune,
-        output: `usetype,${toRarity}`,
-        ilvl: 100, // preserve item level
-        '*eol\n': 0,
-      };
-      if (config.freeReforge) {
-        recipe['output b'] = rune;
-      }
-      cubemain.rows.push(recipe);
-    });
-  });
-}
-
-if (config.reroll) {
-  const rune = config.rerollIngredient;
-
-  ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
-    (rarity) => {
-      const rarityLabel = RARITY_LABEL[from];
-      VALID_TYPES[rarity].forEach((type) => {
+  ['eth', 'noe'].forEach(
+  (etherealType) => {
+	const etherealLabel = ETHEREAL_LABEL[etherealType];
+    [
+      ['low', 'nor'],
+      ['nor', 'hiq'],
+      ['hiq', 'nor'],
+      ['mag', 'nor'],
+      ['rar', 'nor'],
+      ['crf', 'nor'],
+      ['tmp', 'nor'],
+    ].forEach(([fromRarity, toRarity]) => {
+      const fromRarityLabel = RARITY_LABEL[fromRarity];
+      const toRarityLabel = RARITY_LABEL[toRarity];
+      VALID_TYPES[fromRarity].forEach((type) => {
         const typeLabel = TYPE_LABEL[type];
         const recipe = {
-          description: `Reroll stats of ${rarityLabel} ${typeLabel}`,
+          description: `Convert ${etherealLabel} ${fromRarityLabel} ${typeLabel} to ${toRarityLabel}`,
           enabled: 1,
           version: 100,
           numinputs: 2,
-          'input 1': `${type},${rarity}`,
+          'input 1': `${type},${etherealType},${fromRarity}`,
           'input 2': rune,
-          output: `usetype,${rarity}`,
+          output: `usetype,${etherealType},${toRarity}`,
           ilvl: 100, // preserve item level
           '*eol\n': 0,
         };
-        if (config.freeReroll) {
+        if (config.freeReforge) {
           recipe['output b'] = rune;
         }
         cubemain.rows.push(recipe);
       });
-    }
-  );
+    });
+  });
 }
 
-if (config.relevel) {
+if (config.ethereal) {
+  const rune = config.etherealIngredient;
+
   [
-    [config.relevelIngredient25, 25],
-    [config.relevelIngredient40, 40],
-    [config.relevelIngredient99, 99],
-  ].forEach(([rune, lvl]) => {
+    ['eth', 'noe'],
+    ['noe', 'eth'],
+  ].forEach(([ethFrom, ethTo]) => {
+	const ethFromLabel = ETHEREAL_LABEL[ethFrom];
+    const ethToLabel = ETHEREAL_LABEL[ethTo];
     ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
       (rarity) => {
-        const rarityLabel = RARITY_LABEL[from];
-        VALID_TYPES[rarity].forEach((type) => {
+        const rarityLabel = RARITY_LABEL[rarity];
+        VALID_TYPES['eth'].forEach((type) => {
           const typeLabel = TYPE_LABEL[type];
           const recipe = {
-            description: `Set item level of ${rarityLabel} ${typeLabel} to ${lvl}`,
+            description: `Convert ${ethFromLabel} ${rarityLabel} ${typeLabel} to ${ethToLabel}`,
             enabled: 1,
             version: 100,
             numinputs: 2,
-            'input 1': `${type},${rarity}`,
+            'input 1': `${type},${rarity},${ethFrom}`,
             'input 2': rune,
-            output: `usetype,${rarity}`,
-            lvl,
+            output: `usetype,${rarity},${ethTo}`,
+            ilvl: 100, // preserve item level
             '*eol\n': 0,
           };
-          if (config.freeRelevel) {
+          if (config.freeReforge) {
             recipe['output b'] = rune;
           }
           cubemain.rows.push(recipe);
         });
       }
     );
+  });
+}
+
+if (config.reroll) {
+  const rune = config.rerollIngredient;
+
+  ['eth', 'noe'].forEach(
+  (etherealType) => {
+	const etherealLabel = ETHEREAL_LABEL[etherealType];
+    ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
+      (rarity) => {
+        const rarityLabel = RARITY_LABEL[from];
+        VALID_TYPES[rarity].forEach((type) => {
+          const typeLabel = TYPE_LABEL[type];
+          const recipe = {
+            description: `Reroll stats of ${etherealLabel} ${rarityLabel} ${typeLabel}`,
+            enabled: 1,
+            version: 100,
+            numinputs: 2,
+            'input 1': `${type},${rarity},${etherealType}`,
+            'input 2': rune,
+            output: `usetype,${rarity},${etherealType}`,
+            ilvl: 100, // preserve item level
+            '*eol\n': 0,
+          };
+          if (true) {
+            recipe['output b'] = rune;
+          }
+          cubemain.rows.push(recipe);
+        });
+      }
+    )
+  });
+}
+
+if (config.relevel) {
+  ['eth', 'noe'].forEach(
+  (etherealType) => {
+	const etherealLabel = ETHEREAL_LABEL[etherealType];
+    [
+      [config.relevelIngredient25, 25],
+      [config.relevelIngredient40, 40],
+      [config.relevelIngredient99, 99],
+    ].forEach(([rune, lvl]) => {
+      ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
+        (rarity) => {
+          const rarityLabel = RARITY_LABEL[from];
+          VALID_TYPES[rarity].forEach((type) => {
+            const typeLabel = TYPE_LABEL[type];
+            const recipe = {
+              description: `Set item level of ${etherealLabel} ${rarityLabel} ${typeLabel} to ${lvl}`,
+              enabled: 1,
+              version: 100,
+              numinputs: 2,
+              'input 1': `${type},${etherealType},${rarity}`,
+              'input 2': rune,
+              output: `usetype,${etherealType},${rarity}`,
+              lvl,
+              '*eol\n': 0,
+            };
+            if (config.freeRelevel) {
+              recipe['output b'] = rune;
+            }
+            cubemain.rows.push(recipe);
+          });
+        }
+      );
+    });
   });
 }
 

@@ -3,7 +3,7 @@
   "description": "Adds new Horadric Cube recipes that allow rerolling items in various ways.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/229",
-  "version": "1.1",
+  "version": "1.2",
   "config": [
     {
       "id": "reforge",
@@ -115,6 +115,62 @@
       "type": "checkbox",
       "name": "Free Rerolling",
       "description": "Do not consume the rune when rerolling.",
+      "defaultValue": false
+    },
+    {
+      "id": "ethereal",
+      "type": "checkbox",
+      "name": "Allow toggling Ethereal status",
+      "description": "Cube an item with an rune to toggle ethereal status for item.",
+      "defaultValue": true
+    },
+    {
+      "id": "etherealIngredient",
+      "type": "select",
+      "name": "Ethereal Rune",
+      "description": "The rune that's required as an ingredient when toggling ethereal.",
+      "defaultValue": "r23",
+      "options": [
+        { "value": "r01", "label": "El Rune (1)" },
+        { "value": "r02", "label": "Eld Rune (2)" },
+        { "value": "r03", "label": "Tir Rune (3)" },
+        { "value": "r04", "label": "Nef Rune (4)" },
+        { "value": "r05", "label": "Eth Rune (5)" },
+        { "value": "r06", "label": "Ith Rune (6)" },
+        { "value": "r07", "label": "Tal Rune (7)" },
+        { "value": "r08", "label": "Ral Rune (8)" },
+        { "value": "r09", "label": "Ort Rune (9)" },
+        { "value": "r10", "label": "Thul Rune (10)" },
+        { "value": "r11", "label": "Amn Rune (11)" },
+        { "value": "r12", "label": "Sol Rune (12)" },
+        { "value": "r13", "label": "Shael Rune (13)" },
+        { "value": "r14", "label": "Dol Rune (14)" },
+        { "value": "r15", "label": "Hel Rune (15)" },
+        { "value": "r16", "label": "Io Rune (16)" },
+        { "value": "r17", "label": "Lum Rune (17)" },
+        { "value": "r18", "label": "Ko Rune (18)" },
+        { "value": "r19", "label": "Fal Rune (19)" },
+        { "value": "r20", "label": "Lem Rune (20)" },
+        { "value": "r21", "label": "Pul Rune (21)" },
+        { "value": "r22", "label": "Um Rune (22)" },
+        { "value": "r23", "label": "Mal Rune (23)" },
+        { "value": "r24", "label": "Ist Rune (24)" },
+        { "value": "r25", "label": "Gul Rune (25)" },
+        { "value": "r26", "label": "Vex Rune (26)" },
+        { "value": "r27", "label": "Ohm Rune (27)" },
+        { "value": "r28", "label": "Lo Rune (28)" },
+        { "value": "r29", "label": "Sur Rune (29)" },
+        { "value": "r30", "label": "Ber Rune (30)" },
+        { "value": "r31", "label": "Jah Rune (31)" },
+        { "value": "r32", "label": "Cham Rune (32)" },
+        { "value": "r33", "label": "Zod Rune (33)" }
+      ]
+    },
+    {
+      "id": "freeEthereal",
+      "type": "checkbox",
+      "name": "Free ethereal toggle",
+      "description": "Do not consume the rune when toggling ethereal.",
       "defaultValue": false
     },
     {

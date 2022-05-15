@@ -37,8 +37,7 @@ const VALID_TYPES = {
 };
 
 if (config.reforge) {
-  // TODO: allow customizing rune?
-  const rune = 'r14'; // dol run
+  const rune = config.reforgeIngredient;
 
   [
     ['low', 'nor'],
@@ -73,8 +72,7 @@ if (config.reforge) {
 }
 
 if (config.reroll) {
-  // TODO: allow customizing rune?
-  const rune = 'r22'; // um run
+  const rune = config.rerollIngredient;
 
   ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
     (rarity) => {
@@ -102,11 +100,10 @@ if (config.reroll) {
 }
 
 if (config.relevel) {
-  // TODO: allow customizing rune?
   [
-    ['r19', 25],
-    ['r20', 40],
-    ['r21', 99],
+    [config.relevelIngredient25, 25],
+    [config.relevelIngredient40, 40],
+    [config.relevelIngredient99, 99],
   ].forEach(([rune, lvl]) => {
     ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
       (rarity) => {

@@ -15,6 +15,15 @@
       "maxValue": 100
     },
     {
+      "id": "damageReduction",
+      "type": "number",
+      "name": "Damage Reduction",
+      "description": "Area damage also applies to the initial target hit, so overall damage should be reduced to maintain balance. This value controls how much reduction there is. 0 = no reduction (area damage makes you kill single targets faster). 100 = balanced (no change in damage output against single targets). 200 = your damage is reduced by twice the amount of area damage you will do.",
+      "defaultValue": 100,
+      "minValue": 0,
+      "maxValue": 1000
+    },
+    {
       "id": "scha",
       "type": "checkbox",
       "name": "Small Charms",
@@ -26,14 +35,21 @@
       "type": "checkbox",
       "name": "Large Charms",
       "description": "Spawn area damage affixes on large charms.",
-      "defaultValue": true
+      "defaultValue": false
     },
     {
       "id": "lcha",
       "type": "checkbox",
       "name": "Grand Charms",
       "description": "Spawn area damage affixes on grand charms.",
-      "defaultValue": true
+      "defaultValue": false
+    },
+    {
+      "id": "unique",
+      "type": "checkbox",
+      "name": "Unique Small Charm",
+      "description": "Adds a unique small charm with the affix to Gheed's shop.",
+      "defaultValue": false
     }
   ]
 }

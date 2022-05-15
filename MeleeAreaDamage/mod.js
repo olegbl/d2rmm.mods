@@ -3,6 +3,136 @@ if (D2RMM.getVersion == null || D2RMM.getVersion() < 1.4) {
   return;
 }
 
+const isDamageReductionEnabled = config.damageReduction > 0;
+const damageInArea = Math.max(1, Math.min(100, Math.round(config.damage)));
+const damageReduction = Math.round(
+  (100 - (100 / (100 + damageInArea)) * 100) * (config.damageReduction / 100)
+);
+
+const itemstatcostFilename = 'global\\excel\\itemstatcost.txt';
+const itemstatcost = D2RMM.readTsv(itemstatcostFilename);
+let itemstatcostID = Math.max(...itemstatcost.rows.map((row) => row['*ID']));
+itemstatcost.rows.push({
+  Stat: 'item_meleeareadamage',
+  '*ID': (itemstatcostID = itemstatcostID + 1),
+  Signed: 1, // value is signed
+  'Send Bits': 7, // number of bits used to represent the chance, 7 allows us to reach 100%
+  'Send Param Bits': 16, // number of bits used to represent the skill, 16 allows all skills to be selected
+  fCallback: 1, // based on item_skillonhit
+  Add: 190, // item cost modifier
+  Multiply: 256, // item cost multiplier
+  '1.09-Save Bits': 21, // number of bits to reserve for this stat in the item
+  '1.09-Save Add': 0, // maximum negative value that can be set
+  'Save Bits': 7, // number of bits to reserve for this stat in the item
+  'Save Add': 0, // maximum negative value that can be set
+  'Save Param Bits': 16, // how many bits to reserve for this stat's parameter in the item
+  damagerelated: 1,
+  itemevent1: 'domeleedamage', // when melee damage is done
+  itemeventfunc1: 20, // based on item_skillonhit
+  descpriority: 200, // description priority (display earlier)
+  descfunc: 19, // format as sprintf
+  descstrpos: 'MeleeAreaDamage', // links with item-modifiers.json
+  descstrneg: 'MeleeAreaDamage', // links with item-modifiers.json
+  '*eol\r': 0,
+});
+itemstatcost.rows.forEach((row) => {
+  const Stat =
+    row.Stat === 'item_mindamage_percent'
+      ? 'melee_mindamage_percent'
+      : row.Stat === 'item_maxdamage_percent'
+      ? 'melee_maxdamage_percent'
+      : null;
+  const descsstr =
+    row.Stat === 'item_mindamage_percent'
+      ? 'MeleeMinDamagePercent'
+      : row.Stat === 'item_maxdamage_percent'
+      ? 'MeleeMaxDamagePercent'
+      : null;
+  if (Stat != null) {
+    itemstatcost.rows.push({
+      ...row,
+      // new name and id
+      Stat,
+      '*ID': (itemstatcostID = itemstatcostID + 1),
+      // switch from op 13 to op 11 since the former doesn't work here for some reason
+      // 11 - adds opstat.base * statvalue / 100 to the value of opstat
+      // 13 - adds opstat.base * statvalue / 100 to the value of opstat, this is useable only on items
+      // it will not apply the bonus to other unit types (this is why it is used for +% durability,
+      // +% level requirement, +% damage, +% defense [etc]).
+      op: 11,
+      // unlike dmg%, we want to allow negative values, so we're going to increase the number of bits
+      // used to save this state by a factor of 2 and then dedicate half of them to negative values
+      'Send Bits': row['Send Bits'] * 2,
+      '1.09-Save Bits': row['1.09-Save Bits'] * 2,
+      'Save Bits': row['Save Bits'] * 2,
+      '1.09-Save Add': 2 ** row['1.09-Save Bits'],
+      'Save Add': 2 ** row['Save Bits'],
+      // we want damage reduction to be able to be turned on and off at any time and allow
+      // existing items to still work, so instead of removing the effect altogether, we keep
+      // it on the item but make it not do anything and not show up visually in the label
+      'op stat1': isDamageReductionEnabled ? row['op stat1'] : null,
+      'op stat2': isDamageReductionEnabled ? row['op stat1'] : null,
+      // unlike item_mindamage_percent / item_maxdamage_percent, we do not want to modify
+      // item_throw_mindamage or item_throw_maxdamage because this skill will not apply to
+      // thrown weapons' damage calculations
+      'op stat3': null,
+      // update description label
+      descpriority: isDamageReductionEnabled ? row.descpriority : null,
+      descfunc: isDamageReductionEnabled ? row.descfunc : null,
+      descstrpos: isDamageReductionEnabled ? descsstr : null, // links with item-modifiers.json
+      descstrneg: isDamageReductionEnabled ? descsstr : null, // links with item-modifiers.json
+    });
+  }
+});
+D2RMM.writeTsv(itemstatcostFilename, itemstatcost);
+
+const propertiesFilename = 'global\\excel\\properties.txt';
+const properties = D2RMM.readTsv(propertiesFilename);
+properties.rows.push({
+  code: 'dmg-meleearea',
+  '*Enabled': 1,
+  func1: 11, // event-based skills
+  stat1: 'item_meleeareadamage', // linked with itemstatcost.txt
+  '*Tooltip': '#% Chance of Area Damage',
+  '*Parameter': 'Skill',
+  '*Min': '% Chance (If 0, then default to 5)',
+  '*Max': 'Skill Level',
+  '*eol\r': 0,
+});
+properties.rows.push({
+  code: 'dmg%-melee-min',
+  '*Enabled': 1,
+  func1: 15, // min field
+  stat1: 'melee_mindamage_percent', // linked with itemstatcost.txt
+  '*Tooltip': '+#% Enhanced Minimum Melee Damage',
+  '*Min': 'Min %',
+  '*Max': 'Max %',
+  '*eol\r': 0,
+});
+properties.rows.push({
+  code: 'dmg%-melee-max',
+  '*Enabled': 1,
+  func1: 16, // max field
+  stat1: 'melee_maxdamage_percent', // linked with itemstatcost.txt
+  '*Tooltip': '+#% Enhanced Maximum Melee Damage',
+  '*Min': 'Min %',
+  '*Max': 'Max %',
+  '*eol\r': 0,
+});
+D2RMM.writeTsv(propertiesFilename, properties);
+
+// unlike dmg%, we do not want to use op = 13 because
+// func = 7 that dmg% uses doesn't seem to allow negative values
+
+// 11 - adds [color=#80FFBF]opstat.base * statvalue / 100[/color]
+// similar to 1 and 13, the code just does a few more checks
+
+// 13 - adds [color=#80FFBF]opstat.base * statvalue / 100[/color]
+// to the value of [b][color=#FFBF00]opstat[/color][/b],
+// this is useable only on items it will not apply the bonus to
+// other unit types (this is why it is used for +% durability, +%
+// level requirement, +% damage, +% defense [etc]
+
 if (config.scha || config.mcha || config.lcha) {
   const magicsuffixFilename = 'global\\excel\\magicsuffix.txt';
   const magicsuffix = D2RMM.readTsv(magicsuffixFilename);
@@ -41,6 +171,12 @@ if (config.scha || config.mcha || config.lcha) {
       mod1param: 'Melee Area Damage', // links with skills.txt
       mod1min: chance, // % Chance (If 0, then default to 5)
       mod1max: 1, // Skill Level
+      mod2code: 'dmg%-melee-min',
+      mod2min: -damageReduction,
+      mod2max: -damageReduction,
+      mod3code: 'dmg%-melee-max',
+      mod3min: -damageReduction,
+      mod3max: -damageReduction,
       transformcolor: 'blac', // doesn't matter for charms
       multiply: 0, // item price multiplier
       add: 0, // item price modifier
@@ -51,49 +187,6 @@ if (config.scha || config.mcha || config.lcha) {
 
   D2RMM.writeTsv(magicsuffixFilename, magicsuffix);
 }
-
-const propertiesFilename = 'global\\excel\\properties.txt';
-const properties = D2RMM.readTsv(propertiesFilename);
-properties.rows.push({
-  code: 'dmg-meleearea',
-  '*Enabled': 1,
-  func1: 11, // event-based skills
-  stat1: 'item_meleeareadamage', // linked with itemstatcost.txt
-  '*Tooltip': '#% Chance of Area Damage',
-  '*Parameter': 'Skill',
-  '*Min': '% Chance (If 0, then default to 5)',
-  '*Max': 'Skill Level',
-  '*eol\r': 0,
-});
-D2RMM.writeTsv(propertiesFilename, properties);
-
-const itemstatcostFilename = 'global\\excel\\itemstatcost.txt';
-const itemstatcost = D2RMM.readTsv(itemstatcostFilename);
-const itemstatcostID = Math.max(...itemstatcost.rows.map((row) => row['*ID']));
-itemstatcost.rows.push({
-  Stat: 'item_meleeareadamage',
-  '*ID': itemstatcostID + 1,
-  Signed: 1, // no idea, based on item_skillonhit
-  'Send Bits': 7, // no idea, based on item_skillonhit
-  'Send Param Bits': 16, // no idea, based on item_skillonhit
-  fCallback: 1, // no idea, based on item_skillonhit
-  Add: 190, // item cost modifier
-  Multiply: 256, // item cost multiplier
-  '1.09-Save Bits': 21, // no idea, based on item_skillonhit
-  '1.09-Save Add': 0, // no idea, based on item_skillonhit
-  'Save Bits': 7, // no idea, based on item_skillonhit
-  'Save Add': 0, // no idea, based on item_skillonhit
-  'Save Param Bits': 16, // no idea, based on item_skillonhit
-  damagerelated: 1,
-  itemevent1: 'domeleedamage', // when melee damage is done
-  itemeventfunc1: 20, // based on item_skillonhit
-  descpriority: 200, // description priority (display earlier)
-  descfunc: 19, // format in value + label ("#% Chance of Area Damage") format
-  descstrpos: 'MeleeAreaDamage', // links with item-modifiers.json
-  descstrneg: 'MeleeAreaDamage', // links with item-modifiers.json
-  '*eol\r': 0,
-});
-D2RMM.writeTsv(itemstatcostFilename, itemstatcost);
 
 const skillsFilename = 'global\\excel\\skills.txt';
 const skills = D2RMM.readTsv(skillsFilename);
@@ -125,7 +218,7 @@ skills.rows.push({
   interrupt: 0, // can be interrupted while casting
   InGame: 1, // skill is available in game
   HitShift: 8, // precision of damage (8 = 256/256 = 100%)
-  SrcDam: Math.max(1, Math.min(128, Math.round((128 * config.damage) / 100))), // percentage of weapon damage applied to skill (base 128)
+  SrcDam: Math.max(1, Math.min(128, Math.round((128 * damageInArea) / 100))), // percentage of weapon damage applied to skill (base 128)
   'cost mult': 384, // base price of item is multiplied by this value when affix is present
   'cost add': 8000, // base price of item is modified by this value when affix is present
   '*eol\r': 0,
@@ -285,4 +378,45 @@ itemModifiers.push({
   ruRU: 'Вероятность %d%% нанести сокрушительный удар', // TODO
   zhCN: '%d%% 几率粉碎打击', // TODO
 });
+itemModifiers.push({
+  id: D2RMM.getNextStringID(),
+  Key: 'MeleeMinDamagePercent',
+  enUS: '%+d%% Enhanced Minimum Melee Damage',
+  zhTW: '%+d%% 最小傷害強化', // TODO
+  deDE: '%+d%% Verbesserter min. Schaden', // TODO
+  esES: '%+d%% de daño mínimo mejorado', // TODO
+  frFR: 'Dégâts min. améliorés de %+d%%', // TODO
+  itIT: '%+d%% danni minimi', // TODO
+  koKR: '최소 피해 %+d%% 증가', // TODO
+  plPL: '%+d%% do minimalnych obrażeń', // TODO
+  esMX: '%+d%% de daño mínimo mejorado', // TODO
+  jaJP: '最小ダメージ強化（%+d%%）', // TODO
+  ptBR: '%+d%% de dano mínimo aprimorado', // TODO
+  ruRU: '%+d%% к минимальному урону', // TODO
+  zhCN: '%+d%% 强化最小伤害', // TODO
+});
+itemModifiers.push({
+  id: D2RMM.getNextStringID(),
+  Key: 'MeleeMaxDamagePercent',
+  enUS: '%+d%% Enhanced Maximum Melee Damage',
+  zhTW: '%+d%% 最大傷害強化', // TODO
+  deDE: '%+d%% Verbesserter max. Schaden', // TODO
+  esES: '%+d%% de daño máximo mejorado', // TODO
+  frFR: 'Dégâts max. améliorés de %+d%%', // TODO
+  itIT: '%+d%% danni massimi', // TODO
+  koKR: '최대 피해 %+d%% 증가', // TODO
+  plPL: '%+d%% do maksymalnych obrażeń', // TODO
+  esMX: '%+d%% de daño máximo mejorado', // TODO
+  jaJP: '最大ダメージ強化（%+d%%）', // TODO
+  ptBR: '%+d%% de dano máximo aprimorado', // TODO
+  ruRU: '%+d%% к максимальному урону', // TODO
+  zhCN: '%+d%% 强化最大伤害', // TODO
+});
 D2RMM.writeJson(itemModifiersFilename, itemModifiers);
+
+if (config.unique) {
+  // TODO: unique small charm in Gheed's shop
+}
+
+// TODO: option to randomly spanw affixed on weapons
+// TODO: option to add affix to select unique / set / runeword weapons (that are intended for melee damage dealers)

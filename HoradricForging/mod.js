@@ -78,7 +78,7 @@ if (config.reforge) {
           'input 2': rune,
           output: `usetype,${ethereal},${toRarity}`,
           ilvl: 100, // preserve item level
-          '*eol\n': 0,
+          '*eol\r': 0,
         };
         if (config.freeReforge) {
           recipe['output b'] = rune;
@@ -108,7 +108,7 @@ if (config.reroll) {
             'input 2': rune,
             output: `usetype,${rarity},${ethereal}`,
             ilvl: 100, // preserve item level
-            '*eol\n': 0,
+            '*eol\r': 0,
           };
           if (config.freeReroll) {
             recipe['output b'] = rune;
@@ -142,7 +142,7 @@ if (config.ethereal) {
             'input 2': rune,
             output: `usetype,${rarity},${toEthereal}`,
             ilvl: 100, // preserve item level
-            '*eol\n': 0,
+            '*eol\r': 0,
           };
           if (config.freeEthereal) {
             recipe['output b'] = rune;
@@ -175,7 +175,7 @@ if (config.relevel) {
               'input 2': rune,
               output: `usetype,${etherealType},${rarity}`,
               lvl,
-              '*eol\n': 0,
+              '*eol\r': 0,
             };
             if (config.freeRelevel) {
               recipe['output b'] = rune;
@@ -189,3 +189,17 @@ if (config.relevel) {
 }
 
 D2RMM.writeTsv(cubemainFilename, cubemain);
+
+if (config.nolimit || config.nolevel) {
+  const uniqueitemsFilename = 'global\\excel\\uniqueitems.txt';
+  const uniqueitems = D2RMM.readTsv(uniqueitemsFilename);
+  uniqueitems.rows.forEach((row) => {
+    if (config.nolevel && row.lvl > 99 && row['lvl req'] <= 99) {
+      row.lvl = row['lvl req'];
+    }
+    if (config.nolimit) {
+      row.nolimit = 1;
+    }
+  });
+  D2RMM.writeTsv(uniqueitemsFilename, uniqueitems);
+}

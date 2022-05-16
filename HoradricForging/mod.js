@@ -15,7 +15,7 @@ const RARITY_LABEL = {
 
 const ETHEREAL_LABEL = {
   eth: 'ethereal',
-  noe: 'normal',
+  noe: 'non-ethereal',
 };
 
 const TYPE_LABEL = {
@@ -29,7 +29,7 @@ const TYPE_LABEL = {
   jewl: 'jewel',
 };
 
-const VALID_TYPES = {
+const VALID_TYPES_FOR_RARITY = {
   low: ['armo', 'weap'],
   nor: ['armo', 'weap'],
   hiq: ['armo', 'weap'],
@@ -39,36 +39,41 @@ const VALID_TYPES = {
   set: ['armo', 'weap', 'ring', 'amul'],
   crf: ['armo', 'weap', 'ring', 'amul'],
   tmp: ['armo', 'weap', 'ring', 'amul'],
-  eth: ['armo','weap'],
 };
+
+function getEtherealValues(type) {
+  if (['armo', 'weap'].includes(type)) {
+    return ['eth', 'noe'];
+  }
+  return ['noe'];
+}
 
 if (config.reforge) {
   const rune = config.reforgeIngredient;
 
-  ['eth', 'noe'].forEach(
-  (etherealType) => {
-	const etherealLabel = ETHEREAL_LABEL[etherealType];
-    [
-      ['low', 'nor'],
-      ['nor', 'hiq'],
-      ['hiq', 'nor'],
-      ['mag', 'nor'],
-      ['rar', 'nor'],
-      ['crf', 'nor'],
-      ['tmp', 'nor'],
-    ].forEach(([fromRarity, toRarity]) => {
-      const fromRarityLabel = RARITY_LABEL[fromRarity];
-      const toRarityLabel = RARITY_LABEL[toRarity];
-      VALID_TYPES[fromRarity].forEach((type) => {
-        const typeLabel = TYPE_LABEL[type];
+  [
+    ['low', 'nor'],
+    ['nor', 'hiq'],
+    ['hiq', 'nor'],
+    ['mag', 'nor'],
+    ['rar', 'nor'],
+    ['crf', 'nor'],
+    ['tmp', 'nor'],
+  ].forEach(([fromRarity, toRarity]) => {
+    const fromRarityLabel = RARITY_LABEL[fromRarity];
+    const toRarityLabel = RARITY_LABEL[toRarity];
+    VALID_TYPES_FOR_RARITY[fromRarity].forEach((type) => {
+      const typeLabel = TYPE_LABEL[type];
+      getEtherealValues(type).forEach((ethereal) => {
+        const etherealLabel = ETHEREAL_LABEL[ethereal];
         const recipe = {
-          description: `Convert ${etherealLabel} ${fromRarityLabel} ${typeLabel} to ${toRarityLabel}`,
+          description: `Convert ${fromRarityLabel} ${etherealLabel} ${typeLabel} to ${toRarityLabel}`,
           enabled: 1,
           version: 100,
           numinputs: 2,
-          'input 1': `${type},${etherealType},${fromRarity}`,
+          'input 1': `${type},${ethereal},${fromRarity}`,
           'input 2': rune,
-          output: `usetype,${etherealType},${toRarity}`,
+          output: `usetype,${ethereal},${toRarity}`,
           ilvl: 100, // preserve item level
           '*eol\n': 0,
         };
@@ -81,87 +86,85 @@ if (config.reforge) {
   });
 }
 
-if (config.ethereal) {
-  const rune = config.etherealIngredient;
-
-  [
-    ['eth', 'noe'],
-    ['noe', 'eth'],
-  ].forEach(([ethFrom, ethTo]) => {
-	const ethFromLabel = ETHEREAL_LABEL[ethFrom];
-    const ethToLabel = ETHEREAL_LABEL[ethTo];
-    ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
-      (rarity) => {
-        const rarityLabel = RARITY_LABEL[rarity];
-        VALID_TYPES['eth'].forEach((type) => {
-          const typeLabel = TYPE_LABEL[type];
-          const recipe = {
-            description: `Convert ${ethFromLabel} ${rarityLabel} ${typeLabel} to ${ethToLabel}`,
-            enabled: 1,
-            version: 100,
-            numinputs: 2,
-            'input 1': `${type},${rarity},${ethFrom}`,
-            'input 2': rune,
-            output: `usetype,${rarity},${ethTo}`,
-            ilvl: 100, // preserve item level
-            '*eol\n': 0,
-          };
-          if (config.freeReforge) {
-            recipe['output b'] = rune;
-          }
-          cubemain.rows.push(recipe);
-        });
-      }
-    );
-  });
-}
-
 if (config.reroll) {
   const rune = config.rerollIngredient;
 
-  ['eth', 'noe'].forEach(
-  (etherealType) => {
-	const etherealLabel = ETHEREAL_LABEL[etherealType];
-    ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
-      (rarity) => {
-        const rarityLabel = RARITY_LABEL[from];
-        VALID_TYPES[rarity].forEach((type) => {
-          const typeLabel = TYPE_LABEL[type];
+  ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
+    (rarity) => {
+      const rarityLabel = RARITY_LABEL[rarity];
+      VALID_TYPES_FOR_RARITY[rarity].forEach((type) => {
+        const typeLabel = TYPE_LABEL[type];
+        getEtherealValues(type).forEach((ethereal) => {
+          const etherealLabel = ETHEREAL_LABEL[ethereal];
           const recipe = {
             description: `Reroll stats of ${etherealLabel} ${rarityLabel} ${typeLabel}`,
             enabled: 1,
             version: 100,
             numinputs: 2,
-            'input 1': `${type},${rarity},${etherealType}`,
+            'input 1': `${type},${rarity},${ethereal}`,
             'input 2': rune,
-            output: `usetype,${rarity},${etherealType}`,
+            output: `usetype,${rarity},${ethereal}`,
             ilvl: 100, // preserve item level
             '*eol\n': 0,
           };
-          if (true) {
+          if (config.freeReroll) {
             recipe['output b'] = rune;
           }
           cubemain.rows.push(recipe);
         });
-      }
-    )
-  });
+      });
+    }
+  );
+}
+
+if (config.ethereal) {
+  const rune = config.etherealIngredient;
+
+  ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
+    (rarity) => {
+      const rarityLabel = RARITY_LABEL[from];
+      VALID_TYPES_FOR_RARITY[rarity]
+        .filter((type) => getEtherealValues(type).length > 1)
+        .forEach((type) => {
+          const typeLabel = TYPE_LABEL[type];
+          getEtherealValues(type).forEach((fromEthereal) => {
+            const toEthereal = fromEthereal === 'eth' ? 'noe' : 'eth';
+            const fromEtherealLabel = ETHEREAL_LABEL[fromEthereal];
+            const toEtherealLabel = ETHEREAL_LABEL[toEthereal];
+            const recipe = {
+              description: `Toggle ethereal status of ${fromEtherealLabel} ${rarityLabel} ${typeLabel} to ${toEtherealLabel}`,
+              enabled: 1,
+              version: 100,
+              numinputs: 2,
+              'input 1': `${type},${rarity},${fromEthereal}`,
+              'input 2': rune,
+              output: `usetype,${rarity},${toEthereal}`,
+              ilvl: 100, // preserve item level
+              '*eol\n': 0,
+            };
+            if (config.freeEthereal) {
+              recipe['output b'] = rune;
+            }
+            cubemain.rows.push(recipe);
+          });
+        });
+    }
+  );
 }
 
 if (config.relevel) {
-  ['eth', 'noe'].forEach(
-  (etherealType) => {
-	const etherealLabel = ETHEREAL_LABEL[etherealType];
-    [
-      [config.relevelIngredient25, 25],
-      [config.relevelIngredient40, 40],
-      [config.relevelIngredient99, 99],
-    ].forEach(([rune, lvl]) => {
-      ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
-        (rarity) => {
-          const rarityLabel = RARITY_LABEL[from];
-          VALID_TYPES[rarity].forEach((type) => {
-            const typeLabel = TYPE_LABEL[type];
+  [
+    [config.relevelIngredient25, 25],
+    [config.relevelIngredient40, 40],
+    [config.relevelIngredient99, 99],
+  ].forEach(([rune, lvl]) => {
+    ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'set', 'crf', 'tmp'].forEach(
+      (rarity) => {
+        const rarityLabel = RARITY_LABEL[rarity];
+        VALID_TYPES_FOR_RARITY[rarity].forEach((type) => {
+          const typeLabel = TYPE_LABEL[type];
+          getEtherealValues(type).forEach((etherealType) => {
+            const etherealLabel = ETHEREAL_LABEL[etherealType];
             const recipe = {
               description: `Set item level of ${etherealLabel} ${rarityLabel} ${typeLabel} to ${lvl}`,
               enabled: 1,
@@ -178,9 +181,9 @@ if (config.relevel) {
             }
             cubemain.rows.push(recipe);
           });
-        }
-      );
-    });
+        });
+      }
+    );
   });
 }
 

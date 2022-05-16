@@ -65,7 +65,7 @@
       "id": "reroll",
       "type": "checkbox",
       "name": "Allow Rerolling",
-      "description": "Cube an item with an rune to reroll it with random stats (preserving the same quality).",
+      "description": "Cube an item with a rune to reroll it with random stats (preserving the same quality).",
       "defaultValue": true
     },
     {
@@ -120,15 +120,15 @@
     {
       "id": "ethereal",
       "type": "checkbox",
-      "name": "Allow toggling Ethereal status",
-      "description": "Cube an item with an rune to toggle ethereal status for item.",
+      "name": "Allow Toggling Ethereal Status",
+      "description": "Cube an item with a rune to toggle its ethereal status.",
       "defaultValue": true
     },
     {
       "id": "etherealIngredient",
       "type": "select",
-      "name": "Ethereal Rune",
-      "description": "The rune that's required as an ingredient when toggling ethereal.",
+      "name": "Toggling Ethereal Status Rune",
+      "description": "The rune that's required as an ingredient when toggling ethereal status.",
       "defaultValue": "r23",
       "options": [
         { "value": "r01", "label": "El Rune (1)" },
@@ -169,8 +169,8 @@
     {
       "id": "freeEthereal",
       "type": "checkbox",
-      "name": "Free ethereal toggle",
-      "description": "Do not consume the rune when toggling ethereal.",
+      "name": "Free Toggling Ethereal Status",
+      "description": "Do not consume the rune when toggling ethereal status.",
       "defaultValue": false
     },
     {

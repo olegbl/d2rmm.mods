@@ -15,13 +15,13 @@ if (config.unsocket) {
   cubemain.rows.push({
     ...unsocketRecipe,
     description: `${unsocketRecipe.description} On Armor`,
-    'input 1': `"armo,sock=${sockets}"`,
+    'input 1': `"armo,sock"`,
   });
 
   cubemain.rows.push({
     ...unsocketRecipe,
     description: `${unsocketRecipe.description} On Weapon`,
-    'input 1': `"weap,sock=${sockets}"`,
+    'input 1': `"weap,sock"`,
   });
 }
 for (let sockets = 1; sockets <= 6; sockets = sockets + 1) {

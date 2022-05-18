@@ -74,9 +74,9 @@ if (config.reforge) {
           enabled: 1,
           version: 100,
           numinputs: 2,
-          'input 1': `${type},${ethereal},${fromRarity}`,
+          'input 1': `${type},${fromRarity},${ethereal}`,
           'input 2': rune,
-          output: `usetype,${ethereal},${toRarity}`,
+          output: `usetype,${toRarity},${ethereal}`,
           ilvl: 100, // preserve item level
           '*eol\r': 0,
         };
@@ -106,8 +106,7 @@ if (config.reroll) {
             numinputs: 2,
             'input 1': `${type},${rarity},${ethereal}`,
             'input 2': rune,
-            output: `usetype,${rarity},${ethereal}`,
-            ilvl: 100, // preserve item level
+            output: `useitem${ethereal === 'eth' ? ',eth' : ''},reg`,
             '*eol\r': 0,
           };
           if (config.freeReroll) {
@@ -124,7 +123,7 @@ if (config.ethereal) {
   const rune = config.etherealIngredient;
 
   ['low', 'nor', 'hiq', 'mag', 'rar', 'uni', 'crf', 'tmp'].forEach((rarity) => {
-    const rarityLabel = RARITY_LABEL[from];
+    const rarityLabel = RARITY_LABEL[rarity];
     VALID_TYPES_FOR_RARITY[rarity]
       .filter((type) => getEtherealValues(type, rarity).length > 1)
       .forEach((type) => {
@@ -133,7 +132,7 @@ if (config.ethereal) {
           const toEthereal = fromEthereal === 'eth' ? 'noe' : 'eth';
           const fromEtherealLabel = ETHEREAL_LABEL[fromEthereal];
           const toEtherealLabel = ETHEREAL_LABEL[toEthereal];
-          const recipe = {
+          let recipe = {
             description: `Toggle ethereal status of ${fromEtherealLabel} ${rarityLabel} ${typeLabel} to ${toEtherealLabel}`,
             enabled: 1,
             version: 100,
@@ -144,6 +143,19 @@ if (config.ethereal) {
             ilvl: 100, // preserve item level
             '*eol\r': 0,
           };
+          // if we're making the item ethereal, there's a special property we can use
+          // that allows us to use "useitem" rather than "usetype" and thus preserve
+          // the item's mods, sockets, etc...
+          // unfortunately, nothing like this exists for turning an item non-ethereal
+          if (fromEthereal === 'noe') {
+            recipe = {
+              ...recipe,
+              output: 'useitem',
+              'mod 1': 'ethereal',
+              'mod 1 min': 1,
+              'mod 1 max': 1,
+            };
+          }
           if (config.freeEthereal) {
             recipe['output b'] = rune;
           }

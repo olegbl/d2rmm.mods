@@ -6,6 +6,14 @@ if (D2RMM.getVersion == null || D2RMM.getVersion() < 1.4) {
 const isDamageReductionEnabled = config.damageReduction > 0;
 const damageInArea = Math.max(1, Math.min(100, Math.round(config.damage)));
 
+function getDamageReduction(chance) {
+  const bonusDamageRatio = (damageInArea / 100) * (chance / 100);
+  const totalDamageRatio = 1 + bonusDamageRatio;
+  const normalDamageRatio = 1 / totalDamageRatio;
+  const damageReduction = (1 - normalDamageRatio) * config.damageReduction;
+  return Math.max(0, Math.round(damageReduction));
+}
+
 const itemstatcostFilename = 'global\\excel\\itemstatcost.txt';
 const itemstatcost = D2RMM.readTsv(itemstatcostFilename);
 let itemstatcostID = Math.max(...itemstatcost.rows.map((row) => row['*ID']));
@@ -155,11 +163,7 @@ if (config.scha || config.mcha || config.lcha) {
         {}
       );
 
-    const bonusDamageRatio = (damageInArea / 100) * (chance / 100);
-    const totalDamageRatio = 1 + bonusDamageRatio;
-    const normalDamageRatio = 1 / totalDamageRatio;
-    const damageReduction = (1 - normalDamageRatio) * config.damageReduction;
-    const normalizedDamageReduction = Math.max(0, Math.round(damageReduction));
+    const damageReduction = getDamageReduction(chance);
 
     magicsuffix.rows.push({
       Name: 'of Area Damage', // links with item-nameaffixes.json
@@ -175,11 +179,11 @@ if (config.scha || config.mcha || config.lcha) {
       mod1min: chance, // % Chance (If 0, then default to 5)
       mod1max: 1, // Skill Level
       mod2code: 'dmg%-melee-min',
-      mod2min: -normalizedDamageReduction,
-      mod2max: -normalizedDamageReduction,
+      mod2min: -damageReduction,
+      mod2max: -damageReduction,
       mod3code: 'dmg%-melee-max',
-      mod3min: -normalizedDamageReduction,
-      mod3max: -normalizedDamageReduction,
+      mod3min: -damageReduction,
+      mod3max: -damageReduction,
       transformcolor: 'blac', // doesn't matter for charms
       multiply: 0, // item price multiplier
       add: 0, // item price modifier
@@ -418,8 +422,87 @@ itemModifiers.push({
 D2RMM.writeJson(itemModifiersFilename, itemModifiers);
 
 if (config.unique) {
-  // TODO: unique small charm in Gheed's shop
+  const miscFilename = 'global\\excel\\misc.txt';
+  const misc = D2RMM.readTsv(miscFilename);
+  misc.rows.push({
+    ...misc.rows.find((row) => row.name === 'Small Charm'),
+    name: 'Charm of Area Damage',
+    level: 1,
+    code: 'cm0',
+    unique: 1,
+    cost: 0,
+    'gamble cost': 0,
+    GheedMin: 1,
+    GheedMax: 1,
+    GheedMagicMin: 1,
+    GheedMagicMax: 1,
+    GheedMagicLevel: 255,
+    PermStoreItem: 1,
+    multibuy: 1,
+    NightmareUpgrade: 'xxx',
+    HellUpgrade: 'xxx',
+  });
+  D2RMM.writeTsv(miscFilename, misc);
+
+  const uniqueitemsFilename = 'global\\excel\\uniqueitems.txt';
+  const uniqueitems = D2RMM.readTsv(uniqueitemsFilename);
+  const damageReduction = getDamageReduction(100);
+  uniqueitems.rows.push({
+    ...uniqueitems.rows.find((row) => row.index === 'Annihilus'),
+    index: 'Charm of Area Damage', // links with item-names.json
+    '*ID': Math.max(...uniqueitems.rows.map((row) => row['*ID'])),
+    'lvl req': 1,
+    code: 'cm0', // need a new code so it can be sold in shop
+    'cost mult': 1,
+    'cost add': 1,
+    prop1: 'dmg-meleearea', // links with properties.txt
+    par1: 'Melee Area Damage', // links with skills.txt
+    min1: 100, // % Chance (If 0, then default to 5)
+    max1: 1, // Skill Level
+    prop2: 'dmg%-melee-min',
+    par2: null,
+    min2: -damageReduction,
+    max2: -damageReduction,
+    prop3: 'dmg%-melee-max',
+    par3: null,
+    min3: -damageReduction,
+    max3: -damageReduction,
+    prop4: null,
+    par4: null,
+    min4: null,
+    max4: null,
+    '*eol\r': 0,
+  });
+  D2RMM.writeTsv(uniqueitemsFilename, uniqueitems);
+
+  const itemsFilename = 'hd\\items\\items.json';
+  const items = D2RMM.readJson(itemsFilename);
+  items.push({
+    cm0: { asset: 'charm/charm_small' },
+  });
+  D2RMM.writeJson(itemsFilename, items);
+
+  const itemNamesFilename = 'local\\lng\\strings\\item-names.json';
+  const itemNames = D2RMM.readJson(itemNamesFilename);
+  itemNames.push({
+    id: D2RMM.getNextStringID(),
+    Key: 'Charm of Area Damage',
+    enUS: 'Charm of Area Damage',
+    zhTW: '滅絕', // TODO
+    deDE: 'Vernichtikus', // TODO
+    esES: 'Annihilus', // TODO
+    frFR: 'Annihilus', // TODO
+    itIT: 'Annichilus', // TODO
+    koKR: '어나이얼러스', // TODO
+    plPL: 'Annihilus', // TODO
+    esMX: 'Annihilus', // TODO
+    jaJP: 'アニヒラス', // TODO
+    ptBR: 'Annihilus', // TODO
+    ruRU: 'Аннигилюс', // TODO
+    zhCN: '毁灭', // TODO
+  });
+  D2RMM.writeJson(itemNamesFilename, itemNames);
 }
 
-// TODO: option to randomly spanw affixed on weapons
+// TODO: option to randomly spawn affixed on weapons
 // TODO: option to add affix to select unique / set / runeword weapons (that are intended for melee damage dealers)

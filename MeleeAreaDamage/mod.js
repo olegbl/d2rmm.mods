@@ -5,9 +5,6 @@ if (D2RMM.getVersion == null || D2RMM.getVersion() < 1.4) {
 
 const isDamageReductionEnabled = config.damageReduction > 0;
 const damageInArea = Math.max(1, Math.min(100, Math.round(config.damage)));
-const damageReduction = Math.round(
-  (100 - (100 / (100 + damageInArea)) * 100) * (config.damageReduction / 100)
-);
 
 const itemstatcostFilename = 'global\\excel\\itemstatcost.txt';
 const itemstatcost = D2RMM.readTsv(itemstatcostFilename);
@@ -158,6 +155,12 @@ if (config.scha || config.mcha || config.lcha) {
         {}
       );
 
+    const bonusDamageRatio = (damageInArea / 100) * (chance / 100);
+    const totalDamageRatio = 1 + bonusDamageRatio;
+    const normalDamageRatio = 1 / totalDamageRatio;
+    const damageReduction = (1 - normalDamageRatio) * config.damageReduction;
+    const normalizedDamageReduction = Math.max(0, Math.round(damageReduction));
+
     magicsuffix.rows.push({
       Name: 'of Area Damage', // links with item-nameaffixes.json
       version: 1, // availabe in both Classic and LoD
@@ -172,11 +175,11 @@ if (config.scha || config.mcha || config.lcha) {
       mod1min: chance, // % Chance (If 0, then default to 5)
       mod1max: 1, // Skill Level
       mod2code: 'dmg%-melee-min',
-      mod2min: -damageReduction,
-      mod2max: -damageReduction,
+      mod2min: -normalizedDamageReduction,
+      mod2max: -normalizedDamageReduction,
       mod3code: 'dmg%-melee-max',
-      mod3min: -damageReduction,
-      mod3max: -damageReduction,
+      mod3min: -normalizedDamageReduction,
+      mod3max: -normalizedDamageReduction,
       transformcolor: 'blac', // doesn't matter for charms
       multiply: 0, // item price multiplier
       add: 0, // item price modifier

@@ -185,10 +185,9 @@ if (config.scha || config.mcha || config.lcha) {
 
 const skillsFilename = 'global\\excel\\skills.txt';
 const skills = D2RMM.readTsv(skillsFilename);
-const skillsID = Math.max(...skills.rows.map((row) => row['*Id']));
 skills.rows.push({
   skill: 'Melee Area Damage', // links with missiles.txt
-  '*Id': skillsID + 1,
+  '*Id': Math.max(...skills.rows.map((row) => row['*Id'])) + 1,
   srvdofunc: 68, // shout nova
   cltdofunc: 25, // nova
   srvmissilea: 'meleeareadamage', // links with missiles.txt
@@ -222,11 +221,10 @@ D2RMM.writeTsv(skillsFilename, skills);
 
 const missilesFilename = 'global\\excel\\missiles.txt';
 const missiles = D2RMM.readTsv(missilesFilename);
-const missilesID = Math.max(...missiles.rows.map((row) => row['*ID']));
 missiles.rows.push({
   // based on "frostnova" and "warcry"
   Missile: 'meleeareadamage',
-  '*ID': missilesID + 1,
+  '*ID': Math.max(...missiles.rows.map((row) => row['*ID'])) + 1,
   pCltDoFunc: 1,
   pCltHitFunc: 10,
   pSrvDoFunc: 1,
@@ -438,8 +436,9 @@ if (config.unique) {
   uniqueitems.rows.push({
     ...uniqueitems.rows.find((row) => row.index === 'Annihilus'),
     index: 'Charm of Melee Area Damage', // links with item-names.json
-    '*ID': Math.max(...uniqueitems.rows.map((row) => row['*ID'])),
-    'lvl req': 1,
+    '*ID': Math.max(...uniqueitems.rows.map((row) => row['*ID'])) + 1,
+    lvl: 1, // need to be low level in order for Gheed to be able to sell it
+    'lvl req': 1, // needs to be low level in order to be useable
     code: 'cm0', // need a new code so it can be sold in shop
     'cost mult': 1,
     'cost add': 1,

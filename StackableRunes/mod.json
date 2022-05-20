@@ -3,8 +3,24 @@
   "description": "Adds another variation of runes that can stack together. Transmute a rune in the Cube to convert it between the two variants. Based on https://www.nexusmods.com/diablo2resurrected/mods/80 and https://www.nexusmods.com/diablo2resurrected/mods/77.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/170",
-  "version": "1.6",
+  "version": "1.7",
   "config": [
+    {
+      "id": "default",
+      "type": "checkbox",
+      "name": "Default to Stackable",
+      "description": "Enable to have the stackable variant be the default (e.g. items will drop as stackable).",
+      "defaultValue": true
+    },
+    {
+      "id": "maxStack",
+      "type": "number",
+      "name": "Maximum Stack Size",
+      "description": "The maximum quantity that each stack can have.",
+      "defaultValue": 500,
+      "minValue": 2,
+      "maxValue": 1000
+    },
     {
       "id": "usenewsprites",
       "type": "checkbox",

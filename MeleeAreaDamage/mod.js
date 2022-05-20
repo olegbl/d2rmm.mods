@@ -126,18 +126,6 @@ properties.rows.push({
 });
 D2RMM.writeTsv(propertiesFilename, properties);
 
-// unlike dmg%, we do not want to use op = 13 because
-// func = 7 that dmg% uses doesn't seem to allow negative values
-
-// 11 - adds [color=#80FFBF]opstat.base * statvalue / 100[/color]
-// similar to 1 and 13, the code just does a few more checks
-
-// 13 - adds [color=#80FFBF]opstat.base * statvalue / 100[/color]
-// to the value of [b][color=#FFBF00]opstat[/color][/b],
-// this is useable only on items it will not apply the bonus to
-// other unit types (this is why it is used for +% durability, +%
-// level requirement, +% damage, +% defense [etc]
-
 if (config.scha || config.mcha || config.lcha) {
   const magicsuffixFilename = 'global\\excel\\magicsuffix.txt';
   const magicsuffix = D2RMM.readTsv(magicsuffixFilename);

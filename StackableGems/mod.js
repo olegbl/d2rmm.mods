@@ -65,18 +65,20 @@ itemtypes.rows.forEach((itemtype) => {
 });
 D2RMM.writeTsv(itemtypesFilename, itemtypes);
 
-const treasureclassexFilename = 'global\\excel\\treasureclassex.txt';
-const treasureclassex = D2RMM.readTsv(treasureclassexFilename);
-treasureclassex.rows.forEach((treasureclass) => {
-  treasureclass.Item1 = converItemTypeToStackItemType(treasureclass.Item1);
-  treasureclass.Item2 = converItemTypeToStackItemType(treasureclass.Item2);
-  treasureclass.Item3 = converItemTypeToStackItemType(treasureclass.Item3);
-  treasureclass.Item4 = converItemTypeToStackItemType(treasureclass.Item4);
-  treasureclass.Item5 = converItemTypeToStackItemType(treasureclass.Item5);
-  treasureclass.Item6 = converItemTypeToStackItemType(treasureclass.Item6);
-  treasureclass.Item7 = converItemTypeToStackItemType(treasureclass.Item7);
-});
-D2RMM.writeTsv(treasureclassexFilename, treasureclassex);
+if (config.default) {
+  const treasureclassexFilename = 'global\\excel\\treasureclassex.txt';
+  const treasureclassex = D2RMM.readTsv(treasureclassexFilename);
+  treasureclassex.rows.forEach((treasureclass) => {
+    treasureclass.Item1 = converItemTypeToStackItemType(treasureclass.Item1);
+    treasureclass.Item2 = converItemTypeToStackItemType(treasureclass.Item2);
+    treasureclass.Item3 = converItemTypeToStackItemType(treasureclass.Item3);
+    treasureclass.Item4 = converItemTypeToStackItemType(treasureclass.Item4);
+    treasureclass.Item5 = converItemTypeToStackItemType(treasureclass.Item5);
+    treasureclass.Item6 = converItemTypeToStackItemType(treasureclass.Item6);
+    treasureclass.Item7 = converItemTypeToStackItemType(treasureclass.Item7);
+  });
+  D2RMM.writeTsv(treasureclassexFilename, treasureclassex);
+}
 
 const miscFilename = 'global\\excel\\misc.txt';
 const misc = D2RMM.readTsv(miscFilename);
@@ -90,7 +92,7 @@ misc.rows.forEach((item) => {
       code: converItemTypeToStackItemType(item.code),
       stackable: 1,
       minstack: 1,
-      maxstack: 500,
+      maxstack: config.maxStack,
       spawnstack: 1,
       spelldesc: 2,
       spelldescstr: 'StackableGem',
@@ -159,7 +161,7 @@ if (config.convertWhenDestacking) {
   for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
     const itemtype = ITEM_TYPES[i];
     const stacktype = converItemTypeToStackItemType(itemtype);
-    for (let j = 2; j <= 500; j = j + 1) {
+    for (let j = 2; j <= config.maxStack; j = j + 1) {
       cubemain.rows.push({
         description: `Stack of ${j} ${itemtype} -> Stack of ${
           j - 1
@@ -184,7 +186,7 @@ else if (
     (row) => row.description === 'Stack of 2 -> Stack of 1 and Stack of 1'
   ) == null
 ) {
-  for (let i = 2; i <= 500; i = i + 1) {
+  for (let i = 2; i <= config.maxStack; i = i + 1) {
     cubemain.rows.push({
       description: `Stack of ${i} -> Stack of ${i - 1} and Stack of 1`,
       enabled: 1,

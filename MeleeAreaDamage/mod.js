@@ -98,7 +98,7 @@ properties.rows.push({
   '*Enabled': 1,
   func1: 11, // event-based skills
   stat1: 'item_meleeareadamage', // linked with itemstatcost.txt
-  '*Tooltip': '#% Chance of Area Damage',
+  '*Tooltip': '#% Chance of Melee Area Damage',
   '*Parameter': 'Skill',
   '*Min': '% Chance (If 0, then default to 5)',
   '*Max': 'Skill Level',
@@ -166,7 +166,7 @@ if (config.scha || config.mcha || config.lcha) {
     const damageReduction = getDamageReduction(chance);
 
     magicsuffix.rows.push({
-      Name: 'of Area Damage', // links with item-nameaffixes.json
+      Name: 'of Melee Area Damage', // links with item-nameaffixes.json
       version: 1, // availabe in both Classic and LoD
       spawnable: 1, // can spawn
       rare: 1, // can appear on both magic and rare items
@@ -242,12 +242,12 @@ missiles.rows.push({
   pCltDoFunc: 1,
   pCltHitFunc: 10,
   pSrvDoFunc: 1,
-  // about 48 pixels total makes the area damage apply to enemies nearby
+  // about 48 (6 * 4 * 2) pixels total makes the area damage apply to enemies nearby
   // the enemy that was hit but not other enemies nearby the character
   Vel: 6, // pixels / frame
   MaxVel: 6, // pixels / frame
   Accel: 0, // pixels / frame / frame
-  Range: 8, // number of frames
+  Range: 4 * Math.max(1, Math.round(config.radius)), // number of frames
   Red: 192,
   Green: 192,
   Blue: 192,
@@ -349,20 +349,20 @@ const itemNameAffixesFilename = 'local\\lng\\strings\\item-nameaffixes.json';
 const itemNameAffixes = D2RMM.readJson(itemNameAffixesFilename);
 itemNameAffixes.push({
   id: D2RMM.getNextStringID(),
-  Key: 'of Area Damage',
-  enUS: 'of Area Damage',
-  zhTW: '穿透之', // TODO
-  deDE: 'des Durchstoßens', // TODO
-  esES: 'de perforación', // TODO
-  frFR: 'd’empalement', // TODO
-  itIT: 'della Penetrazione', // TODO
-  koKR: '관통의', // TODO
-  plPL: 'Przeszycia', // TODO
-  esMX: 'de penetración', // TODO
-  jaJP: '貫通の', // TODO
-  ptBR: 'da Furação', // TODO
-  ruRU: 'пронзания', // TODO
-  zhCN: '刺穿之', // TODO
+  Key: 'of Melee Area Damage',
+  enUS: 'of Melee Area Damage',
+  zhTW: '近战范围伤害',
+  deDE: 'des Nahkampfbereichsschadens',
+  esES: 'de daño en el área cuerpo a cuerpo',
+  frFR: 'de dégâts de zone de mêlée',
+  itIT: 'del danno ad area da mischia',
+  koKR: '근접 지역 피해',
+  plPL: 'uszkodzenie obszaru walki wręcz',
+  esMX: 'de daño en el área cuerpo a cuerpo',
+  jaJP: '近接エリアのダメージ',
+  ptBR: 'de dano de área corpo a corpo',
+  ruRU: 'ближнего боя по области',
+  zhCN: '近战范围伤害',
 });
 D2RMM.writeJson(itemNameAffixesFilename, itemNameAffixes);
 
@@ -371,53 +371,53 @@ const itemModifiers = D2RMM.readJson(itemModifiersFilename);
 itemModifiers.push({
   id: D2RMM.getNextStringID(),
   Key: 'MeleeAreaDamage',
-  enUS: '%d%% Chance of Area Damage',
-  zhTW: '%d%% 機率造成粉碎打擊', // TODO
-  deDE: '%d%% Chance auf vernichtenden Schlag', // TODO
-  esES: '%d%% de probabilidad de ataque aplastante', // TODO
-  frFR: '%d%% de chances de coups écrasants', // TODO
-  itIT: 'Probabilità di colpo frantumante aumentata del %d%%', // TODO
-  koKR: '강타 확률 %d%%', // TODO
-  plPL: '%d%% szansy na druzgocące uderzenie', // TODO
-  esMX: '%d%% de probabilidad de golpe aplastante', // TODO
-  jaJP: 'クラッシング・ブロー（%d%%の確率）', // TODO
-  ptBR: '%d%% de chance de Golpe Esmagador', // TODO
-  ruRU: 'Вероятность %d%% нанести сокрушительный удар', // TODO
-  zhCN: '%d%% 几率粉碎打击', // TODO
+  enUS: '%d%% Chance of Melee Area Damage',
+  zhTW: '%d%% 有机会造成近战区域伤害',
+  deDE: '%d%% Chance auf Nahkampfbereichsschadens',
+  esES: '%d%% de probabilidad de daño en el área cuerpo a cuerpo',
+  frFR: '%d%% de chances de dégâts de zone de mêlée',
+  itIT: 'Probabilità del danno ad area da mischia del %d%%',
+  koKR: '근접 지역 피해 확률 %d%%',
+  plPL: '%d%% szansy na uszkodzenie obszaru walki wręcz',
+  esMX: '%d%% de probabilidad de daño en el área cuerpo a cuerpo',
+  jaJP: '近接エリアのダメージ（%d%%の確率）',
+  ptBR: '%d%% de chance de dano de área corpo a corpo',
+  ruRU: 'Вероятность %d%% нанести удар ближнего боя по области',
+  zhCN: '%d%% 有机会造成近战区域伤害',
 });
 itemModifiers.push({
   id: D2RMM.getNextStringID(),
   Key: 'MeleeMinDamagePercent',
   enUS: '%+d%% Enhanced Minimum Melee Damage',
-  zhTW: '%+d%% 最小傷害強化', // TODO
-  deDE: '%+d%% Verbesserter min. Schaden', // TODO
-  esES: '%+d%% de daño mínimo mejorado', // TODO
-  frFR: 'Dégâts min. améliorés de %+d%%', // TODO
-  itIT: '%+d%% danni minimi', // TODO
-  koKR: '최소 피해 %+d%% 증가', // TODO
-  plPL: '%+d%% do minimalnych obrażeń', // TODO
-  esMX: '%+d%% de daño mínimo mejorado', // TODO
-  jaJP: '最小ダメージ強化（%+d%%）', // TODO
-  ptBR: '%+d%% de dano mínimo aprimorado', // TODO
-  ruRU: '%+d%% к минимальному урону', // TODO
-  zhCN: '%+d%% 强化最小伤害', // TODO
+  zhTW: '%+d%% 提高近战最低伤害',
+  deDE: '%+d%% Verbesserter min. Nahkampfschaden',
+  esES: '%+d%% de daño mínimo cuerpo a cuerpo mejorado',
+  frFR: 'Dégâts de mêlée min. améliorés de %+d%%',
+  itIT: '%+d%% danni minimi in mischia',
+  koKR: '최소 근접 피해 %+d%% 증가',
+  plPL: '%+d%% do minimalnych obrażeń w walce wręcz',
+  esMX: '%+d%% de daño mínimo cuerpo a cuerpo mejorado',
+  jaJP: '最小近接ダメージ強化（%+d%%）',
+  ptBR: '%+d%% de dano mínimo corpo a corpo aprimorado',
+  ruRU: '%+d%% к минимальному урону в ближнем бою',
+  zhCN: '%+d%% 提高近战最低伤害',
 });
 itemModifiers.push({
   id: D2RMM.getNextStringID(),
   Key: 'MeleeMaxDamagePercent',
   enUS: '%+d%% Enhanced Maximum Melee Damage',
-  zhTW: '%+d%% 最大傷害強化', // TODO
-  deDE: '%+d%% Verbesserter max. Schaden', // TODO
-  esES: '%+d%% de daño máximo mejorado', // TODO
-  frFR: 'Dégâts max. améliorés de %+d%%', // TODO
-  itIT: '%+d%% danni massimi', // TODO
-  koKR: '최대 피해 %+d%% 증가', // TODO
-  plPL: '%+d%% do maksymalnych obrażeń', // TODO
-  esMX: '%+d%% de daño máximo mejorado', // TODO
-  jaJP: '最大ダメージ強化（%+d%%）', // TODO
-  ptBR: '%+d%% de dano máximo aprimorado', // TODO
-  ruRU: '%+d%% к максимальному урону', // TODO
-  zhCN: '%+d%% 强化最大伤害', // TODO
+  zhTW: '%+d%% 提升近战最大伤害',
+  deDE: '%+d%% Verbesserter max. Nahkampfschaden',
+  esES: '%+d%% de daño máximo cuerpo a cuerpo mejorado',
+  frFR: 'Dégâts de mêlée max. améliorés de %+d%%',
+  itIT: '%+d%% danni massimi in mischia',
+  koKR: '최대 근접 피해 %+d%% 증가',
+  plPL: '%+d%% do maksymalnych obrażeńw walce wręcz',
+  esMX: '%+d%% de daño máximo cuerpo a cuerpo mejorado',
+  jaJP: '最大近接ダメージ強化（%+d%%）',
+  ptBR: '%+d%% de dano máximo corpo a corpo aprimorado',
+  ruRU: '%+d%% к максимальному урону в ближнем бою',
+  zhCN: '%+d%% 提升近战最大伤害',
 });
 D2RMM.writeJson(itemModifiersFilename, itemModifiers);
 
@@ -426,7 +426,7 @@ if (config.unique) {
   const misc = D2RMM.readTsv(miscFilename);
   misc.rows.push({
     ...misc.rows.find((row) => row.name === 'Small Charm'),
-    name: 'Charm of Area Damage',
+    name: 'Charm of Melee Area Damage',
     level: 1,
     code: 'cm0',
     unique: 1,
@@ -449,7 +449,7 @@ if (config.unique) {
   const damageReduction = getDamageReduction(100);
   uniqueitems.rows.push({
     ...uniqueitems.rows.find((row) => row.index === 'Annihilus'),
-    index: 'Charm of Area Damage', // links with item-names.json
+    index: 'Charm of Melee Area Damage', // links with item-names.json
     '*ID': Math.max(...uniqueitems.rows.map((row) => row['*ID'])),
     'lvl req': 1,
     code: 'cm0', // need a new code so it can be sold in shop
@@ -486,20 +486,20 @@ if (config.unique) {
   const itemNames = D2RMM.readJson(itemNamesFilename);
   itemNames.push({
     id: D2RMM.getNextStringID(),
-    Key: 'Charm of Area Damage',
-    enUS: 'Charm of Area Damage',
-    zhTW: '滅絕', // TODO
-    deDE: 'Vernichtikus', // TODO
-    esES: 'Annihilus', // TODO
-    frFR: 'Annihilus', // TODO
-    itIT: 'Annichilus', // TODO
-    koKR: '어나이얼러스', // TODO
-    plPL: 'Annihilus', // TODO
-    esMX: 'Annihilus', // TODO
-    jaJP: 'アニヒラス', // TODO
-    ptBR: 'Annihilus', // TODO
-    ruRU: 'Аннигилюс', // TODO
-    zhCN: '毁灭', // TODO
+    Key: 'Charm of Melee Area Damage',
+    enUS: 'Charm of Melee Area Damage',
+    zhTW: '近战范围伤害的魅力',
+    deDE: 'Zauber des Nahkampfbereichsschadens',
+    esES: 'Dije de daño de área cuerpo a cuerpo',
+    frFR: 'Charme de dégâts de zone de mêlée',
+    itIT: 'Talismano del danno ad area da mischia',
+    koKR: '근접 영역 피해의 매력',
+    plPL: 'Talizman obrażeń obszarowych w walce wręcz',
+    esMX: 'Talismán de daño de área cuerpo a cuerpo',
+    jaJP: 'タリスマンオブメレーエリアダメージ',
+    ptBR: 'Patuá de Dano de Área Corpo a Corpo',
+    ruRU: 'Оберег урона ближнего боя по области',
+    zhCN: '近战范围伤害的魅力',
   });
   D2RMM.writeJson(itemNamesFilename, itemNames);
 }

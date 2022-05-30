@@ -3,7 +3,7 @@
   "description": "Shows item level in the name.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/174",
-  "version": "1.2",
+  "version": "1.3",
   "config": [
     {
       "id": "weapons",
@@ -22,8 +22,8 @@
     {
       "id": "jewelry",
       "type": "checkbox",
-      "name": "Jewelry",
-      "description": "Show item level on jewelry",
+      "name": "Rings & Amulets",
+      "description": "Show item level on rings and amulets",
       "defaultValue": true
     },
     {
@@ -31,6 +31,13 @@
       "type": "checkbox",
       "name": "Charms",
       "description": "Show item level on charms",
+      "defaultValue": true
+    },
+    {
+      "id": "jewels",
+      "type": "checkbox",
+      "name": "Jewels",
+      "description": "Show item level on jewels",
       "defaultValue": true
     }
   ]

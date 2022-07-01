@@ -3,5 +3,14 @@
   "description": "Makes gem names much shorter and colors them by type.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/187",
-  "version": "1.1"
+  "version": "1.2",
+  "config": [
+    {
+      "id": "shorten",
+      "type": "checkbox",
+      "name": "Shorten Name",
+      "description": "Shorten the name of gems / skulls. If disabled, will only color the normal name.",
+      "defaultValue": true
+    }
+  ]
 }

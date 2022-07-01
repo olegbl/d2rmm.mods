@@ -41,12 +41,14 @@ const ITEMS = [
 function processItem(item) {
   const itemtype = item.Key;
 
+  let newColor = null;
   let newName = null;
 
   ITEMS.forEach(({ id, color, codes }) => {
     const quality = codes.indexOf(itemtype) + 1;
     if (quality > 0) {
-      newName = color + (id === 'SKULL' ? 'Skull ' : 'Gem ') + quality;
+      newColor = color;
+      newName = (id === 'SKULL' ? 'Skull ' : 'Gem ') + quality;
     }
   });
 
@@ -54,7 +56,7 @@ function processItem(item) {
     // update all localizations
     for (const key in item) {
       if (key !== 'id' && key !== 'Key') {
-        item[key] = newName;
+        item[key] = newColor + (config.shorten ? newName : item[key]);
       }
     }
   }

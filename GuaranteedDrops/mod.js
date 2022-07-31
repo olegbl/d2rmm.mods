@@ -4,7 +4,17 @@ treasureclassex.rows.forEach((row) => {
   const treasureClass = row['Treasure Class'];
   // not all rows are valid entries
   if (treasureClass !== '') {
-    row.NoDrop = 1;
+    if (config.players === 0) {
+      row.NoDrop = 0;
+    } else if (row.NoDrop !== '') {
+      const originalNoDropRatio = +row.NoDrop / 100;
+      // on /players 2, no drop chance is nodrop*nodrop
+      const modifiedNoDropRatio = originalNoDropRatio ** config.players;
+      const modifiedNoDrop = modifiedNoDropRatio * 100;
+      const modifiedNoDropInt = +`${modifiedNoDrop}`.replace(/\..*$/, '');
+      row.NoDrop = modifiedNoDropInt;
+    }
+
     // fix Countess items if necessary
     if (config.fixcountess) {
       if (

@@ -1,10 +1,18 @@
 {
   "name": "Guaranteed Drops",
-  "description": "Sets NoDrop to 0 which forces all monsters to drop at least 1 item.",
+  "description": "Modifies the nodrop chance for treasure categories to simulate a specific /players setup.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/171",
-  "version": "1.0",
+  "version": "1.1",
   "config": [
+    {
+      "id": "players",
+      "type": "number",
+      "name": "/players",
+      "description": "Sets the drop rate to simulate the /players command. 0 = /players infinite (nodrop = 0). 1 = /players 1. 8 = /players 8. etc...",
+      "defaultValue": 0,
+      "minValue": 0
+    },
     {
       "id": "fixcountess",
       "type": "checkbox",

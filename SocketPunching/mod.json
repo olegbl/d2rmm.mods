@@ -3,7 +3,7 @@
   "description": "Allows socketing and unsocketing an item using jewels.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/188",
-  "version": "1.0",
+  "version": "1.1",
   "config": [
     {
       "id": "socket",
@@ -18,6 +18,21 @@
       "name": "Socket Emptying Recipes",
       "description": "Enable to allow removing an item's sockets' contents by transmuting it together with a jewel.",
       "defaultValue": true
+    },
+    {
+      "id": "item",
+      "type": "select",
+      "name": "Item to Use",
+      "description": "You can chose an item other than a jewel to use in the recipe instead.",
+      "defaultValue": "jew",
+      "options": [
+        { "value": "jew", "label": "Jewel" },
+        { "value": "rin", "label": "Ring" },
+        { "value": "amu", "label": "Amulet" },
+        { "value": "rvl", "label": "Full Rejuvenation Potion" },
+        { "value": "tsc", "label": "Scroll of Town Portal" },
+        { "value": "isc", "label": "Scroll of Identify" }
+      ]
     }
   ]
 }

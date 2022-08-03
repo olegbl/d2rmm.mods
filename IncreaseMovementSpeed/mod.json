@@ -1,0 +1,23 @@
+{
+  "name": "Increase Movement Speed",
+  "description": "Increases movement speed of characters.",
+  "author": "olegbl",
+  "website": "https://www.nexusmods.com/diablo2resurrected/mods/TODO",
+  "version": "1.0",
+  "config": [
+    {
+      "id": "walk",
+      "type": "number",
+      "name": "Walk Speed",
+      "defaultValue": 6,
+      "minValue": 1
+    },
+    {
+      "id": "run",
+      "type": "number",
+      "name": "Run Speed",
+      "defaultValue": 9,
+      "minValue": 1
+    }
+  ]
+}

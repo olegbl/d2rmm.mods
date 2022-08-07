@@ -3,7 +3,7 @@
   "description": "Increases the droprate of items.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/180",
-  "version": "1.1",
+  "version": "1.2",
   "config": [
     {
       "id": "runes",
@@ -29,22 +29,63 @@
       "defaultValue": true
     },
     {
-      "id": "equipmentChance",
+      "id": "unique",
       "type": "number",
-      "name": "Equipment Droprate Multiplier",
-      "description": "Divides base chance by this value in itemratio.txt. 1 = vanilla. 400 ~= everything is unique.",
-      "defaultValue": 20,
-      "minValue": 1,
-      "maxValue": 400
+      "name": "Chance of Unique Item Dropping",
+      "description": "Assuming the base item that dropped can be a unique item in this area level, this is the chance of it being a unique item. Vanilla value is 0.25%.",
+      "defaultValue": 5,
+      "minValue": 0,
+      "maxValue": 100
     },
     {
-      "id": "equipmentMin",
+      "id": "set",
       "type": "number",
-      "name": "Equipment Droprate Minimum Rarity Multiplier",
-      "description": "Divides minimum rarity by this value (*128) in itemratio.txt. 1 = vanilla. 50 = no minimum rarity.",
+      "name": "Chance of Set Item Dropping",
+      "description": "Assuming the base item that dropped can be a set item in this area level, this is the chance of it being a set item. Vanilla value is 0.625%.",
       "defaultValue": 10,
-      "minValue": 1,
+      "minValue": 0,
       "maxValue": 100
+    },
+    {
+      "id": "rare",
+      "type": "number",
+      "name": "Chance of Rare Item Dropping",
+      "description": "Assuming the base item that dropped can be a rare item, this is the chance of it being a rare item. Vanilla value is 1%.",
+      "defaultValue": 20,
+      "minValue": 0,
+      "maxValue": 100
+    },
+    {
+      "id": "magic",
+      "type": "number",
+      "name": "Chance of Magic Item Dropping",
+      "description": "Assuming the base item that dropped can be a magic item, this is the chance of it being a magic item. Vanilla value is 2.94%.",
+      "defaultValue": 20,
+      "minValue": 0,
+      "maxValue": 100
+    },
+    {
+      "id": "hiquality",
+      "type": "number",
+      "name": "Chance of High Quality Item Dropping",
+      "description": "Assuming the base item that dropped can be a high quality item, this is the chance of it being a high quality item. Vanilla value is 8.33%.",
+      "defaultValue": 50,
+      "minValue": 0,
+      "maxValue": 100
+    },
+    {
+      "id": "disableminimumrarity",
+      "type": "checkbox",
+      "name": "Disable Minimum Rarity",
+      "description": "By default, unique, set and rare items have a minimum rarity that they cannot fall below despite magic find, etc... Turn this option on to disable this mechanic.",
+      "defaultValue": true
+    },
+    {
+      "id": "disablelevelscaling",
+      "type": "checkbox",
+      "name": "Disable Level Scaling",
+      "description": "By default, items are more likely to be higher quality if dropped from a higher level monster. Turn this option on to disable this mechanic.",
+      "defaultValue": true
     }
   ]
 }

@@ -21,38 +21,30 @@ if (config.runes) {
 }
 
 if (config.equipment) {
-  const { equipmentChance, equipmentMin } = config;
   const treasureclassexFilename = 'global\\excel\\itemratio.txt';
   const treasureclassex = D2RMM.readTsv(treasureclassexFilename);
   treasureclassex.rows.forEach((row) => {
-    row.Unique = Math.max(
-      Math.min(4, row.Unique),
-      Math.floor(row.Unique / equipmentChance)
-    );
-    row.UniqueMin = Math.max(1, Math.floor(row.UniqueMin / equipmentMin));
+    row.Unique = Math.round(100 / config.unique);
+    row.Set = Math.round(100 / config.set);
+    row.Rare = Math.round(100 / config.rare);
+    row.Magic = Math.round(100 / config.magic);
+    row.HiQuality = Math.round(100 / config.hiquality);
 
-    row.Set = Math.max(
-      Math.min(4, row.Set),
-      Math.floor(row.Set / equipmentChance)
-    );
-    row.SetMin = Math.max(1, Math.floor(row.SetMin / equipmentMin));
+    if (config.disableminimumrarity) {
+      row.UniqueMin = 1;
+      row.SetMin = 1;
+      row.RareMin = 1;
+      row.MagicMin = 1;
+    }
 
-    row.Rare = Math.max(
-      Math.min(4, row.Rare),
-      Math.floor(row.Rare / equipmentChance)
-    );
-    row.RareMin = Math.max(1, Math.floor(row.RareMin / equipmentMin));
-
-    row.Magic = Math.max(
-      Math.min(4, row.Magic),
-      Math.floor(row.Magic / equipmentChance)
-    );
-    row.MagicMin = Math.max(1, Math.floor(row.MagicMin / equipmentMin));
-
-    row.HiQuality = Math.max(
-      Math.min(4, row.HiQuality),
-      Math.floor(row.HiQuality / equipmentChance)
-    );
+    if (config.disablelevelscaling) {
+      row.UniqueDivisor = 1000000000;
+      row.SetDivisor = 1000000000;
+      row.RareDivisor = 1000000000;
+      row.MagicDivisor = 1000000000;
+      row.HiQualityDivisor = 1000000000;
+      row.NormalDivisor = 1000000000;
+    }
   });
   D2RMM.writeTsv(treasureclassexFilename, treasureclassex);
 }

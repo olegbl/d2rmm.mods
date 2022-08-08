@@ -21,13 +21,22 @@ if (config.runes) {
 }
 
 function processValue(value) {
-  // if value is 0, then the user doesn't want these drops
-  // so set the rarity to some incredibly high value
-  // it's technically not 0, but it's the best we can do here
+  // if user wants a 0% droprate for this rarity
+  // then set the rarity to a very high value
+  // this will not actually be 0%, but it's the best we can do here
   if (value === 0) {
     return 1000000000;
   }
   return Math.round(100 / value);
+}
+
+function processMinValue(value) {
+  // if user wants a 0% droprate for this rarity
+  // then set the minimum rarity to a very high value
+  if (value === 0) {
+    return 1000000000;
+  }
+  return 1;
 }
 
 if (config.equipment) {
@@ -41,10 +50,10 @@ if (config.equipment) {
     row.HiQuality = processValue(config.hiquality);
 
     if (config.disableminimumrarity) {
-      row.UniqueMin = 1;
-      row.SetMin = 1;
-      row.RareMin = 1;
-      row.MagicMin = 1;
+      row.UniqueMin = processMinValue(config.unique);
+      row.SetMin = processMinValue(config.set);
+      row.RareMin = processMinValue(config.rare);
+      row.MagicMin = processMinValue(config.magic);
     }
 
     if (config.disablelevelscaling) {

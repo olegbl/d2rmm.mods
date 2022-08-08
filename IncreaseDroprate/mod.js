@@ -20,15 +20,25 @@ if (config.runes) {
   D2RMM.writeTsv(treasureclassexFilename, treasureclassex);
 }
 
+function processValue(value) {
+  // if value is 0, then the user doesn't want these drops
+  // so set the rarity to some incredibly high value
+  // it's technically not 0, but it's the best we can do here
+  if (value === 0) {
+    return 1000000000;
+  }
+  return Math.round(100 / value);
+}
+
 if (config.equipment) {
   const treasureclassexFilename = 'global\\excel\\itemratio.txt';
   const treasureclassex = D2RMM.readTsv(treasureclassexFilename);
   treasureclassex.rows.forEach((row) => {
-    row.Unique = Math.round(100 / config.unique);
-    row.Set = Math.round(100 / config.set);
-    row.Rare = Math.round(100 / config.rare);
-    row.Magic = Math.round(100 / config.magic);
-    row.HiQuality = Math.round(100 / config.hiquality);
+    row.Unique = processValue(config.unique);
+    row.Set = processValue(config.set);
+    row.Rare = processValue(config.rare);
+    row.Magic = processValue(config.magic);
+    row.HiQuality = processValue(config.hiquality);
 
     if (config.disableminimumrarity) {
       row.UniqueMin = 1;

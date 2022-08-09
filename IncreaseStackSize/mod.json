@@ -3,21 +3,35 @@
   "description": "Increases stack size of various items.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/175",
-  "version": "1.1",
+  "version": "1.2",
   "config": [
     {
-      "id": "items",
-      "type": "checkbox",
-      "name": "Increase Items Stack Size",
-      "description": "Enable to increase the stack size of tomes, keys and quivers to 500.",
-      "defaultValue": true
+      "id": "tomes",
+      "type": "number",
+      "name": "Tomes",
+      "description": "Maximum stack size of all tomes (town portal / identfy).",
+      "defaultValue": 100
     },
     {
-      "id": "weapons",
-      "type": "checkbox",
-      "name": "Increase Weapon Stack Size",
-      "description": "Enable to increase the stack size of all throwing weapons to 500.",
-      "defaultValue": true
+      "id": "keys",
+      "type": "number",
+      "name": "Keys",
+      "description": "Maximum stack size of all tomes (town portal / identfy).",
+      "defaultValue": 100
+    },
+    {
+      "id": "projectiles",
+      "type": "number",
+      "name": "Projectiles",
+      "description": "Maximum stack size of all projectiles (arrows / bolts).",
+      "defaultValue": 500
+    },
+    {
+      "id": "throwingweapons",
+      "type": "number",
+      "name": "Throwing Weapons",
+      "description": "Maximum stack size of all throwing weapons (throwing knives / javelins / etc).",
+      "defaultValue": 500
     }
   ]
 }

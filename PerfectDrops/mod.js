@@ -1,18 +1,3 @@
-const runesFilename = 'global\\excel\\runes.txt';
-const runes = D2RMM.readTsv(runesFilename);
-runes.rows.forEach((row) => {
-  // runewords don't follow the same generation rules as other items
-  // so UpdateRow is not necessary here (I think)
-  row.T1Min1 = row.T1Max1;
-  row.T1Min2 = row.T1Max2;
-  row.T1Min3 = row.T1Max3;
-  row.T1Min4 = row.T1Max4;
-  row.T1Min5 = row.T1Max5;
-  row.T1Min6 = row.T1Max6;
-  row.T1Min7 = row.T1Max7;
-});
-D2RMM.writeTsv(runesFilename, runes);
-
 const EXCLUDE_CODES = [
   // add skill points to class
   // value is class
@@ -26,8 +11,11 @@ const EXCLUDE_CODES = [
   // cast skill on action
   // param = spell, min = chance, max = level
   'att-skill',
+  'death-skill',
   'gethit-skill',
   'hit-skill',
+  'kill-skill',
+  'levelup-skill',
   // variable damage affixes (e.g. +15-45 cold damage, randomized on each hit)
   // param = spell, min = min damage, max = max damage
   'dmg-fire',
@@ -49,6 +37,19 @@ function UpdateRow(row, codeKey, minKey, maxKey) {
     row[minKey] = row[maxKey];
   }
 }
+
+const runesFilename = 'global\\excel\\runes.txt';
+const runes = D2RMM.readTsv(runesFilename);
+runes.rows.forEach((row) => {
+  UpdateRow(row, 'T1Param1', 'T1Min1', 'T1Max1');
+  UpdateRow(row, 'T1Param2', 'T1Min2', 'T1Max2');
+  UpdateRow(row, 'T1Param3', 'T1Min3', 'T1Max3');
+  UpdateRow(row, 'T1Param4', 'T1Min4', 'T1Max4');
+  UpdateRow(row, 'T1Param5', 'T1Min5', 'T1Max5');
+  UpdateRow(row, 'T1Param6', 'T1Min6', 'T1Max6');
+  UpdateRow(row, 'T1Param7', 'T1Min7', 'T1Max7');
+});
+D2RMM.writeTsv(runesFilename, runes);
 
 const automagicFilename = 'global\\excel\\automagic.txt';
 const automagic = D2RMM.readTsv(automagicFilename);

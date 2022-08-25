@@ -41,13 +41,13 @@ function UpdateRow(row, codeKey, minKey, maxKey) {
 const runesFilename = 'global\\excel\\runes.txt';
 const runes = D2RMM.readTsv(runesFilename);
 runes.rows.forEach((row) => {
-  UpdateRow(row, 'T1Param1', 'T1Min1', 'T1Max1');
-  UpdateRow(row, 'T1Param2', 'T1Min2', 'T1Max2');
-  UpdateRow(row, 'T1Param3', 'T1Min3', 'T1Max3');
-  UpdateRow(row, 'T1Param4', 'T1Min4', 'T1Max4');
-  UpdateRow(row, 'T1Param5', 'T1Min5', 'T1Max5');
-  UpdateRow(row, 'T1Param6', 'T1Min6', 'T1Max6');
-  UpdateRow(row, 'T1Param7', 'T1Min7', 'T1Max7');
+  UpdateRow(row, 'T1Code1', 'T1Min1', 'T1Max1');
+  UpdateRow(row, 'T1Code2', 'T1Min2', 'T1Max2');
+  UpdateRow(row, 'T1Code3', 'T1Min3', 'T1Max3');
+  UpdateRow(row, 'T1Code4', 'T1Min4', 'T1Max4');
+  UpdateRow(row, 'T1Code5', 'T1Min5', 'T1Max5');
+  UpdateRow(row, 'T1Code6', 'T1Min6', 'T1Max6');
+  UpdateRow(row, 'T1Code7', 'T1Min7', 'T1Max7');
 });
 D2RMM.writeTsv(runesFilename, runes);
 

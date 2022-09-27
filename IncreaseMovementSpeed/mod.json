@@ -3,12 +3,13 @@
   "description": "Increases movement speed of characters.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/250",
-  "version": "1.0",
+  "version": "1.1",
   "config": [
     {
       "id": "walk",
       "type": "number",
       "name": "Walk Speed",
+      "description": "Vanilla value is 6.",
       "defaultValue": 6,
       "minValue": 1
     },
@@ -16,6 +17,23 @@
       "id": "run",
       "type": "number",
       "name": "Run Speed",
+      "description": "Vanilla value is 9.",
+      "defaultValue": 9,
+      "minValue": 1
+    },
+    {
+      "id": "druidshapeshift",
+      "type": "number",
+      "name": "Werewolf/Werebear Walk Speed",
+      "description": "Vanilla value is 6. Shapeshift run speed equals this value times 1.5.",
+      "defaultValue": 6,
+      "minValue": 1
+    },
+    {
+      "id": "necrovampire",
+      "type": "number",
+      "name": "Necro Vampire Speed",
+      "description": "Vanilla value is 9. Uses same speed for walking and running. Warning: Also affects enemy vampires in Catacombs.",
       "defaultValue": 9,
       "minValue": 1
     }

@@ -7,12 +7,26 @@ treasureclassex.rows.forEach((row) => {
     if (config.players === 0) {
       row.NoDrop = 0;
     } else if (row.NoDrop !== '') {
-      const originalNoDropRatio = +row.NoDrop / 100;
-      // on /players 2, no drop chance is nodrop*nodrop
-      const modifiedNoDropRatio = originalNoDropRatio ** config.players;
-      const modifiedNoDrop = modifiedNoDropRatio * 100;
-      const modifiedNoDropInt = +`${modifiedNoDrop}`.replace(/\..*$/, '');
-      row.NoDrop = modifiedNoDropInt;
+      const N =
+        Math.floor(config.players) === +config.players
+          ? // in vanilla D2, /players increases loot drops only at 1/3/5/7
+            Math.ceil(config.players / 2)
+          : // if the players arg has a decimal point, use a smoother transition
+            (config.players + 1) / 2;
+
+      // current values
+      const NoDrop = +(row.NoDrop ?? 0) / 100;
+      const ProbSum =
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].reduce(
+          (acc, idx) => acc + +(row[`Prob${idx}`] ?? 0),
+          0
+        ) / 100;
+
+      // https://www.purediablo.com/forums/threads/item-generation-tutorial.110/
+      // NewNoDrop=int(ProbSum/(1/((NoDrop/(NoDrop+ProbSum))^N)-1))
+      row.NoDrop = Math.floor(
+        (ProbSum / (1 / (NoDrop / (NoDrop + ProbSum)) ** N - 1)) * 100
+      );
     }
 
     // fix Countess items if necessary

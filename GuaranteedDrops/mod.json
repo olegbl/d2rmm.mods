@@ -3,7 +3,7 @@
   "description": "Modifies the nodrop chance for treasure categories to simulate a specific /players setup.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/171",
-  "version": "1.1",
+  "version": "1.2",
   "config": [
     {
       "id": "players",

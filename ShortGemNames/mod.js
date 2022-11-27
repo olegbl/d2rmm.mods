@@ -56,7 +56,13 @@ function processItem(item) {
     // update all localizations
     for (const key in item) {
       if (key !== 'id' && key !== 'Key') {
-        item[key] = newColor + (config.shorten ? newName : item[key]);
+        if (config.shorten) {
+          item[key] = newColor + newName;
+        } else {
+          // no idea what this is, but color codes before [fs]/[ms] don't work
+          const [, prefix = '', value] = item[key].match(/^(\[[mf]s\])?(.*)$/);
+          item[key] = `${prefix}${newColor}${value}`;
+        }
       }
     }
   }

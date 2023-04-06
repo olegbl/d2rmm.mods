@@ -3,7 +3,7 @@
   "description": "Modifies the nodrop chance for treasure categories to simulate a specific /players setup.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/171",
-  "version": "1.2",
+  "version": "1.3",
   "config": [
     {
       "id": "players",
@@ -19,6 +19,14 @@
       "name": "Fix Countess",
       "description": "Make countess prefer to drop runes instead of items. Without this fix, the countess will never drop a full 3 runes with NoDrop set to 0.",
       "defaultValue": true
+    },
+    {
+      "id": "sunderplayers",
+      "type": "number",
+      "name": "Sunder Charms",
+      "description": "The /players value to use for Sunder Charms. If you set 0 here, you'll get a Sunder Charm from every monster, so don't do that.",
+      "defaultValue": 1,
+      "minValue": 1
     }
   ]
 }

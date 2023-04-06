@@ -4,15 +4,20 @@ treasureclassex.rows.forEach((row) => {
   const treasureClass = row['Treasure Class'];
   // not all rows are valid entries
   if (treasureClass !== '') {
-    if (config.players === 0) {
+    // Sunder Charms have a massive default NoDrop rate of 23899
+    // if this is set to "0" (e.g. /players 0), then a charm is dropped
+    // from practically every single monster, which is not desireable
+    const players =
+      treasureClass === 'Sunder Charms' ? config.sunderplayers : config.players;
+    if (players === 0) {
       row.NoDrop = 0;
     } else if (row.NoDrop !== '') {
       const N =
-        Math.floor(config.players) === +config.players
+        Math.floor(players) === +players
           ? // in vanilla D2, /players increases loot drops only at 1/3/5/7
-            Math.ceil(config.players / 2)
+            Math.ceil(players / 2)
           : // if the players arg has a decimal point, use a smoother transition
-            (config.players + 1) / 2;
+            (players + 1) / 2;
 
       // current values
       const NoDrop = +(row.NoDrop ?? 0) / 100;

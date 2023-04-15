@@ -17,9 +17,9 @@
       "type": "number",
       "name": "Maximum Stack Size",
       "description": "The maximum quantity that each stack can have.",
-      "defaultValue": 500,
+      "defaultValue": 256,
       "minValue": 2,
-      "maxValue": 1000
+      "maxValue": 256
     },
     {
       "id": "convertWhenDestacking",

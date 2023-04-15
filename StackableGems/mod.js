@@ -202,6 +202,38 @@ else if (
     });
   }
 }
+
+if (config.bulkUpgrade) {
+  for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
+    // no upgrade for perfect gems
+    if ((i+1) % 5 == 0) {
+      continue;
+    }
+    const itemtype = ITEM_TYPES[i];
+    const stacktype = converItemTypeToStackItemType(itemtype);
+    const upgradedItemtype = ITEM_TYPES[i + 1];
+    const upgradedStacktype = converItemTypeToStackItemType(upgradedItemtype);
+    for (let j = 30; j < config.maxStack; j = j + 1) {
+      cubemain.rows.push({
+        description: `Stack of ${j} ${itemtype} + 1 id scroll -> Stack`
+          + ` of 10 ${upgradedItemtype} + Stack of ${j - 30} ${itemtype} + 1`
+          + ` id scroll`,
+        enabled: 1,
+        version: 0,
+        op: 18, // skip recipe if item's Stat.Accr(param) != value
+        param: 70, // quantity (itemstatcost.txt)
+        value: j, // only execute rule if quantity == j
+        numinputs: 2,
+        'input 1': stacktype,
+        'input 2': 'isc',
+        output: `"${upgradedStacktype},qty=10"`,
+        'output b': j == 30 ? null : `"${stacktype},qty=${j - 30}"`,
+        'output c': 'isc',
+        '*eol': 0,
+      });
+    }
+  }
+}
 D2RMM.writeTsv(cubemainFilename, cubemain);
 
 D2RMM.copyFile(

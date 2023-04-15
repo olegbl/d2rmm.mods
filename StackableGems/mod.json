@@ -27,6 +27,13 @@
       "name": "Convert When Destacking",
       "description": "Enable to have the split off gem automatically convert to a non-stackable variant when splitting a stack. Warning: this adds 15k+ cube recipes which slows down the game's startup.",
       "defaultValue": false
+    },
+    {
+      "id": "bulkUpgrade",
+      "type": "checkbox",
+      "name": "30 to 10 Bulk Upgrade",
+      "description": "Enable to add 30 to 10 bulk upgrade recipes. Warning: this adds 6k+ cube recipes which slows down the game's startup.",
+      "defaultValue": false
     }
   ]
 }

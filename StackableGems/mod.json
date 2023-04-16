@@ -3,7 +3,7 @@
   "description": "Adds another variation of gems that can stack together. Transmute a gem in the Cube to convert it between the two variants. Based on https://www.nexusmods.com/diablo2resurrected/mods/80.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/176",
-  "version": "1.5",
+  "version": "1.6",
   "config": [
     {
       "id": "default",
@@ -31,8 +31,8 @@
     {
       "id": "bulkUpgrade",
       "type": "checkbox",
-      "name": "30 to 10 Bulk Upgrade",
-      "description": "Enable to add 30 to 10 bulk upgrade recipes. Warning: this adds 6k+ cube recipes which slows down the game's startup.",
+      "name": "Bulk Upgrade Recipe",
+      "description": "Enable to add 30 to 10 bulk upgrade recipes (stack of 30 gems + 1 id scroll = stack of 10 gems of the next highest tier). Warning: this adds 6k+ cube recipes which slows down the game's startup.",
       "defaultValue": false
     }
   ]

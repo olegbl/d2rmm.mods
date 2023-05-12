@@ -39,6 +39,7 @@ const VARIABLES = [
   'CraftedColor',
   'TemperedColor',
   'QuestColor',
+  'GoldColor',
 ];
 
 function changeProfileColors(profile) {

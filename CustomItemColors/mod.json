@@ -370,6 +370,41 @@
         { "value": "White", "label": "White" },
         { "value": "Yellow", "label": "Yellow" }
       ]
+    },
+    {
+      "id": "GoldColor",
+      "type": "select",
+      "name": "Gold Color",
+      "defaultValue": "White",
+      "options": [
+        { "value": "Beige", "label": "Beige" },
+        { "value": "Black", "label": "Black" },
+        { "value": "Blue", "label": "Blue" },
+        { "value": "CurrencyGold", "label": "Currency Gold" },
+        { "value": "DarkGold", "label": "Dark Gold" },
+        { "value": "DarkGrayBlue", "label": "Dark Gray Blue" },
+        { "value": "DarkGrayGold", "label": "Dark Gray Gold" },
+        { "value": "DarkGreen", "label": "Dark Green" },
+        { "value": "Gold", "label": "Gold" },
+        { "value": "GoldYellow", "label": "Gold Yellow" },
+        { "value": "Gray", "label": "Gray" },
+        { "value": "Green", "label": "Green" },
+        { "value": "LightBlue", "label": "Light Blue" },
+        { "value": "LightGold", "label": "Light Gold" },
+        { "value": "LightGray", "label": "Light Gray" },
+        { "value": "LightPurple", "label": "Light Purple" },
+        { "value": "LightRed", "label": "Light Red" },
+        { "value": "LightTeal", "label": "Light Teal" },
+        { "value": "LightYellow", "label": "Light Yellow" },
+        { "value": "Orange", "label": "Orange" },
+        { "value": "PartyGreen", "label": "Party Green" },
+        { "value": "PartyOrange", "label": "Party Orange" },
+        { "value": "Red", "label": "Red" },
+        { "value": "Transparent", "label": "Transparent" },
+        { "value": "VeryLightGray", "label": "Very Light Gray" },
+        { "value": "White", "label": "White", "description": "Game Default" },
+        { "value": "Yellow", "label": "Yellow" }
+      ]
     }
   ]
 }

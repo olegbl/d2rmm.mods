@@ -6,6 +6,12 @@
   "version": "1.3",
   "config": [
     {
+      "id": "runes-section",
+      "type": "section",
+      "name": "Runes",
+      "defaultExpanded": false
+    },
+    {
       "id": "runes",
       "type": "checkbox",
       "name": "Adjust Rune Droprate",
@@ -20,6 +26,12 @@
       "defaultValue": 10,
       "minValue": 1,
       "maxValue": 100
+    },
+    {
+      "id": "equipment-section",
+      "type": "section",
+      "name": "Equipment",
+      "defaultExpanded": false
     },
     {
       "id": "equipment",

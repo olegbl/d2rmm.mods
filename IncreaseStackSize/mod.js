@@ -9,7 +9,7 @@ misc.rows.forEach((row) => {
   }
   if (
     row.code === 'aqv' || // Arrows
-    row.code === 'cqb' // Bolts
+    row.code === 'cqv' // Bolts
   ) {
     row.maxstack = config.projectiles;
   }

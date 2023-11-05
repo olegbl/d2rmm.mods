@@ -21,9 +21,7 @@ function exportTranslationResourceForGoMule(filepath) {
     filepath.length
   );
   const data = D2RMM.readTxt(filepath);
-  // TODO: need a custom build of GoMule that would read
-  //       the translation files from outside of its .jar file
-  D2RMM.writeTxt(`GoMule\\${filename}`, data);
+  D2RMM.writeTxt(`GoMule\\translations\\${filename}`, data);
 }
 
 exportResourceForGoMule('global\\excel\\armor.txt');

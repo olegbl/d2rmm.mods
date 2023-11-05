@@ -4561,3 +4561,9 @@ D2RMM.writeTxt(
   'save-editor-data.json',
   JSON.stringify(d2s.readConstantData(data))
 );
+
+// TODO:
+// - create a SPA save editor in the same vein as https://d2runewizard.com/hero-editor or https://github.com/dschu012/d2s-editor but one that can work without a webserver (i.e. can be opened as a local HTML file)
+// - export all inventory item images
+// - export information about character equipment layout, mercentary equipment layout, inventory/stash/cube grid sizes
+// - move d2s into a separate file once I get around to adding TS support to D2RMM

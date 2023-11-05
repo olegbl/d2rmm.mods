@@ -7,9 +7,23 @@ D2RMM.copyFile(
 );
 
 function exportResourceForGoMule(filepath) {
-  const filename = filepath.substring(filepath.lastIndexOf('\\') + 1, filepath.length);
+  const filename = filepath.substring(
+    filepath.lastIndexOf('\\') + 1,
+    filepath.length
+  );
   const data = D2RMM.readTxt(filepath);
   D2RMM.writeTxt(`GoMule\\d2111\\${filename}`, data);
+}
+
+function exportTranslationResourceForGoMule(filepath) {
+  const filename = filepath.substring(
+    filepath.lastIndexOf('\\') + 1,
+    filepath.length
+  );
+  const data = D2RMM.readTxt(filepath);
+  // TODO: need a custom build of GoMule that would read
+  //       the translation files from outside of its .jar file
+  D2RMM.writeTxt(`GoMule\\${filename}`, data);
 }
 
 exportResourceForGoMule('global\\excel\\armor.txt');
@@ -37,3 +51,15 @@ exportResourceForGoMule('global\\excel\\superuniques.txt');
 exportResourceForGoMule('global\\excel\\treasureclassex.txt');
 exportResourceForGoMule('global\\excel\\uniqueitems.txt');
 exportResourceForGoMule('global\\excel\\weapons.txt');
+
+exportTranslationResourceForGoMule('local\\lng\\strings\\item-modifiers.json');
+exportTranslationResourceForGoMule(
+  'local\\lng\\strings\\item-nameaffixes.json'
+);
+exportTranslationResourceForGoMule('local\\lng\\strings\\item-names.json');
+exportTranslationResourceForGoMule('local\\lng\\strings\\item-runes.json');
+exportTranslationResourceForGoMule('local\\lng\\strings\\mercenaries.json');
+exportTranslationResourceForGoMule('local\\lng\\strings\\monsters.json');
+exportTranslationResourceForGoMule('local\\lng\\strings\\npcs.json');
+exportTranslationResourceForGoMule('local\\lng\\strings\\skills.json');
+exportTranslationResourceForGoMule('local\\lng\\strings\\ui-controller.json');

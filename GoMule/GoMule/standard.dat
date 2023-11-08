@@ -1,0 +1,997 @@
+*** All items[all][total]
+*** All Unique items[unique][u][all]
+*** All Set Items[set][t][all]
+
+**Normal Uniques[u][newrow][unique]
+
+*Helms
+Biggin's Bonnet,Cap (TC 3)
+Tarnhelm,Skull Cap (TC 6)
+Coif of Glory,Helm (TC 12) 
+Duskdeep,Full Helm (TC 15)
+The Face of Horror,Mask (TC 21)
+Howltusk,Great Helm (TC 24)
+Wormskull,Bone Helm (TC 24)
+Undead Crown,Crown (TC 30)
+
+*Armor
+Greyform,Quilted Armor  (TC 3)
+Blinkbat's Form,Leather Armor (TC 3)
+The Centurion,Hard Leather Armor (TC 6)
+Twitchthroe,Studded Leather (TC 9)
+Darkglow,Ring Mail (TC 12)
+Hawkmail,Scale Mail (TC 15)
+Sparking Mail,Chain Mail (TC 15)
+Venom Ward,Breast Plate (TC 18)
+Iceblink,Splint Mail (TC 21)
+Boneflesh,Plate Mail (TC 24)
+Rockfleece,Field Plate (TC 30)
+Rattlecage,Gothic Plate (TC 33)
+Heavenly Garb,Light Plate (TC 36)
+Goldskin,Full Plate Mail (TC 39)
+Silks of the Victor,Ancient Armor (TC 42)
+
+*Shields
+Pelta Lunata,Buckler (TC 3)
+Umbral Disk,Small Shield (TC 6)
+Stormguild,Large Shield (TC 12)
+Swordback Hold,Spiked Shield (TC 12)
+Steelclash,Kite Shield (TC 15)
+Wall of the Eyeless,Bone Shield (TC 21)
+Bverrit Keep,Tower Shield (TC 24)
+The Ward,Gothic Shield (TC 30)
+
+*Gloves
+The Hand of Broc,Leather Gloves (TC 3)
+Bloodfist,Heavy Gloves (TC 9)
+Chance Guards,Chain Gloves (TC 12)
+Magefist,Light Gauntlets (TC 21)
+Frostburn,Gauntlets (TC 27)
+
+*Boots
+Hotspur,Boots (TC 3)
+Gorefoot,Heavy Boots (TC 9)
+Treads of Cthon,Chain Boots (TC 12)
+Goblin Toe,Light Plated Boots (TC 21)
+Tearhaunch,Greaves (TC 27)
+
+*Belts
+Lenymo,Sash (TC 3)
+Snakecord,Light Belt (TC 9)
+Nightsmoke,Belt (TC 12)
+Goldwrap,Heavy Belt (TC 21)
+Bladebuckle,Plated Belt (TC 27)
+
+*Axes
+The Gnasher,Hand Axe (TC 3)
+Deathspade,Axe (TC 9)
+Bladebone,Double Axe (TC 15)
+Skull Splitter,Military Pick (TC 21)
+Rakescar,War Axe (TC 27)
+Axe of Fechmar,Large Axe (TC 6)
+Goreshovel,Broad Axe (TC 12)
+The Chieftain,Battle Axe (TC 18)
+Brainhew,Great Axe (TC 24)
+Humongous,Giant Axe (TC 27)
+
+*Bows
+Pluckeye,Short Bow (TC 3)
+Witherstring,Hunter's Bow (TC 6)
+Raven Claw,Long Bow (TC 9)
+Rogue's Bow,Composite Bow (TC 12)
+Stormstrike,Short Battle Bow (TC 18)
+Wizendraw,Long Battle Bow (TC 24)
+Hellclap,Short War Bow (TC 27)
+Blastbark,Long War Bow (TC 33)
+
+*Crossbows
+Leadcrow,Light Crossbow (TC 6)
+Ichorsting,Crossbow (TC 15)
+Hellcast,Heavy Crossbow (TC 24)
+Doomslinger,Repeating Crossbow (TC 33)
+
+*Daggers
+Gull,Dagger (TC 3)
+The Diggler,Dirk (TC 9)
+The Jade Tan Do,Kris (TC 18)
+Spectral Shard,Blade (TC 24)
+
+*Maces
+Felloak,Club (TC 3)
+Stoutnail,Spiked Club (TC 6)
+Crushflange,Mace (TC 9)
+Bloodrise,Morning Star (TC 15)
+The General's Tan Do Li Ga,Flail (TC 21)
+Ironstone,War Hammer (TC 27)
+Bonesnap,Maul (TC 21)
+Steeldriver,Great Maul (TC 33)
+
+*Polearms
+Dimoak's Hew,Bardiche (TC 6)
+Steelgoad,Voulge (TC 12)
+Soul Harvest,Scythe (TC 15)
+The Battlebranch,Poleaxe (TC 21)
+Woestave,Halberd (TC 30)
+The Grim Reaper,War Scythe (TC 36)
+
+*Scepters
+Knell Striker,Scepter (TC 3)
+Rusthandle,Grand Scepter (TC 15)
+Stormeye,War Scepter (TC 21)
+
+*Spears
+The Dragon Chang,Spear (TC 6)
+Razortine,Trident (TC 9)
+Bloodthief,Brandistock (TC 18)
+Lance of Yaggai,Spetum (TC 21)
+The Tannr Gorerod,Pike (TC 24)
+
+*Staves
+Bane Ash,Short Staff (TC 3)
+Serpent Lord,Long Staff (TC 9)
+Spire of Lazarus,Gnarled Staff (TC 12)
+The Salamander,Battle Staff (TC 18)
+The Iron Jang Bong,War Staff (TC 24)
+
+*Swords
+Rixot's Keen,Short Sword (TC 3)
+Blood Crescent,Scimitar (TC 6)
+Skewer of Krintiz,Sabre (TC 9)
+Gleamscythe,Falchion (TC 12)
+Griswold's Edge,Broad Sword (TC 15)
+Hellplague,Long Sword (TC 21)
+Culwen's Point,War Sword (TC 27)
+Shadowfang,Two-Handed Sword (TC 12)
+Soulflay,Claymore (TC 18)
+Kinemil's Awl,Giant Sword (TC 21)
+Blacktongue,Bastard Sword (TC 24)
+Ripsaw,Flamberge (TC 27)
+The Patriarch,Great Sword (TC 33)
+
+*Wands
+Torch of Iro,Wand (TC 3)
+Maelstrom,Yew Wand (TC 12)
+Gravenspine,Bone Wand (TC 18)
+Ume's Lament,Grim Wand (TC 27)
+
+
+**Exceptional Uniques[u][newcol][unique]
+
+*Helms
+Peasant Crown,War Hat (TC 36)
+Rockstopper,Sallet (TC 39)
+Stealskull,Casque (TC 42)
+Darksight Helm,Basinet (TC 45)
+Blackhorn's Face,Death Mask (TC 48)
+Valkyrie Wing,Winged Helm (TC 51)
+Vampire Gaze,Grim Helm (TC 51)
+Crown of Thieves,Grand Crown (TC 57)
+
+*Armor
+The Spirit Shroud,Ghost Armor (TC 36)
+Skin of the Vipermagi,Serpentskin Armor (TC 36)
+Skin of the Flayed One,Demonhide Armor (TC 39)
+Iron Pelt,Trellised Armor (TC 42)
+Spirit Forge,Linked Mail (TC 42)
+Crow Caw,Tigulated Mail (TC 45)
+Shaftstop,Mesh Armor (TC 45)
+Duriel's Shell,Cuirass (TC 48)
+Skullder's Ire,Russet Armor (TC 51)
+Guardian Angel,Templar Coat (TC 54)
+Toothrow,Sharktooth Armor (TC 57)
+Atma's Wail,Embossed Plate (TC 60)
+Que-Hegan's Wisdom,Mage Plate (TC 60)
+Black Hades,Chaos Armor (TC 63)
+Corpsemourn,Ornate Plate (TC 66)
+
+*Shields
+Visceratuant,Defender (TC 36)
+Moser's Blessed Circle,Round Shield (TC 39)
+Stormchaser,Scutum (TC 42)
+Lance Guard,Barbed Shield (TC 42)
+Tiamat's Rebuke,Dragon Shield (TC 45)
+Lidless Wall,Grim Shield (TC 48)
+Gerke's Sanctuary,Pavise (TC 51)
+Radament's Sphere,Ancient Shield (TC 57)
+
+*Gloves
+Venom Grip,Demonhide Gloves (TC 33)
+Gravepalm,Sharkskin Gloves (TC 39)
+Ghoulhide,Heavy Bracers (TC 45)
+Lava Gout,Battle Gauntlets (TC 51)
+Hellmouth,War Gauntlets (TC 54)
+
+*Boots
+Infernostride,Demonhide Boots (TC 36)
+Waterwalk,Sharkskin Boots (TC 39)
+Silkweave,Mesh Boots (TC 45)
+War Traveler,Battle Boots (TC 51)
+Gore Rider,War Boots (TC 54)
+
+*Belts
+String of Ears,Demonhide Sash (TC 36)
+Razortail,Sharkskin Belt (TC 39)
+Gloom's Trap,Mesh Belt (TC 45)
+Snowclash,Battle Belt (TC 51)
+Thundergod's Vigor,War Belt (TC 54)
+
+*Axes
+Coldkill,Hatchet (TC 33)
+Butcher's Pupil,Cleaver (TC 36)
+Islestrike,Twin Axe (TC 39)
+Pompeii's Wrath,Crowbill (TC 45)
+Guardian Naga,Naga (TC 48)
+Warlord's Trust,Military Axe (TC 36)
+Spellsteel,Bearded Axe (TC 39)
+Stormrider,Tabar (TC 42)
+Boneslayer Blade,Gothic Axe (TC 48)
+The Minotaur,Ancient Axe (TC 51)
+
+*Bows
+Skystrike,Edge Bow (TC 30)
+Riphook,Razor Bow (TC 33)
+Kuko Shakaku,Cedar Bow (TC 36)
+Endlesshail,Double Bow (TC 39)
+Witchwild String,Short Siege Bow (TC 45)
+Cliffkiller,Large Siege Bow (TC 48)
+Magewrath,Rune Bow (TC 51)
+Goldstrike Arch,Gothic Bow (TC 54)
+
+*Crossbows
+Langer Briser,Arbalest (TC 36)
+Pus Spitter,Siege Crossbow (TC 42)
+Buriza-Do Kyanon,Ballista (TC 48)
+Demon Machine,Chu-Ko-Nu (TC 54)
+
+*Daggers
+Spineripper,Poignard (TC 33)
+Heart Carver,Rondel (TC 36)
+Blackbog's Sharp,Cinquedeas (TC 42)
+Stormspike,Stiletto (TC 48)
+
+*Maces
+Dark Clan Crusher,Cudgel (TC 30)
+Fleshrender,Barbed Club (TC 33)
+Sureshrill Frost,Flanged Mace (TC 36)
+Moonfall,Jagged Star (TC 39)
+Baezil's Vortex,Knout (TC 45)
+Earthshaker,Battle Hammer (TC 48)
+Bloodtree Stump,War Club (TC 45)
+The Gavel of Pain,Martel de Fer (TC 54)
+
+*Polearms
+The Meat Scraper,Lochaber Axe (TC 33)
+Pierre Tombale Couant,Partizan (TC 36)
+Blackleach Blade,Bill (TC 39)
+Athena's Wrath,Battle Scythe (TC 42)
+Husoldal Evo,Bec-De-Corbin (TC 51)
+Grim's Burning Dead,Grim Scythe (TC 57)
+
+*Scepters
+Zakarum's Hand,Rune Scepter (TC 33)
+The Fetid Sprinkler,Holy Water Sprinkler (TC 42)
+Hand of Blessed Light,Divine Scepter (TC 45)
+
+*Spears
+The Impaler,War Spear (TC 33)
+Kelpie Snare,Fuscina (TC 36)
+Soulfeast Tine,War Fork (TC 42)
+Hone Sundan,Yari (TC 45)
+Spire of Honor,Lance (TC 48)
+
+*Staves
+Razorswitch,Jo Staff (TC 30)
+Ribcracker,Quarterstaff (TC 36)
+Chromatic Ire,Cedar Staff (TC 39)
+Warpspear,Gothic Staff (TC 42)
+Skull Collector,Rune Staff (TC 48)
+
+*Swords
+Bloodletter,Gladius (TC 30)
+Hexfire,Shamshir (TC 36)
+Blade of Ali Baba,Tulwar (TC 39)
+Ginther's Rift,Dimensional Blade (TC 39)
+Headstriker,Battle Sword (TC 42)
+Plague Bearer,Rune Sword (TC 45)
+Coldsteel Eye,Cutlass (TC 45)
+The Atlantean,Ancient Sword (TC 51)
+Crainte Vomir,Espandon (TC 39)
+Bing Sz Wang,Dacian Falx (TC 42)
+The Vile Husk,Tusk Sword (TC 45)
+Cloudcrack,Gothic Sword (TC 48)
+Todesfaelle Flamme,Zweihander (TC 51)
+Swordguard,Executioner Sword (TC 54)
+
+*Wands
+Suicide Branch,Burnt Wand (TC 33)
+Carin Shard,Petrified Wand (TC 39)
+Arm of King Leoric,Tomb Wand (TC 45)
+Blackhand Key,Grave Wand (TC 51)
+
+*Throwing
+Deathbit,Battle Dart (TC 33)
+The Scalper,Francisca (TC 36)
+
+
+**Elite Uniques[u][newcol][unique]
+
+*Helms
+Harlequin Crest,Shako  (TC 60)
+Steel Shade,Armet (TC 69)
+Kira's Guardian,Tiara (TC 72)
+Andariel's Visage,Demonhead (TC 75)
+Veil of Steel,Spired Helm (TC 81)
+Nightwing's Veil,Spired Helm (TC 81)
+Giant Skull,Bone Visage (TC 84)
+Griffon's Eye,Diadem (TC 87)
+Crown of Ages,Corona (TC 87)
+
+*Armor
+Ormus' Robes,Dusk Shroud (TC 66)
+The Gladiator's Bane,Wire Fleece (TC 72)
+Arkaine's Valor,Balrog Skin (TC 78)
+Leviathan,Kraken Shell (TC 81)
+Steel Carapace,Shadow Plate (TC 84)
+Templar's Might,Sacred Armor (TC 87)
+Tyrael's Might,Sacred Armor (TC 87)
+
+*Shields
+Blackoak Shield,Luna (TC 63)
+Spike Thorn,Blade Barrier (TC 69)
+Stormshield,Monarch (TC 72)
+Head Hunter's Glory,Troll Nest (TC 78)
+Medusa's Gaze,Aegis (TC 81)
+Spirit Ward,Ward (TC 84)
+
+*Gloves
+Dracul's Grasp,Vampirebone Gloves (TC 63)
+Soul Drainer,Vambraces (TC 69)
+Steelrend,Ogre Gauntlets (TC 87)
+
+*Boots
+Sandstorm Trek,Scarabshell Boots (TC 66)
+Marrowwalk,Boneweave Boots (TC 72)
+Shadow Dancer,Myrmidon Greaves (TC 87)
+
+*Belts
+Arachnid Mesh,Spiderweb Sash (TC 63)
+Nosferatu's Coil,Vampirefang Belt (TC 69)
+Verdungo's Hearty Cord,Mithril Coil (TC 75)
+
+*Axes
+Razor's Edge,Tomahawk (TC 54)
+Rune Master,Ettin Axe (TC 72)
+Cranebeak,War Spike (TC 81)
+Ethereal Edge,Silver-Edged Axe (TC 66)
+Hellslayer,Decapitator (TC 75)
+Messerschmidt's Reaver,Champion Axe (TC 84)
+Death Cleaver,Berserker Axe (TC 87)
+Executioner's Justice,Glorious Axe (TC 87)
+
+*Bows
+Eaglehorn,Crusader Bow (TC 78)
+Widowmaker,Ward Bow (TC 81)
+Windforce,Hydra Bow (TC 87)
+
+*Crossbows
+Hellrack,Colossus Crossbow (TC 75)
+Gut Siphon,Demon Crossbow (TC 84)
+
+*Daggers
+Wizardspike,Bone Knife (TC 60)
+Fleshripper,Fanged Knife (TC 84)
+Ghostflame,Legend Spike (TC 87)
+
+*Javelins
+Demon's Arch,Balrog Spear (TC 72)
+Wraith Flight,Ghost Glaive (TC 81)
+Gargoyle's Bite,Winged Harpoon (TC 87)
+
+*Maces
+Nord's Tenderizer,Truncheon (TC 54)
+Demon Limb,Tyrant Club (TC 57)
+Baranar's Star,Devil Star (TC 72)
+Horizon's Tornado,Scourge (TC 78)
+Stormlash,Scourge (TC 78)
+Windhammer,Ogre Maul (TC 69)
+Stone Crusher,Legendary Mallet (TC 84)
+Schaefer's Hammer,Legendary Mallet (TC 84)
+The Cranium Basher,Thunder Maul (TC 87)
+Earth Shifter,Thunder Maul (TC 87)
+
+*Polearms
+Bonehew,Ogre Axe (TC 60)
+The Reaper's Toll,Thresher (TC 72)
+Tomb Reaver,Cryptic Axe (TC 81)
+Stormspire,Giant Thresher (TC 87)
+
+*Scepters
+Heaven's Light,Mighty Scepter (TC 63)
+The Redeemer,Mighty Scepter (TC 63)
+Astreon's Iron Ward,Caduceus (TC 87)
+
+*Spears
+Arioc's Needle,Hyperion Spear (TC 60)
+Viperfork,Mancatcher (TC 75)
+Steel Pillar,War Pike (TC 87)
+
+*Staves
+Ondal's Wisdom,Elder Staff (TC 75)
+Mang Song's Lesson,Archon Staff (TC 87)
+
+*Swords
+Djinn Slayer,Ataghan (TC 63)
+Bloodmoon,Elegant Blade (TC 63)
+Lightsabre,Phase Blade (TC 75)
+Azurewrath,Phase Blade (TC 75)
+Frostwind,Cryptic Sword (TC 84)
+Flamebellow,Balrog Blade (TC 72)
+Doombringer,Champion Sword (TC 78)
+The Grandfather,Colossus Blade (TC 87)
+
+*Throwing
+Gimmershred,Flying Axe (TC 57)
+Warshrike,Winged Knife (TC 78)
+Lacerator,Winged Axe (TC 81)
+
+*Wands
+Boneshade,Lich Wand (TC 75)
+Death's Web,Unearthed Wand (TC 87)
+
+
+**Jewelry[u][newrow][unique]
+
+*Amulets
+Nokozan Relic, Amulet
+The Eye of Etlich,Amulet
+The Mahim-Oak Curio,Amulet
+Saracen's Chance,Amulet
+The Cat's Eye,Amulet
+Crescent Moon,Amulet
+Atma's Scarab,Amulet
+The Rising Sun,Amulet
+Highlord's Wrath,Amulet
+Mara's Kaleidoscope,Amulet
+Metalgrid,Amulet
+Seraph's Hymn,Amulet
+
+*Rings
+Nagelring,Ring
+Manald Heal,Ring
+The Stone of Jordan,Ring
+Dwarf Star,Ring
+Raven Frost,Ring
+Bul-Kathos' Wedding Band,Ring
+Carrion Wind,Ring
+Nature's Peace,Ring
+Wisp Projector,Ring
+
+*Charms
+Annihilus,Small Charm
+Hellfire Torch,Large Charm
+Gheed's Fortune,Grand Charm
+
+*Jewels
+Rainbow Facet,Jewel,(Fire/Die)[Meteor/Die]
+Rainbow Facet,Jewel,(Fire/Level Up)[Blaze/Level Up]
+Rainbow Facet,Jewel,(Cold/Die)[Blizzard/Die]
+Rainbow Facet,Jewel,(Cold/Level Up)[Frost Nova/Level Up]
+Rainbow Facet,Jewel,(Lightning/Die)[Chain Lightning/Die]
+Rainbow Facet,Jewel,(Lightning/Level Up)[Nova/Level Up]
+Rainbow Facet,Jewel,(Poison/Die)[Poison Nova/Die]
+Rainbow Facet,Jewel,(Poison/Level Up)[Venom/Level Up]
+
+
+**Class-Specific Items[u][newcol][unique]
+
+*Weapons
+Titan's Revenge,Ceremonial Javelin (TC 36)
+Lycander's Aim,Ceremonial Bow (TC 48)
+Lycander's Flank,Ceremonial Pike (TC 51)
+Blood Raven's Charge,Matriarchal Bow (TC 54)
+Stoneraven,Matriarchal Spear (TC 63)
+Thunderstroke,Matriarchal Javelin (TC 66)
+Bartuc's Cut-Throat,Greater Talons (TC 51)
+Jade Talon,Wrist Sword (TC 63)
+Shadow Killer,Battle Cestus (TC 75)
+Firelizard's Talons,Feral Claws (TC 78)
+The Oculus,Swirling Crystal (TC 51)
+Eschuta's Temper,Eldritch Orb (TC 69)
+Death's Fathom,Dimensional Shard (TC 87)
+
+*Armor
+Arreat's Face,Slayer Guard (TC 54)
+Wolfhowl,Fury Visor (TC 66)
+Demonhorn's Edge,Destroyer Helm (TC 75)
+Halaberd's Reign,Conqueror Crown (TC 81)
+Jalal's Mane,Totemic Mask (TC 57)
+Cerebus' Bite,Blood Spirit (TC 63)
+Spirit Keeper,Earth Spirit (TC 78)
+Ravenlore, Sky Spirit (TC 84)
+Homunculus,Hierophant Trophy (TC 54)
+Boneflame,Succubus Skull (TC 81)
+Darkforce Spawn, Bloodlord Skull (TC 87)
+Herald of Zakarum, Gilded Shield (TC 51)
+Alma Negra,Sacred Rondache (TC 72)
+Dragonscale,Zakarum Shield (TC 84)
+
+
+**Normal Sets[t][newrow][set]
+
+*Angelic Raiment
+Angelic Wings,Amulet
+Angelic Halo,Ring
+Angelic Mantle,Ring Mail (TC 12)
+Angelic Sickle,Sabre (TC 9)
+
+*Arcanna's Tricks
+Arcanna's Flesh,Light Plate (TC 36)
+Arcanna's Head,Skull Cap (TC 6)
+Arcanna's Deathwand,War Staff (TC 24)
+Arcanna's Sign,Amulet
+
+*Arctic Gear
+Arctic Mitts,Light Gauntlets (TC 21)
+Arctic Binding,Light Belt (TC 9)
+Arctic Furs,Quilted Armor (TC 3)
+Arctic Horn,Short War Bow (TC 27)
+
+*Berserker's Arsenal
+Berserker's Hatchet,Double Axe (TC 15)
+Berserker's Hauberk,Splint Mail (TC 21)
+Berserker's Headgear,Helm (TC 12)
+
+*Cathan's Traps
+Cathan's Seal,Ring
+Cathan's Sigil,Amulet
+Cathan's Visage,Mask (TC 21)
+Cathan's Mesh,Chain Mail (TC 15)
+Cathan's Rule,Battle Staff (TC 18)
+
+*Civerb's Vestments
+Civerb's Cudgel,Grand Scepter (TC 15)
+Civerb's Icon,Amulet
+Civerb's Ward,Large Shield (TC 12)
+
+*Cleglaw's Brace
+Cleglaw's Pincers,Chain Gloves (TC 12)
+Cleglaw's Claw,Small Shield (TC 6)
+Cleglaw's Tooth,Long Sword (TC 21)
+
+*Death's Disguise
+Death's Touch,War Sword (TC 27)
+Death's Guard,Sash (TC 3)
+Death's Hand,Leather Gloves (TC 3)
+
+*Hsarus' Defense
+Hsarus' Iron Stay,Belt (TC 21)
+Hsarus' Iron Fist,Buckler (TC 3)
+Hsarus' Iron Heel,Chain Boots (TC 12)
+
+*Infernal Tools
+Infernal Sign,Heavy Belt (TC 21)
+Infernal Torch,Grim Wand (TC 27)
+Infernal Cranium,Cap (TC 3)
+
+*Iratha's Finery
+Iratha's Cord,Heavy Belt (TC 21)
+Iratha's Coil,Crown (TC 30)
+Iratha's Cuff,Light Gauntlets (TC 21)
+Iratha's Collar,Amulet
+
+*Isenhart's Armory
+Isenhart's Horns,Full Helm (TC 15)
+Isenhart's Case,Breast Plate (TC 18)
+Isenhart's Parry,Gothic Shield (TC 30)
+Isenhart's Lightbrand,Broad Sword (TC 15)
+
+*Milabrega's Regalia
+Milabrega's Diadem,Crown (TC 30)
+Milabrega's Orb,Kite Shield (TC 15)
+Milabrega's Robe,Ancient Armor (TC 42)
+Milabrega's Rod,War Scepter (TC 21)
+
+*Sigon's Complete Steel
+Sigon's Guard,Tower Shield (TC 24)
+Sigon's Wrap,Plated Belt (TC 27)
+Sigon's Sabot,Greaves (TC 27)
+Sigon's Gage,Gauntlets (TC 27)
+Sigon's Shelter,Gothic Plate (TC 33)
+Sigon's Visor,Great Helm (TC 24)
+
+*Tancred's Battlegear
+Tancred's Skull,Bone Helm (TC 24)
+Tancred's Weird,Amulet
+Tancred's Hobnails,Boots (TC 3)
+Tancred's Spine,Full Plate Mail (TC 39)
+Tancred's Crowbill,Military Pick (TC 21)
+
+*Vidala's Rig
+Vidala's Snare,Amulet
+Vidala's Ambush,Leather Armor (TC 3)
+Vidala's Fetlock,Light Plated Boots (TC 21)
+Vidala's Barb,Long Battle Bow (TC 24)
+
+
+**Expansion Sets[t][newcol][set]
+
+*Aldur's Watchtower
+Aldur's Stony Gaze,Hunter's Guise (TC 48)
+Aldur's Advance,Battle Boots (TC 51)
+Aldur's Deception,Shadow Plate (TC 84)
+Aldur's Rhythm,Jagged Star (TC 39)
+
+*Bul-Kathos' Children
+Bul-Kathos' Sacred Charge,Colossus Blade (TC 87)
+Bul-Kathos' Tribal Guardian,Mythical Sword (TC 87)
+
+*Cow King's Leathers
+Cow King's Horns,War Hat (TC 36)
+Cow King's Hide,Studded Leather (TC 9)
+Cow King's Hooves,Heavy Boots (TC 9)
+
+*The Disciple
+Telling of Beads,Amulet
+Laying of Hands,Bramble Mitts (TC 57)
+Dark Adherent,Dusk Shroud (TC 66)
+Rite of Passage,Demonhide Boots (TC 36)
+Credendum,Mithril Coil (TC 75)
+
+*Griswold's Legacy
+Griswold's Heart,Ornate Plate (TC 66)
+Griswold's Valor,Corona (TC 87)
+Griswold's Redemption,Caduceus (TC 87)
+Griswold's Honor,Vortex Shield (TC 87)
+
+*Heaven's Brethren
+Haemosu's Adamant,Cuirass (TC 48)
+Dangoon's Teaching,Reinforced Mace (TC 63)
+Taebaek's Glory,Ward (TC 84)
+Ondal's Almighty,Spired Helm (TC 81)
+
+*Hwanin's Majesty
+Hwanin's Splendor,Grand Crown (TC 57)
+Hwanin's Justice,Bill (TC 39)
+Hwanin's Refuge,Tigulated Mail (TC 45)
+Hwanin's Blessing,Belt (TC 12)
+
+*Immortal King
+Immortal King's Will,Avenger Guard (TC 24)
+Immortal King's Stone Crusher,Ogre Maul (TC 69)
+Immortal King's Soul Cage,Sacred Armor (TC 87)
+Immortal King's Detail,War Belt (TC 54)
+Immortal King's Forge,War Gauntlets (TC 54)
+Immortal King's Pillar,War Boots (TC 54)
+
+*M'avina's Battle Hymn
+M'avina's True Sight,Diadem (TC 87)
+M'avina's Caster,Grand Matron Bow (TC 78)
+M'avina's Embrace,Kraken Shell (TC 81)
+M'avina's Icy Clutch,Battle Gauntlets (TC 51)
+M'avina's Tenet,Sharkskin Belt (TC 39)
+
+*Natalya's Odium
+Natalya's Totem,Grim Helm (TC 51)
+Natalya's Mark,Scissors Suwayyah (TC 87)
+Natalya's Shadow,Loricated Mail (TC 75)
+Natalya's Soul,Mesh Boots (TC 45)
+
+*Naj's Ancient Vestige
+Naj's Circlet,Circlet (TC 24)
+Naj's Light Plate,Hellforge Plate (TC 78)
+Naj's Puzzler,Elder Staff (TC 75)
+
+*Orphan's Call
+Guillaume's Face,Winged Helm (TC 51)
+Whitstan's Guard,Round Shield (TC 39)
+Magnus' Skin,Sharkskin Gloves (TC 39)
+Wilhelm's Pride,Battle Belt (TC 51)
+
+*Sander's Folly
+Sander's Paragon,Cap (TC 3)
+Sander's Superstition,Bone Wand (TC 18)
+Sander's Taboo,Heavy Gloves (TC 9)
+Sander's Riprap,Heavy Boots (TC 9)
+
+*Sazabi's Grand Tribute
+Sazabi's Mental Sheath,Basinet (TC 45)
+Sazabi's Cobalt Redeemer,Cryptic Sword (TC 84)
+Sazabi's Ghost Liberator,Balrog Skin (TC 78)
+
+*Tal Rasha's Wrappings
+Tal Rasha's Lidless Eye,Swirling Crystal (TC 51)
+Tal Rasha's Horadric Crest,Death Mask (TC 48)
+Tal Rasha's Guardianship,Lacquered Plate (TC 84)
+Tal Rasha's Fine-Spun Cloth,Mesh Belt (TC 45)
+Tal Rasha's Adjudication,Amulet
+
+*Trang-Oul's Avatar
+Trang-Oul's Guise,Bone Visage (TC 84)
+Trang-Oul's Scales,Chaos Armor (TC 63)
+Trang-Oul's Wing,Cantor Trophy (TC 51)
+Trang-Oul's Girth,Troll Belt (TC 84)
+Trang-Oul's Claws,Heavy Bracers (TC 45)
+
+**Gems[g][newcol][gem]
+
+*Amethyst
+Chipped Amethyst
+Flawed Amethyst
+Amethyst
+Flawless Amethyst
+Perfect Amethyst
+
+*Diamond
+Chipped Diamond
+Flawed Diamond
+Diamond
+Flawless Diamond
+Perfect Diamond
+
+*Emerald
+Chipped Emerald
+Flawed Emerald
+Emerald
+Flawless Emerald
+Perfect Emerald
+
+*Ruby
+Chipped Ruby
+Flawed Ruby
+Ruby
+Flawless Ruby
+Perfect Ruby
+
+*Sapphire
+Chipped Sapphire
+Flawed Sapphire
+Sapphire
+Flawless Sapphire
+Perfect Sapphire
+
+*Topaz
+Chipped Topaz
+Flawed Topaz
+Topaz
+Flawless Topaz
+Perfect Topaz
+
+*Skull
+Chipped Skull
+Flawed Skull
+Skull
+Flawless Skull
+Perfect Skull
+
+**Runes Common[r][newrow][rune]
+
+*Common
+El Rune
+Eld Rune
+Tir Rune
+Nef Rune
+Eth Rune
+Ith Rune
+Tal Rune
+Ral Rune
+Ort Rune
+Thul Rune
+Amn Rune
+
+**Runes Semi Rare[r][newcol][rune]
+
+*Semi Rare
+Sol Rune
+Shael Rune
+Dol Rune
+Hel Rune
+Io Rune
+Lum Rune
+Ko Rune
+Fal Rune
+Lem Rune
+Pul Rune
+Um Rune
+
+**Runes Extremely Rare[r][newcol][rune]
+
+*Extremely Rare
+Mal Rune
+Ist Rune
+Gul Rune
+Vex Rune
+Ohm Rune
+Lo Rune
+Sur Rune
+Ber Rune
+Jah Rune
+Cham Rune
+Zod Rune
+
+**Runewords[w][newrow][runeword]
+
+*Runewords
+Ancients' Pledge, Ral-Ort-Tal
+Black, Thul-Io-Nef
+Fury, Jah-Gul-Eth
+Holy Thunder, Eth-Ral-Ort-Tal
+Honor, Amn-El-Ith-Tir-Sol
+King's Grace, Amn-Ral-Thul
+Leaf, Tir-Ral
+Lionheart, Hel-Lum-Fal
+Lore, Ort-Sol
+Malice, Ith-El-Eth
+Melody, Shael-Ko-Nef
+Memory, Lum-Io-Sol-Eth
+Nadir, Nef-Tir
+Radiance, Nef-Sol-Ith
+Rhyme, Shael-Eth
+Silence, Dol-Eld-Hel-Ist-Tir-Vex
+Smoke, Nef-Lum
+Stealth, Tal-Eth
+Steel, Tir-El
+Strength, Amn-Tir
+Venom, Tal-Dol-Mal
+Wealth, Lem-Ko-Tir
+White, Dol-Io
+Zephyr, Ort-Eth
+
+**1.10 Runewords[w][newcol][runeword]
+
+*1.10 Runewords
+Beast, Ber-Tir-Um-Mal-Lum
+Bramble, Ral-Ohm-Sur-Eth
+Breath of the Dying, Vex-Hel-El-Eld-Zod-Eth
+Call to Arms, Amn-Ral-Mal-Ist-Ohm
+Chains of Honor, Dol-Um-Ber-Ist
+Chaos, Fal-Ohm-Um
+Crescent Moon, Shael-Um-Tir
+Delirium, Lem-Ist-Io
+Doom, Hel-Ohm-Um-Lo-Cham
+Duress,Shael-Um-Thul
+Enigma, Jah-Ith-Ber
+Eternity, Amn-Ber-Ist-Sol-Sur
+Exile, Vex-Ohm-Ist-Dol
+Famine, Fal-Ohm-Ort-Jah
+Gloom, Fal-Um-Pul
+Hand of Justice, Sur-Cham-Amn-Lo
+Heart of the Oak, Ko-Vex-Pul-Thul
+Kingslayer, Mal-Um-Gul-Fal
+Passion, Dol-Ort-Eld-Lem
+Prudence,Mal-Tir
+Sanctuary, Ko-Ko-Mal
+Splendor,Eth-Lum
+Stone, Shael-Um-Pul-Lum
+Wind,Sur-El
+
+**1.10 Runewords(RWM)[w][newcol][runeword]
+
+*1.10 Runewords(RWM)
+Brand, Jah-Lo-Mal-Gul
+Death, Hel-El-Vex-Ort-Gul
+Destruction, Vex-Lo-Ber-Jah-Ko
+Dragon, Sur-Lo-Sol
+Dream, Io-Jah-Pul
+Edge, Tir-Tal-Amn
+Faith, Ohm-Jah-Lem-Eld
+Fortitude, El-Sol-Dol-Lo
+Grief, Eth-Tir-Lo-Mal-Ral
+Harmony, Tir-Ith-Sol-Ko
+Ice, Amn-Sheal-Jah-Lo
+Infinity, Ber-Mal-Ber-Ist
+Insight, Ral-Tir-Tal-Sol
+Last Wish, Jah-Mal-Jah-Sur-Jah-Ber
+Lawbringer, Amn-Lem-Ko
+Oath, Shael-Pul-Mal-Lum
+Obedience, Hel-Ko-Thul-Eth-Fal
+Phoenix, Vex-Vex-Lo-Jah
+Pride, Cham-Sur-Io-Lo
+Rift, Hel-Ko-Lem-Gul
+Spirit, Tal-Thul-Ort-Amn
+Voice of Reason, Lem-Ko-El-Eld
+Wrath, Pul-Lum-Ber-Mal
+
+**1.11 Runewords[w][newcol][runeword]
+
+*1.11 Runewords
+Bone, Sol-Um-Um
+Enlightenment, Pul-Ral-Sol
+Myth, Hel-Amn-Nef
+Peace, Shael-Thul-Amn
+Principle, Ral-Gul-Eld
+Rain, Ort-Mal-Ith
+Treachery, Shael-Thul-Lem
+
+**Skillers Amazon[sk][newrow][skiller]
+
+*Amazon
+Bow and Crossbow, Fletcher's Grand Charm
+Passive, Acrobatic Grand Charm
+Javelin and Spear, Harpoonist's Grand Charm
+
+**Skillers Assassin[sk][newcol][skiller]
+
+*Assassin
+Traps, Entrapping Grand Charm
+Shadow Disciplines, Mentalist's Grand Charm
+Martial Arts, Shogukusha's Grand Charm
+
+**Skillers Barbarian[sk][newcol][skiller]
+
+*Barbarian
+Combat, Expert's Grand Charm
+Combat Masteries, Fanatic Grand Charm
+Warcries, Sounding Grand Charm
+
+**Skillers Druid[sk][newrow][skiller]
+
+*Druid
+Summoning, Trainer's Grand Charm
+Shapeshifting, Spiritual Grand Charm
+Elemental, Natural Grand Charm
+
+**Skillers Necromancer[sk][newcol][skiller]
+
+*Necromancer
+Curses, Hexing Grand Charm
+Poison and Bone, Fungal Grand Charm
+Summoning, Graverobber's Grand Charm
+
+**Skillers Paladin[sk][newcol][skiller]
+
+*Paladin
+Combat, Lion Branded Grand Charm
+Offensive Auras, Captain's Grand Charm
+Defensive Auras, Preserver's Grand Charm
+
+**Skillers Sorceress[sk][newcol][skiller]
+
+*Sorceress
+Fire, Burning Grand Charm
+Lightning, Sparking Grand Charm
+Cold, Chilling Grand Charm
+
+**Miscellaneous[g][newrow][misc]
+
+*Potions
+Minor Healing Potion
+Light Healing Potion
+Healing Potion
+Greater Healing Potion
+Super Healing Potion
+Minor Mana Potion
+Light Mana Potion
+Mana Potion
+Greater Mana Potion
+Super Mana Potion
+Rejuvenation Potion
+Full Rejuvenation Potion
+Antidote Potion
+Thawing Potion
+Stamina Potion
+Fulminating Potion
+Exploding Potion
+Oil Potion
+Strangling Gas Potion
+Choking Gas Potion
+Rancid Gas Potion
+
+*Quest Items
+Burning Essence of Terror
+Charged Essence of Hatred
+Festering Essence of Destruction
+Twisted Essence of Suffering
+Token of Absolution
+Key of Destruction
+Key of Hate
+Key of Terror
+
+*Other
+Horadric Cube
+Key
+Scroll of Town Portal
+Tome of Town Portal
+Scroll of Identify
+Tome of Identify
+Arrows
+Bolts

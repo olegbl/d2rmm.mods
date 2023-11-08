@@ -105,6 +105,21 @@ misc.rows.forEach((item) => {
 });
 D2RMM.writeTsv(miscFilename, misc);
 
+const itemNamesFilename = 'local\\lng\\strings\\item-names.json';
+const itemNames = D2RMM.readJson(itemNamesFilename);
+ITEM_TYPES.forEach((itemtype) => {
+  const itemName = itemNames.find(({ Key }) => Key === itemtype);
+  if (itemName != null) {
+    const stacktype = converItemTypeToStackItemType(itemtype);
+    itemNames.push({
+      ...itemName,
+      id: D2RMM.getNextStringID(),
+      Key: stacktype,
+    });
+  }
+});
+D2RMM.writeJson(itemNamesFilename, itemNames);
+
 const itemModifiersFilename = 'local\\lng\\strings\\item-modifiers.json';
 const itemModifiers = D2RMM.readJson(itemModifiersFilename);
 itemModifiers.push({
@@ -206,7 +221,7 @@ else if (
 if (config.bulkUpgrade) {
   for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
     // no upgrade for perfect gems
-    if ((i+1) % 5 == 0) {
+    if ((i + 1) % 5 == 0) {
       continue;
     }
     const itemtype = ITEM_TYPES[i];
@@ -215,9 +230,10 @@ if (config.bulkUpgrade) {
     const upgradedStacktype = converItemTypeToStackItemType(upgradedItemtype);
     for (let j = 30; j < config.maxStack; j = j + 1) {
       cubemain.rows.push({
-        description: `Stack of ${j} ${itemtype} + 1 id scroll -> Stack`
-          + ` of 10 ${upgradedItemtype} + Stack of ${j - 30} ${itemtype} + 1`
-          + ` id scroll`,
+        description:
+          `Stack of ${j} ${itemtype} + 1 id scroll -> Stack` +
+          ` of 10 ${upgradedItemtype} + Stack of ${j - 30} ${itemtype} + 1` +
+          ` id scroll`,
         enabled: 1,
         version: 0,
         op: 18, // skip recipe if item's Stat.Accr(param) != value

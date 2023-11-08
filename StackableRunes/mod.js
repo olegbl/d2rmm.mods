@@ -91,6 +91,21 @@ misc.rows.forEach((item) => {
 });
 D2RMM.writeTsv(miscFilename, misc);
 
+const itemNamesFilename = 'local\\lng\\strings\\item-names.json';
+const itemNames = D2RMM.readJson(itemNamesFilename);
+ITEM_TYPES.forEach((itemtype) => {
+  const itemName = itemNames.find(({ Key }) => Key === itemtype);
+  if (itemName != null) {
+    const stacktype = converItemTypeToStackItemType(itemtype);
+    itemNames.push({
+      ...itemName,
+      id: D2RMM.getNextStringID(),
+      Key: stacktype,
+    });
+  }
+});
+D2RMM.writeJson(itemNamesFilename, itemNames);
+
 const itemModifiersFilename = 'local\\lng\\strings\\item-modifiers.json';
 const itemModifiers = D2RMM.readJson(itemModifiersFilename);
 itemModifiers.push({

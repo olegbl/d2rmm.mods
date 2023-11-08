@@ -1,0 +1,117 @@
+
+/*  The following styles are required. You can change their  */
+/*  attributes but you cannot change their name.             */
+
+.body
+{
+	color : whitesmoke;
+	background-color: #151515;
+}
+
+.cat
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : whitesmoke;
+	font-size : 14;
+	font-weight : BOLD;
+}
+
+.subcat
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : whitesmoke;
+	font-size : 10;
+	font-weight : BOLD;
+}
+
+.total
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : whitesmoke;
+	font-size : 10;
+}
+
+.d
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : whitesmoke;
+	font-size : 10;
+}
+
+.b
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : royalblue;
+	font-size : 10;
+	font-weight : BOLD;
+}
+
+.s
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : indianred;
+	font-size : 10;
+	font-weight : BOLD;
+}
+
+.c
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : #C7C966;
+	font-size : 10;
+	font-weight : BOLD;
+}
+
+.e
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : gray;
+	font-size : 10;
+	font-weight : BOLD;
+}
+
+/*  The following styles are optional. You can define new  */
+/*  styles here and reference them inside the datafile.    */
+
+.u
+{
+
+	font-family : Arial, Helvetica, Sans-serif;
+	color : burlywood;
+	font-size : 10;
+}
+
+.t
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : limegreen;
+	font-size : 10;
+}
+
+.r
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : gold;
+	font-size : 10;
+}
+
+.g
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : plum;
+	font-size : 10;
+}
+
+.w
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : gray;
+	font-size : 10;
+}
+
+.sk
+{
+	font-family : Arial, Helvetica, Sans-serif;
+	color : royalblue;
+	font-size : 10;
+}

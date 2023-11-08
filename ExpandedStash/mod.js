@@ -241,52 +241,60 @@ const bankExpansionControllerLayoutHDFilename =
 const bankExpansionControllerLayoutHD = D2RMM.readJson(
   bankExpansionControllerLayoutHDFilename
 );
-bankExpansionControllerLayoutHD.children.forEach((child) => {
-  if (child.name === 'background') {
-    child.fields.filename = 'Controller/Panel/Stash/V2/StashPanelBG_Expanded';
-    child.fields.rect.x = child.fields.rect.x - 285 - 81;
-    child.fields.rect.y = child.fields.rect.y + 17 - 293;
-  }
-  if (child.name === 'gold_amount' || child.name === 'gold_withdraw') {
-    child.fields.rect.x = child.fields.rect.x - 476 - 280;
-    child.fields.rect.y = child.fields.rect.y - 1404;
-  }
-  if (child.name === 'gold_max') {
-    child.fields.rect.x = child.fields.rect.x - 476 + 927;
-    child.fields.rect.y = child.fields.rect.y - 1404 - 90;
-  }
-  if (child.name === 'grid') {
-    child.fields.cellCount.x = 16;
-    child.fields.cellCount.y = 13;
-    child.fields.rect.x = -285 + 9;
-    child.fields.rect.y = 119;
-  }
-  if (child.name === 'BankTabs') {
-    child.fields.filename = 'Controller/Panel/Stash/V2/StashTabs_Expanded';
-    child.fields.focusIndicatorFilename =
-      'Controller/HoverImages/StashTab_Hover_Expanded';
-    child.fields.rect.x = child.fields.rect.x - 300;
-    child.fields.rect.y = child.fields.rect.y + 10;
-    child.fields.tabCount = 8;
-    child.fields.tabSize = { x: 175, y: 120 };
-    child.fields.tabPadding = { x: 0, y: 0 };
-    child.fields.inactiveFrames = [1, 1, 1, 1, 1, 1, 1, 1];
-    child.fields.activeFrames = [0, 0, 0, 0, 0, 0, 0, 0];
-    child.fields.disabledFrames = [1, 1, 1, 1, 1, 1, 1, 1];
-    child.fields.textStrings = [
-      '@personal',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
-    ];
-    child.fields.tabLeftIndicatorPosition = { x: -42, y: -2 };
-    child.fields.tabRightIndicatorPosition = { x: 1135 + 300, y: -2 };
-  }
-});
+bankExpansionControllerLayoutHD.children =
+  bankExpansionControllerLayoutHD.children.filter((child) => {
+    if (
+      child.name === 'PreviousSeasonToggleDisplay' ||
+      child.name === 'PreviousLadderSeasonBankTabs'
+    ) {
+      return false;
+    }
+    if (child.name === 'background') {
+      child.fields.filename = 'Controller/Panel/Stash/V2/StashPanelBG_Expanded';
+      child.fields.rect.x = child.fields.rect.x - 285 - 81;
+      child.fields.rect.y = child.fields.rect.y + 17 - 293;
+    }
+    if (child.name === 'gold_amount' || child.name === 'gold_withdraw') {
+      child.fields.rect.x = child.fields.rect.x - 476 - 280;
+      child.fields.rect.y = child.fields.rect.y - 1404;
+    }
+    if (child.name === 'gold_max') {
+      child.fields.rect.x = child.fields.rect.x - 476 + 927;
+      child.fields.rect.y = child.fields.rect.y - 1404 - 90;
+    }
+    if (child.name === 'grid') {
+      child.fields.cellCount.x = 16;
+      child.fields.cellCount.y = 13;
+      child.fields.rect.x = -285 + 9;
+      child.fields.rect.y = 119;
+    }
+    if (child.name === 'BankTabs') {
+      child.fields.filename = 'Controller/Panel/Stash/V2/StashTabs_Expanded';
+      child.fields.focusIndicatorFilename =
+        'Controller/HoverImages/StashTab_Hover_Expanded';
+      child.fields.rect.x = child.fields.rect.x - 300;
+      child.fields.rect.y = child.fields.rect.y + 10;
+      child.fields.tabCount = 8;
+      child.fields.tabSize = { x: 175, y: 120 };
+      child.fields.tabPadding = { x: 0, y: 0 };
+      child.fields.inactiveFrames = [1, 1, 1, 1, 1, 1, 1, 1];
+      child.fields.activeFrames = [0, 0, 0, 0, 0, 0, 0, 0];
+      child.fields.disabledFrames = [1, 1, 1, 1, 1, 1, 1, 1];
+      child.fields.textStrings = [
+        '@personal',
+        '@shared',
+        '@shared',
+        '@shared',
+        '@shared',
+        '@shared',
+        '@shared',
+        '@shared',
+      ];
+      child.fields.tabLeftIndicatorPosition = { x: -42, y: -2 };
+      child.fields.tabRightIndicatorPosition = { x: 1135 + 300, y: -2 };
+    }
+    return true;
+  });
 D2RMM.writeJson(
   bankExpansionControllerLayoutHDFilename,
   bankExpansionControllerLayoutHD

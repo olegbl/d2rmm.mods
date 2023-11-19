@@ -1,3 +1,5 @@
 # Configs
 config.json
+tsconfig.json
+types.d.ts
 /_*/

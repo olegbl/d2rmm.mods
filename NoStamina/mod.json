@@ -1,0 +1,23 @@
+{
+  "name": "No Stamina",
+  "description": "Removes stamina drain and potion drops.",
+  "author": "anzz1",
+  "website": "",
+  "version": "1.0",
+  "config": [
+    {
+      "id": "stamdrain",
+      "type": "checkbox",
+      "name": "Disable Stamina Drain",
+      "description": "Disable stamina drain when running.",
+      "defaultValue": true
+    },
+    {
+      "id": "stamdrops",
+      "type": "checkbox",
+      "name": "Disable Stamina Potion Drops",
+      "description": "Disable stamina potion drops from enemies.",
+      "defaultValue": true
+    }
+  ]
+}

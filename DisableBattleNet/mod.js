@@ -68,7 +68,30 @@ mainMenuPanelHD.children = mainMenuPanelHD.children
   .filter((child) => child != null);
 D2RMM.writeJson(mainMenuPanelHDFilename, mainMenuPanelHD);
 
-// Character selection panel is in characterselectpanelhd.json
-// but can't disable anything in there without affecting singleplayer
-// and the tab control's enabled/disabled state is controlled by code
-// not by ui config
+
+// Remove Online/Offline tabs in character select panel
+
+const characterSelectPanelHDFilename = 'global\\ui\\layouts\\characterselectpanelhd.json';
+const characterSelectPanelHD = D2RMM.readJson(characterSelectPanelHDFilename);
+characterSelectPanelHD.children = characterSelectPanelHD.children
+  .map((child) => {
+    if (child.name === 'Background') {
+      child.children = child.children.map((child2) => {
+        if (child2.name === 'BackgroundCover') {
+          child2.children = child2.children.map((child3) => {
+            if (child3.name === 'Tabs') {
+              delete child3.fields;
+            }
+            return child3;
+          })
+          .filter((child3) => child3 != null);
+        }
+        return child2;
+      })
+      .filter((child2) => child2 != null);
+    }
+
+    return child;
+  })
+  .filter((child) => child != null);
+D2RMM.writeJson(characterSelectPanelHDFilename, characterSelectPanelHD);

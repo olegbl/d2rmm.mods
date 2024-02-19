@@ -13,7 +13,7 @@
       "defaultValue": true
     },
     {
-      "id": "highlightHiRunesStarLevel",
+      "id": "highlightHiRunesStartLevel",
       "type": "number",
       "name": "Highlight hi-level runes starting level",
       "description": "Highlight hi level runes starting level.",

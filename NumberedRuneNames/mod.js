@@ -9,7 +9,7 @@ itemRunes.forEach((item) => {
       if (key !== 'id' && key !== 'Key') {
         item[key] = `${item[key]} (${runeNumber})`;
 
-        if (runeNumber >= config.highlightHiRunesStarLevel && config.highlightHiRunes)
+        if (runeNumber >= config.highlightHiRunesStartLevel && config.highlightHiRunes)
           item[key] = 'ÿc;' + item[key];
       }
     }

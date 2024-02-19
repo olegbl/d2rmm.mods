@@ -3,5 +3,21 @@
   "description": "Adds rune numbers to the end of rune item names.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/178",
-  "version": "1.0"
+  "version": "1.1",
+  "config": [
+    {
+      "id": "highlightHiRunes",
+      "type": "checkbox",
+      "name": "Highlight hi-level runes",
+      "description": "Highlight hi level runes (more than Starting Level 20 default) with purple color.",
+      "defaultValue": true
+    },
+    {
+      "id": "highlightHiRunesStarLevel",
+      "type": "number",
+      "name": "Highlight hi-level runes starting level",
+      "description": "Highlight hi level runes starting level.",
+      "defaultValue": 20
+    }
+  ]
 }

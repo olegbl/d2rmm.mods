@@ -8,6 +8,9 @@ itemRunes.forEach((item) => {
     for (const key in item) {
       if (key !== 'id' && key !== 'Key') {
         item[key] = `${item[key]} (${runeNumber})`;
+
+        if (runeNumber >= config.highlightHiRunesStarLevel && config.highlightHiRunes)
+          item[key] = 'ÿc;' + item[key];
       }
     }
   }

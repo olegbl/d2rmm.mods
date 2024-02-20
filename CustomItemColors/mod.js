@@ -26,6 +26,7 @@ const COLORS = {
   VeryLightGray: '$FontColorVeryLightGray',
   White: '$FontColorWhite',
   Yellow: '$FontColorYellow',
+  Custom: 'Custom'
 };
 
 const VARIABLES = [
@@ -40,11 +41,16 @@ const VARIABLES = [
   'TemperedColor',
   'QuestColor',
   'GoldColor',
+  'RuneColor',
 ];
 
 function changeProfileColors(profile) {
   VARIABLES.forEach((variable) => {
-    const color = COLORS[config[variable]];
+    let color = COLORS[config[variable]];
+    if (color === 'Custom')
+      // Alpha channel not works in font color
+      color = [config.CustomColorR, config.CustomColorG, config.CustomColorB, 1];
+
     if (color != null) {
       profile.TooltipStyle[variable] = color;
     }

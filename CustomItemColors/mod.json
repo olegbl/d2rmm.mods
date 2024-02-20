@@ -6,6 +6,24 @@
   "version": "1.1",
   "config": [
     {
+      "id": "CustomColorR",
+      "type": "number",
+      "name": "Custom Color [Red] (0..255)",
+      "defaultValue": 0
+    },
+    {
+      "id": "CustomColorG",
+      "type": "number",
+      "name": "Custom Color [Green] (0..255)",
+      "defaultValue": 0
+    },
+    {
+      "id": "CustomColorB",
+      "type": "number",
+      "name": "Custom Color [Blue] (0..255)",
+      "defaultValue": 0
+    },
+    {
       "id": "DefaultColor",
       "type": "select",
       "name": "Default Color",
@@ -37,7 +55,8 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White", "description": "Game Default" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom color" }
       ]
     },
     {
@@ -76,7 +95,8 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom color" }
       ]
     },
     {
@@ -111,7 +131,8 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom color" }
       ]
     },
     {
@@ -146,7 +167,8 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom color" }
       ]
     },
     {
@@ -181,7 +203,8 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow", "description": "Game Default" }
+        { "value": "Yellow", "label": "Yellow", "description": "Game Default" },
+        { "value": "Custom", "label": "Custom color" }
       ]
     },
     {
@@ -216,7 +239,8 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom color" }
       ]
     },
     {
@@ -255,7 +279,8 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom color" }
       ]
     },
     {
@@ -290,7 +315,8 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom color" }
       ]
     },
     {
@@ -329,7 +355,8 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom color" }
       ]
     },
     {
@@ -368,7 +395,8 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom color" }
       ]
     },
     {
@@ -403,7 +431,44 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White", "description": "Game Default" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom color" }
+      ]
+    },
+    {
+      "id": "RuneColor",
+      "type": "select",
+      "name": "Rune Color",
+      "defaultValue": "Orange",
+      "options": [
+        { "value": "Beige", "label": "Beige" },
+        { "value": "Black", "label": "Black" },
+        { "value": "Blue", "label": "Blue" },
+        { "value": "CurrencyGold", "label": "Currency Gold" },
+        { "value": "DarkGold", "label": "Dark Gold" },
+        { "value": "DarkGrayBlue", "label": "Dark Gray Blue" },
+        { "value": "DarkGrayGold", "label": "Dark Gray Gold" },
+        { "value": "DarkGreen", "label": "Dark Green" },
+        { "value": "Gold", "label": "Gold" },
+        { "value": "GoldYellow", "label": "Gold Yellow" },
+        { "value": "Gray", "label": "Gray" },
+        { "value": "Green", "label": "Green" },
+        { "value": "LightBlue", "label": "Light Blue" },
+        { "value": "LightGold", "label": "Light Gold" },
+        { "value": "LightGray", "label": "Light Gray" },
+        { "value": "LightPurple", "label": "Light Purple" },
+        { "value": "LightRed", "label": "Light Red" },
+        { "value": "LightTeal", "label": "Light Teal" },
+        { "value": "LightYellow", "label": "Light Yellow" },
+        { "value": "Orange", "label": "Orange", "description": "Game Default" },
+        { "value": "PartyGreen", "label": "Party Green" },
+        { "value": "PartyOrange", "label": "Party Orange" },
+        { "value": "Red", "label": "Red" },
+        { "value": "Transparent", "label": "Transparent" },
+        { "value": "VeryLightGray", "label": "Very Light Gray" },
+        { "value": "White", "label": "White" },
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom color" }
       ]
     }
   ]

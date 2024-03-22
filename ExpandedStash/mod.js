@@ -1,3 +1,12 @@
+const tabNamePersonal = (config.IsCustomTabNamesEnabled && config.tabNamePersonal === "") ? "@personal" : config.tabNamePersonal;
+const tabNameShared1  = (config.IsCustomTabNamesEnabled && config.tabNameShared1  === "") ? "@shared"   : config.tabNameShared1;
+const tabNameShared2  = (config.IsCustomTabNamesEnabled && config.tabNameShared2  === "") ? "@shared"   : config.tabNameShared2;
+const tabNameShared3  = (config.IsCustomTabNamesEnabled && config.tabNameShared3  === "") ? "@shared"   : config.tabNameShared3;
+const tabNameShared4  = (config.IsCustomTabNamesEnabled && config.tabNameShared4  === "") ? "@shared"   : config.tabNameShared4;
+const tabNameShared5  = (config.IsCustomTabNamesEnabled && config.tabNameShared5  === "") ? "@shared"   : config.tabNameShared5;
+const tabNameShared6  = (config.IsCustomTabNamesEnabled && config.tabNameShared6  === "") ? "@shared"   : config.tabNameShared6;
+const tabNameShared7  = (config.IsCustomTabNamesEnabled && config.tabNameShared7  === "") ? "@shared"   : config.tabNameShared7;
+
 const inventoryFilename = 'global\\excel\\inventory.txt';
 const inventory = D2RMM.readTsv(inventoryFilename);
 inventory.rows.forEach((row) => {
@@ -73,14 +82,14 @@ bankExpansionLayout.children = bankExpansionLayout.children.map((child) => {
   if (child.name === 'BankTabs') {
     child.fields.tabCount = 8;
     child.fields.textStrings = [
-      '@personal',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
-      '@shared',
+      tabNamePersonal,
+      tabNameShared1,
+      tabNameShared2,
+      tabNameShared3,
+      tabNameShared4,
+      tabNameShared5,
+      tabNameShared6,
+      tabNameShared7,
     ];
   }
   return true;
@@ -159,14 +168,14 @@ bankExpansionLayoutHD.children = bankExpansionLayoutHD.children.filter(
       child.fields.activeFrames = [1, 1, 1, 1, 1, 1, 1, 1];
       child.fields.disabledFrames = [0, 0, 0, 0, 0, 0, 0, 0];
       child.fields.textStrings = [
-        '@personal',
-        '@shared',
-        '@shared',
-        '@shared',
-        '@shared',
-        '@shared',
-        '@shared',
-        '@shared',
+        tabNamePersonal,
+        tabNameShared1,
+        tabNameShared2,
+        tabNameShared3,
+        tabNameShared4,
+        tabNameShared5,
+        tabNameShared6,
+        tabNameShared7,
       ];
     }
     if (child.name === 'gold_amount') {
@@ -281,14 +290,14 @@ bankExpansionControllerLayoutHD.children =
       child.fields.activeFrames = [0, 0, 0, 0, 0, 0, 0, 0];
       child.fields.disabledFrames = [1, 1, 1, 1, 1, 1, 1, 1];
       child.fields.textStrings = [
-        '@personal',
-        '@shared',
-        '@shared',
-        '@shared',
-        '@shared',
-        '@shared',
-        '@shared',
-        '@shared',
+        tabNamePersonal,
+        tabNameShared1,
+        tabNameShared2,
+        tabNameShared3,
+        tabNameShared4,
+        tabNameShared5,
+        tabNameShared6,
+        tabNameShared7,
       ];
       child.fields.tabLeftIndicatorPosition = { x: -42, y: -2 };
       child.fields.tabRightIndicatorPosition = { x: 1135 + 300, y: -2 };

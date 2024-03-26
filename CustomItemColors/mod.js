@@ -1,68 +1,58 @@
-const COLORS = {
-  Beige: '$FontColorBeige',
-  Black: '$FontColorBlack',
-  Blue: '$FontColorBlue',
-  CurrencyGold: '$FontColorCurrencyGold',
-  DarkGold: '$FontColorDarkGold',
-  DarkGrayBlue: '$FontColorDarkGrayBlue',
-  DarkGrayGold: '$FontColorDarkGrayGold',
-  DarkGreen: '$FontColorDarkGreen',
-  Gold: '$FontColorGold',
-  GoldYellow: '$FontColorGoldYellow',
-  Gray: '$FontColorGray',
-  Green: '$FontColorGreen',
-  LightBlue: '$FontColorLightBlue',
-  LightGold: '$FontColorLightGold',
-  LightGray: '$FontColorLightGray',
-  LightPurple: '$FontColorLightPurple',
-  LightRed: '$FontColorLightRed',
-  LightTeal: '$FontColorLightTeal',
-  LightYellow: '$FontColorLightYellow',
-  Orange: '$FontColorOrange',
-  PartyGreen: '$FontColorPartyGreen',
-  PartyOrange: '$FontColorPartyOrange',
-  Red: '$FontColorRed',
-  Transparent: '$FontColorTransparent',
-  VeryLightGray: '$FontColorVeryLightGray',
-  White: '$FontColorWhite',
-  Yellow: '$FontColorYellow',
-};
+class FileConstants {
+  static EXTENSION_JSON = ".json";
+  static PATH_GLOBAL_UI_LAYOUTS = `global\\ui\\layouts\\`;
 
-const VARIABLES = [
-  'DefaultColor',
-  'EtherealColor',
-  'SocketedColor',
-  'MagicColor',
-  'RareColor',
-  'SetColor',
-  'UniqueColor',
-  'CraftedColor',
-  'TemperedColor',
-  'QuestColor',
-  'GoldColor',
-];
-
-function changeProfileColors(profile) {
-  VARIABLES.forEach((variable) => {
-    const color = COLORS[config[variable]];
-    if (color != null) {
-      profile.TooltipStyle[variable] = color;
-    }
-  });
+  static FILE_PROFILE_HD            = `${this.PATH_GLOBAL_UI_LAYOUTS}_profilehd${this.EXTENSION_JSON}`;
+  static FILE_PROFILE_LV            = `${this.PATH_GLOBAL_UI_LAYOUTS}_profilelv${this.EXTENSION_JSON}`;
+  static FILE_CONTROLLER_PROFILE_LV = `${this.PATH_GLOBAL_UI_LAYOUTS}controller\\_profilelv${this.EXTENSION_JSON}`;
 }
 
-const profileHDFilename = 'global\\ui\\layouts\\_profilehd.json';
-const profileHD = D2RMM.readJson(profileHDFilename);
-changeProfileColors(profileHD);
-D2RMM.writeJson(profileHDFilename, profileHD);
+class ColorConstants {
+  static disabled = "disable";
+  static fontColorPrefix = "$FontColor";
+  static colorSuffix = "Color";
+  static fontColors = [
+    `Default${this.colorSuffix}`,
+    `Ethereal${this.colorSuffix}`,
+    `Socketed${this.colorSuffix}`,
+    `Magic${this.colorSuffix}`,
+    `Rare${this.colorSuffix}`,
+    `Set${this.colorSuffix}`,
+    `Unique${this.colorSuffix}`,
+    `Crafted${this.colorSuffix}`,
+    `Tempered${this.colorSuffix}`,
+    `Quest${this.colorSuffix}`,
+    `Gold${this.colorSuffix}`,
+    `HealthPotion${this.colorSuffix}`,
+    `ManaPotion${this.colorSuffix}`,
+    `RejuvPotion${this.colorSuffix}`,
+    `Rune${this.colorSuffix}`,
+    `EventItems${this.colorSuffix}`,
+  ];
+}
 
-const profileLVFilename = 'global\\ui\\layouts\\_profilelv.json';
-const profileLV = D2RMM.readJson(profileLVFilename);
-changeProfileColors(profileLV);
-D2RMM.writeJson(profileLVFilename, profileLV);
+class CustomItemColorsMod {
+  apply() {
+    this.setColorsForFile(FileConstants.FILE_PROFILE_HD);
+    this.setColorsForFile(FileConstants.FILE_PROFILE_LV);
+    this.setColorsForFile(FileConstants.FILE_CONTROLLER_PROFILE_LV);
+  }
 
-const controllerProfileLVFilename =
-  'global\\ui\\layouts\\controller\\_profilelv.json';
-const controllerProfileLV = D2RMM.readJson(controllerProfileLVFilename);
-changeProfileColors(controllerProfileLV);
-D2RMM.writeJson(controllerProfileLVFilename, controllerProfileLV);
+  setColorsForFile(path) {
+    let file = D2RMM.readJson(path);
+    this.setProfileColors(file);
+    D2RMM.writeJson(path, file);
+  }
+  
+  setProfileColors(file) {
+    ColorConstants.fontColors.forEach(fontColor => {
+      let newColor = config[fontColor];
+      if (newColor == null || newColor === ColorConstants.disabled) {
+        return;
+      }
+      file.TooltipStyle[fontColor] = `${ColorConstants.fontColorPrefix}${newColor}`;
+    });
+  }
+}
+
+(new CustomItemColorsMod()).apply();

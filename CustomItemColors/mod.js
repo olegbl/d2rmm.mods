@@ -8,6 +8,7 @@ class FileConstants {
 }
 
 class ColorConstants {
+  static disabled = "disable";
   static fontColorPrefix = "$FontColor";
   static colorSuffix = "Color";
   static fontColors = [
@@ -46,7 +47,7 @@ class CustomItemColorsMod {
   setProfileColors(file) {
     ColorConstants.fontColors.forEach(fontColor => {
       let newColor = config[fontColor];
-      if (newColor == null || newColor === "disable") {
+      if (newColor == null || newColor === ColorConstants.disabled) {
         return;
       }
       file.TooltipStyle[fontColor] = `${ColorConstants.fontColorPrefix}${newColor}`;

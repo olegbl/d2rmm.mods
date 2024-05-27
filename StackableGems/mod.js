@@ -228,7 +228,7 @@ if (config.bulkUpgrade) {
     const stacktype = converItemTypeToStackItemType(itemtype);
     const upgradedItemtype = ITEM_TYPES[i + 1];
     const upgradedStacktype = converItemTypeToStackItemType(upgradedItemtype);
-    for (let j = 30; j < config.maxStack; j = j + 1) {
+    for (let j = 30; j <= config.maxStack; j = j + 1) {
       cubemain.rows.push({
         description:
           `Stack of ${j} ${itemtype} + 1 id scroll -> Stack` +

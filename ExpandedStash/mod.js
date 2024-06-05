@@ -305,3 +305,38 @@ D2RMM.copyFile(
   'hd', // <diablo 2 folder>\mods\<modname>\<modname>.mpq\data\hd
   true // overwrite any conflicts
 );
+
+// modify the stash save file to make sure it has 8 tab pages
+// prettier-ignore
+const STASH_TAB = Buffer.from([
+  // extracted from first 68 bytes of an empty stash save file (SharedStashSoftCoreV2.d2i) of D2R v1.6.80273
+  0x55, 0xAA, 0x55, 0xAA, 0x01, 0x00, 0x00, 0x00, 0x63, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0x4A, 0x4D, 0x00, 0x00
+]);
+const stashData = D2RMM.readSaveFile('SharedStashSoftCoreV2.d2i');
+if (stashData == null) {
+  console.error('SharedStashSoftCoreV2.d2i not found');
+} else {
+  // backup existing stash tab data if it doesn't exist
+  const stashDataBackup = D2RMM.readSaveFile('SharedStashSoftCoreV2.d2i.bak');
+  if (stashDataBackup == null) {
+    D2RMM.writeSaveFile('SharedStashSoftCoreV2.d2i.bak', stashData);
+  }
+  // find number of times prefix appears in stashData
+  const stashTabPrefix = STASH_TAB.slice(0, 10);
+  let count = -1;
+  let index = -1;
+  do {
+    count++;
+    index = stashData.indexOf(stashTabPrefix, index + 1);
+  } while (index !== -1);
+  const tabsToAdd = Math.min(4, Math.max(0, 7 - count));
+  console.log(`Adding ${tabsToAdd} tabs to the stash save file`);
+  D2RMM.writeSaveFile(
+    'SharedStashSoftCoreV2.d2i',
+    Buffer.concat([stashData, ...new Array(tabsToAdd).fill(STASH_TAB)])
+  );
+}

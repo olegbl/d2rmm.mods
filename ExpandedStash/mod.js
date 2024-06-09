@@ -1,3 +1,8 @@
+if (D2RMM.getVersion == null || D2RMM.getVersion() < 1.6) {
+  D2RMM.error('Requires D2RMM version 1.6 or higher.');
+  return;
+}
+
 const inventoryFilename = 'global\\excel\\inventory.txt';
 const inventory = D2RMM.readTsv(inventoryFilename);
 inventory.rows.forEach((row) => {
@@ -310,15 +315,17 @@ D2RMM.copyFile(
 // prettier-ignore
 const STASH_TAB = Buffer.from([
   // extracted from first 68 bytes of an empty stash save file (SharedStashSoftCoreV2.d2i) of D2R v1.6.80273
-  0x55, 0xAA, 0x55, 0xAA, 0x01, 0x00, 0x00, 0x00, 0x63, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x4A, 0x4D, 0x00, 0x00
+  0x55, 0xAA, 0x55, 0xAA, 0x01, 0x00, 0x00, 0x00, 0x63, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+  0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+  0x4A, 0x4D, 0x00, 0x00                                                                          //  4 bytes
 ]);
 const stashData = D2RMM.readSaveFile('SharedStashSoftCoreV2.d2i');
 if (stashData == null) {
-  console.error('SharedStashSoftCoreV2.d2i not found');
+  console.error(
+    'Unable to enable additional shared stash tabs in the save file: SharedStashSoftCoreV2.d2i was not found.'
+  );
 } else {
   // backup existing stash tab data if it doesn't exist
   const stashDataBackup = D2RMM.readSaveFile('SharedStashSoftCoreV2.d2i.bak');
@@ -327,16 +334,20 @@ if (stashData == null) {
   }
   // find number of times prefix appears in stashData
   const stashTabPrefix = STASH_TAB.slice(0, 10);
-  let count = -1;
+  let existingTabsCount = -1;
   let index = -1;
   do {
-    count++;
+    existingTabsCount++;
     index = stashData.indexOf(stashTabPrefix, index + 1);
   } while (index !== -1);
-  const tabsToAdd = Math.min(4, Math.max(0, 7 - count));
-  console.log(`Adding ${tabsToAdd} tabs to the stash save file`);
-  D2RMM.writeSaveFile(
-    'SharedStashSoftCoreV2.d2i',
-    Buffer.concat([stashData, ...new Array(tabsToAdd).fill(STASH_TAB)])
-  );
+  // sanitize the data (each save files should have 3-7 shared tabs)
+  existingTabsCount = Math.max(3, Math.min(7, existingTabsCount));
+  const tabsToAdd = 7 - existingTabsCount;
+  // don't modify the save file if it doesn't need it
+  if (tabsToAdd > 0) {
+    D2RMM.writeSaveFile(
+      'SharedStashSoftCoreV2.d2i',
+      Buffer.concat([stashData, ...new Array(tabsToAdd).fill(STASH_TAB)])
+    );
+  }
 }

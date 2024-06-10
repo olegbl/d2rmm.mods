@@ -23,7 +23,8 @@
           "type": "checkbox",
           "name": "Free",
           "description": "Do not consume the rune when reforging.",
-          "defaultValue": false
+          "defaultValue": false,
+          "rules": [["show", ["eq", ["value", "reforge"], true]]]
         },
         {
           "id": "reforgeIngredient",
@@ -31,6 +32,7 @@
           "name": "Rune Ingredient",
           "description": "The rune that's required as an ingredient when reforging.",
           "defaultValue": "r14",
+          "rules": [["show", ["eq", ["value", "reforge"], true]]],
           "options": [
             { "value": "r01", "label": "El Rune (1)" },
             { "value": "r02", "label": "Eld Rune (2)" },
@@ -87,7 +89,8 @@
           "type": "checkbox",
           "name": "Free",
           "description": "Do not consume the rune when rerolling.",
-          "defaultValue": false
+          "defaultValue": false,
+          "rules": [["show", ["eq", ["value", "reroll"], true]]]
         },
         {
           "id": "rerollIngredient",
@@ -95,6 +98,7 @@
           "name": "Rune Ingredient",
           "description": "The rune that's required as an ingredient when rerolling.",
           "defaultValue": "r22",
+          "rules": [["show", ["eq", ["value", "reroll"], true]]],
           "options": [
             { "value": "r01", "label": "El Rune (1)" },
             { "value": "r02", "label": "Eld Rune (2)" },
@@ -151,7 +155,8 @@
           "type": "checkbox",
           "name": "Free",
           "description": "Do not consume the rune when toggling ethereal status.",
-          "defaultValue": false
+          "defaultValue": false,
+          "rules": [["show", ["eq", ["value", "ethereal"], true]]]
         },
         {
           "id": "etherealIngredient",
@@ -159,6 +164,7 @@
           "name": "Rune Ingredient",
           "description": "The rune that's required as an ingredient when toggling ethereal status.",
           "defaultValue": "r23",
+          "rules": [["show", ["eq", ["value", "ethereal"], true]]],
           "options": [
             { "value": "r01", "label": "El Rune (1)" },
             { "value": "r02", "label": "Eld Rune (2)" },
@@ -215,7 +221,8 @@
           "type": "checkbox",
           "name": "Free",
           "description": "Do not consume the rune when releveling.",
-          "defaultValue": false
+          "defaultValue": false,
+          "rules": [["show", ["eq", ["value", "relevel"], true]]]
         },
         {
           "id": "relevelIngredient25",
@@ -223,6 +230,7 @@
           "name": "Rune Ingredient (Level 25)",
           "description": "The rune that's required as an ingredient when releveling an item to item level 25.",
           "defaultValue": "r19",
+          "rules": [["show", ["eq", ["value", "relevel"], true]]],
           "options": [
             { "value": "r01", "label": "El Rune (1)" },
             { "value": "r02", "label": "Eld Rune (2)" },
@@ -265,6 +273,7 @@
           "name": "Rune Ingredient (Level 40)",
           "description": "The rune that's required as an ingredient when releveling an item to item level 40.",
           "defaultValue": "r20",
+          "rules": [["show", ["eq", ["value", "relevel"], true]]],
           "options": [
             { "value": "r01", "label": "El Rune (1)" },
             { "value": "r02", "label": "Eld Rune (2)" },
@@ -307,6 +316,7 @@
           "name": "Rune Ingredient (Level 99)",
           "description": "The rune that's required as an ingredient when releveling an item to item level 99.",
           "defaultValue": "r21",
+          "rules": [["show", ["eq", ["value", "relevel"], true]]],
           "options": [
             { "value": "r01", "label": "El Rune (1)" },
             { "value": "r02", "label": "Eld Rune (2)" },

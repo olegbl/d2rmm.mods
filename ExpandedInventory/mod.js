@@ -259,8 +259,8 @@ playerInventoryOriginalControllerLayoutHD.children.forEach((child) => {
     child.fields.rect.y = child.fields.rect.y + 595;
   }
   if (child.name === 'gold_amount' || child.name === 'gold_button') {
-    child.fields.rect.x = child.fields.rect.x - 474;
-    child.fields.rect.y = child.fields.rect.y - 1454;
+    child.fields.rect.x = child.fields.rect.x - 464;
+    child.fields.rect.y = child.fields.rect.y + 20;
   }
 });
 D2RMM.writeJson(

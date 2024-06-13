@@ -79,6 +79,10 @@ const VARIABLES = [
   'TemperedColor',
   'QuestColor',
   'GoldColor',
+  'HealthPotionColor',
+  'ManaPotionColor',
+  'RejuvPotionColor',
+  'EventItemsColor',
 ];
 
 function changeProfileColors(profile) {

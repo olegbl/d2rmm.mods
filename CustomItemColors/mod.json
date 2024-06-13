@@ -3,14 +3,19 @@
   "description": "Customize the colors of various item types as they appear when on the ground. This does *not* change the color of items in their tooltips while in inventory/stash.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/190",
-  "version": "1.1",
+  "version": "1.2",
   "config": [
     {
       "id": "DefaultColor",
       "type": "select",
       "name": "Default Color",
-      "defaultValue": "White",
+      "defaultValue": "Default",
       "options": [
+        {
+          "value": "Default",
+          "label": "Default (White)",
+          "description": "Do not modify the value."
+        },
         { "value": "Beige", "label": "Beige" },
         { "value": "Black", "label": "Black" },
         { "value": "Blue", "label": "Blue" },
@@ -36,7 +41,7 @@
         { "value": "Red", "label": "Red" },
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
-        { "value": "White", "label": "White", "description": "Game Default" },
+        { "value": "White", "label": "White" },
         { "value": "Yellow", "label": "Yellow" }
       ]
     },
@@ -46,6 +51,11 @@
       "name": "Ethereal Color",
       "defaultValue": "LightTeal",
       "options": [
+        {
+          "value": "Default",
+          "label": "Default (Gray)",
+          "description": "Do not modify the value."
+        },
         { "value": "Beige", "label": "Beige" },
         { "value": "Black", "label": "Black" },
         { "value": "Blue", "label": "Blue" },
@@ -56,18 +66,14 @@
         { "value": "DarkGreen", "label": "Dark Green" },
         { "value": "Gold", "label": "Gold" },
         { "value": "GoldYellow", "label": "Gold Yellow" },
-        { "value": "Gray", "label": "Gray", "description": "Game Default" },
+        { "value": "Gray", "label": "Gray" },
         { "value": "Green", "label": "Green" },
         { "value": "LightBlue", "label": "Light Blue" },
         { "value": "LightGold", "label": "Light Gold" },
         { "value": "LightGray", "label": "Light Gray" },
         { "value": "LightPurple", "label": "Light Purple" },
         { "value": "LightRed", "label": "Light Red" },
-        {
-          "value": "LightTeal",
-          "label": "Light Teal",
-          "description": "Mod Default"
-        },
+        { "value": "LightTeal", "label": "Light Teal" },
         { "value": "LightYellow", "label": "Light Yellow" },
         { "value": "Orange", "label": "Orange" },
         { "value": "PartyGreen", "label": "Party Green" },
@@ -83,8 +89,13 @@
       "id": "SocketedColor",
       "type": "select",
       "name": "Socketed Color",
-      "defaultValue": "Gray",
+      "defaultValue": "Default",
       "options": [
+        {
+          "value": "Default",
+          "label": "Default (Gray)",
+          "description": "Do not modify the value."
+        },
         { "value": "Beige", "label": "Beige" },
         { "value": "Black", "label": "Black" },
         { "value": "Blue", "label": "Blue" },
@@ -95,7 +106,7 @@
         { "value": "DarkGreen", "label": "Dark Green" },
         { "value": "Gold", "label": "Gold" },
         { "value": "GoldYellow", "label": "Gold Yellow" },
-        { "value": "Gray", "label": "Gray", "description": "Game Default" },
+        { "value": "Gray", "label": "Gray" },
         { "value": "Green", "label": "Green" },
         { "value": "LightBlue", "label": "Light Blue" },
         { "value": "LightGold", "label": "Light Gold" },
@@ -118,11 +129,16 @@
       "id": "MagicColor",
       "type": "select",
       "name": "Magic Color",
-      "defaultValue": "Blue",
+      "defaultValue": "Default",
       "options": [
+        {
+          "value": "Default",
+          "label": "Default (Blue)",
+          "description": "Do not modify the value."
+        },
         { "value": "Beige", "label": "Beige" },
         { "value": "Black", "label": "Black" },
-        { "value": "Blue", "label": "Blue", "description": "Game Default" },
+        { "value": "Blue", "label": "Blue" },
         { "value": "CurrencyGold", "label": "Currency Gold" },
         { "value": "DarkGold", "label": "Dark Gold" },
         { "value": "DarkGrayBlue", "label": "Dark Gray Blue" },
@@ -153,8 +169,13 @@
       "id": "RareColor",
       "type": "select",
       "name": "Rare Color",
-      "defaultValue": "Yellow",
+      "defaultValue": "Default",
       "options": [
+        {
+          "value": "Default",
+          "label": "Default (Yellow)",
+          "description": "Do not modify the value."
+        },
         { "value": "Beige", "label": "Beige" },
         { "value": "Black", "label": "Black" },
         { "value": "Blue", "label": "Blue" },
@@ -181,15 +202,20 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow", "description": "Game Default" }
+        { "value": "Yellow", "label": "Yellow" }
       ]
     },
     {
       "id": "SetColor",
       "type": "select",
       "name": "Set Color",
-      "defaultValue": "Green",
+      "defaultValue": "Default",
       "options": [
+        {
+          "value": "Default",
+          "label": "Default (Green)",
+          "description": "Do not modify the value."
+        },
         { "value": "Beige", "label": "Beige" },
         { "value": "Black", "label": "Black" },
         { "value": "Blue", "label": "Blue" },
@@ -201,7 +227,7 @@
         { "value": "Gold", "label": "Gold" },
         { "value": "GoldYellow", "label": "Gold Yellow" },
         { "value": "Gray", "label": "Gray" },
-        { "value": "Green", "label": "Green", "description": "Game Default" },
+        { "value": "Green", "label": "Green" },
         { "value": "LightBlue", "label": "Light Blue" },
         { "value": "LightGold", "label": "Light Gold" },
         { "value": "LightGray", "label": "Light Gray" },
@@ -223,8 +249,13 @@
       "id": "UniqueColor",
       "type": "select",
       "name": "Unique Color",
-      "defaultValue": "GoldYellow",
+      "defaultValue": "Default",
       "options": [
+        {
+          "value": "Default",
+          "label": "Default (GoldYellow)",
+          "description": "Do not modify the value."
+        },
         { "value": "Beige", "label": "Beige" },
         { "value": "Black", "label": "Black" },
         { "value": "Blue", "label": "Blue" },
@@ -234,11 +265,7 @@
         { "value": "DarkGrayGold", "label": "Dark Gray Gold" },
         { "value": "DarkGreen", "label": "Dark Green" },
         { "value": "Gold", "label": "Gold" },
-        {
-          "value": "GoldYellow",
-          "label": "Gold Yellow",
-          "description": "Game Default"
-        },
+        { "value": "GoldYellow", "label": "Gold Yellow" },
         { "value": "Gray", "label": "Gray" },
         { "value": "Green", "label": "Green" },
         { "value": "LightBlue", "label": "Light Blue" },
@@ -262,8 +289,13 @@
       "id": "CraftedColor",
       "type": "select",
       "name": "Crafted Color",
-      "defaultValue": "Orange",
+      "defaultValue": "Default",
       "options": [
+        {
+          "value": "Default",
+          "label": "Default (Orange)",
+          "description": "Do not modify the value."
+        },
         { "value": "Beige", "label": "Beige" },
         { "value": "Black", "label": "Black" },
         { "value": "Blue", "label": "Blue" },
@@ -283,7 +315,7 @@
         { "value": "LightRed", "label": "Light Red" },
         { "value": "LightTeal", "label": "Light Teal" },
         { "value": "LightYellow", "label": "Light Yellow" },
-        { "value": "Orange", "label": "Orange", "description": "Game Default" },
+        { "value": "Orange", "label": "Orange" },
         { "value": "PartyGreen", "label": "Party Green" },
         { "value": "PartyOrange", "label": "Party Orange" },
         { "value": "Red", "label": "Red" },
@@ -297,8 +329,13 @@
       "id": "TemperedColor",
       "type": "select",
       "name": "Tempered Color",
-      "defaultValue": "DarkGreen",
+      "defaultValue": "Default",
       "options": [
+        {
+          "value": "Default",
+          "label": "Default (DarkGreen)",
+          "description": "Do not modify the value."
+        },
         { "value": "Beige", "label": "Beige" },
         { "value": "Black", "label": "Black" },
         { "value": "Blue", "label": "Blue" },
@@ -306,11 +343,7 @@
         { "value": "DarkGold", "label": "Dark Gold" },
         { "value": "DarkGrayBlue", "label": "Dark Gray Blue" },
         { "value": "DarkGrayGold", "label": "Dark Gray Gold" },
-        {
-          "value": "DarkGreen",
-          "label": "Dark Green",
-          "description": "Game Default"
-        },
+        { "value": "DarkGreen", "label": "Dark Green" },
         { "value": "Gold", "label": "Gold" },
         { "value": "GoldYellow", "label": "Gold Yellow" },
         { "value": "Gray", "label": "Gray" },
@@ -336,47 +369,13 @@
       "id": "QuestColor",
       "type": "select",
       "name": "Quest Color",
-      "defaultValue": "GoldYellow",
+      "defaultValue": "Default",
       "options": [
-        { "value": "Beige", "label": "Beige" },
-        { "value": "Black", "label": "Black" },
-        { "value": "Blue", "label": "Blue" },
-        { "value": "CurrencyGold", "label": "Currency Gold" },
-        { "value": "DarkGold", "label": "Dark Gold" },
-        { "value": "DarkGrayBlue", "label": "Dark Gray Blue" },
-        { "value": "DarkGrayGold", "label": "Dark Gray Gold" },
-        { "value": "DarkGreen", "label": "Dark Green" },
-        { "value": "Gold", "label": "Gold" },
         {
-          "value": "GoldYellow",
-          "label": "Gold Yellow",
-          "description": "Game Default"
+          "value": "Default",
+          "label": "Default (GoldYellow)",
+          "description": "Do not modify the value."
         },
-        { "value": "Gray", "label": "Gray" },
-        { "value": "Green", "label": "Green" },
-        { "value": "LightBlue", "label": "Light Blue" },
-        { "value": "LightGold", "label": "Light Gold" },
-        { "value": "LightGray", "label": "Light Gray" },
-        { "value": "LightPurple", "label": "Light Purple" },
-        { "value": "LightRed", "label": "Light Red" },
-        { "value": "LightTeal", "label": "Light Teal" },
-        { "value": "LightYellow", "label": "Light Yellow" },
-        { "value": "Orange", "label": "Orange" },
-        { "value": "PartyGreen", "label": "Party Green" },
-        { "value": "PartyOrange", "label": "Party Orange" },
-        { "value": "Red", "label": "Red" },
-        { "value": "Transparent", "label": "Transparent" },
-        { "value": "VeryLightGray", "label": "Very Light Gray" },
-        { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
-      ]
-    },
-    {
-      "id": "GoldColor",
-      "type": "select",
-      "name": "Gold Color",
-      "defaultValue": "White",
-      "options": [
         { "value": "Beige", "label": "Beige" },
         { "value": "Black", "label": "Black" },
         { "value": "Blue", "label": "Blue" },
@@ -402,7 +401,47 @@
         { "value": "Red", "label": "Red" },
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
-        { "value": "White", "label": "White", "description": "Game Default" },
+        { "value": "White", "label": "White" },
+        { "value": "Yellow", "label": "Yellow" }
+      ]
+    },
+    {
+      "id": "GoldColor",
+      "type": "select",
+      "name": "Gold Color",
+      "defaultValue": "Default",
+      "options": [
+        {
+          "value": "Default",
+          "label": "Default (White)",
+          "description": "Do not modify the value."
+        },
+        { "value": "Beige", "label": "Beige" },
+        { "value": "Black", "label": "Black" },
+        { "value": "Blue", "label": "Blue" },
+        { "value": "CurrencyGold", "label": "Currency Gold" },
+        { "value": "DarkGold", "label": "Dark Gold" },
+        { "value": "DarkGrayBlue", "label": "Dark Gray Blue" },
+        { "value": "DarkGrayGold", "label": "Dark Gray Gold" },
+        { "value": "DarkGreen", "label": "Dark Green" },
+        { "value": "Gold", "label": "Gold" },
+        { "value": "GoldYellow", "label": "Gold Yellow" },
+        { "value": "Gray", "label": "Gray" },
+        { "value": "Green", "label": "Green" },
+        { "value": "LightBlue", "label": "Light Blue" },
+        { "value": "LightGold", "label": "Light Gold" },
+        { "value": "LightGray", "label": "Light Gray" },
+        { "value": "LightPurple", "label": "Light Purple" },
+        { "value": "LightRed", "label": "Light Red" },
+        { "value": "LightTeal", "label": "Light Teal" },
+        { "value": "LightYellow", "label": "Light Yellow" },
+        { "value": "Orange", "label": "Orange" },
+        { "value": "PartyGreen", "label": "Party Green" },
+        { "value": "PartyOrange", "label": "Party Orange" },
+        { "value": "Red", "label": "Red" },
+        { "value": "Transparent", "label": "Transparent" },
+        { "value": "VeryLightGray", "label": "Very Light Gray" },
+        { "value": "White", "label": "White" },
         { "value": "Yellow", "label": "Yellow" }
       ]
     }

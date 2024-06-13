@@ -44,6 +44,9 @@ const VARIABLES = [
 
 function changeProfileColors(profile) {
   VARIABLES.forEach((variable) => {
+    if (config[variable] === 'Default') {
+      return;
+    }
     const color = COLORS[config[variable]];
     if (color != null) {
       profile.TooltipStyle[variable] = color;

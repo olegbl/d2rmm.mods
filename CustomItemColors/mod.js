@@ -47,6 +47,10 @@ function changeProfileColors(profile) {
     if (config[variable] === 'Default') {
       return;
     }
+    if (config[variable] === 'Custom') {
+      profile.TooltipStyle[variable] = config['Custom' + variable];
+      return;
+    }
     const color = COLORS[config[variable]];
     if (color != null) {
       profile.TooltipStyle[variable] = color;

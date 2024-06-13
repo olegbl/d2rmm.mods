@@ -42,8 +42,17 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom" }
       ]
+    },
+    {
+      "id": "CustomDefaultColor",
+      "type": "color",
+      "name": "Custom Default Color",
+      "defaultValue": [255, 255, 255, 1.0],
+      "isAlphaHidden": true,
+      "visible": ["eq", ["value", "DefaultColor"], "Custom"]
     },
     {
       "id": "EtherealColor",
@@ -82,8 +91,17 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom" }
       ]
+    },
+    {
+      "id": "CustomEtherealColor",
+      "type": "color",
+      "name": "Custom Ethereal Color",
+      "defaultValue": [255, 255, 255, 1.0],
+      "isAlphaHidden": true,
+      "visible": ["eq", ["value", "EtherealColor"], "Custom"]
     },
     {
       "id": "SocketedColor",
@@ -122,8 +140,17 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom" }
       ]
+    },
+    {
+      "id": "CustomSocketedColor",
+      "type": "color",
+      "name": "Custom Socketed Color",
+      "defaultValue": [255, 255, 255, 1.0],
+      "isAlphaHidden": true,
+      "visible": ["eq", ["value", "SocketedColor"], "Custom"]
     },
     {
       "id": "MagicColor",
@@ -162,8 +189,17 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom" }
       ]
+    },
+    {
+      "id": "CustomMagicColor",
+      "type": "color",
+      "name": "Custom Magic Color",
+      "defaultValue": [255, 255, 255, 1.0],
+      "isAlphaHidden": true,
+      "visible": ["eq", ["value", "MagicColor"], "Custom"]
     },
     {
       "id": "RareColor",
@@ -202,8 +238,17 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom" }
       ]
+    },
+    {
+      "id": "CustomRareColor",
+      "type": "color",
+      "name": "Custom Rare Color",
+      "defaultValue": [255, 255, 255, 1.0],
+      "isAlphaHidden": true,
+      "visible": ["eq", ["value", "RareColor"], "Custom"]
     },
     {
       "id": "SetColor",
@@ -242,8 +287,17 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom" }
       ]
+    },
+    {
+      "id": "CustomSetColor",
+      "type": "color",
+      "name": "Custom Set Color",
+      "defaultValue": [255, 255, 255, 1.0],
+      "isAlphaHidden": true,
+      "visible": ["eq", ["value", "SetColor"], "Custom"]
     },
     {
       "id": "UniqueColor",
@@ -282,8 +336,17 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom" }
       ]
+    },
+    {
+      "id": "CustomUniqueColor",
+      "type": "color",
+      "name": "Custom Unique Color",
+      "defaultValue": [255, 255, 255, 1.0],
+      "isAlphaHidden": true,
+      "visible": ["eq", ["value", "UniqueColor"], "Custom"]
     },
     {
       "id": "CraftedColor",
@@ -322,8 +385,17 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom" }
       ]
+    },
+    {
+      "id": "CustomCraftedColor",
+      "type": "color",
+      "name": "Custom Crafted Color",
+      "defaultValue": [255, 255, 255, 1.0],
+      "isAlphaHidden": true,
+      "visible": ["eq", ["value", "CraftedColor"], "Custom"]
     },
     {
       "id": "TemperedColor",
@@ -362,8 +434,17 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom" }
       ]
+    },
+    {
+      "id": "CustomTemperedColor",
+      "type": "color",
+      "name": "Custom Tempered Color",
+      "defaultValue": [255, 255, 255, 1.0],
+      "isAlphaHidden": true,
+      "visible": ["eq", ["value", "TemperedColor"], "Custom"]
     },
     {
       "id": "QuestColor",
@@ -402,8 +483,17 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom" }
       ]
+    },
+    {
+      "id": "CustomQuestColor",
+      "type": "color",
+      "name": "Custom Quest Color",
+      "defaultValue": [255, 255, 255, 1.0],
+      "isAlphaHidden": true,
+      "visible": ["eq", ["value", "QuestColor"], "Custom"]
     },
     {
       "id": "GoldColor",
@@ -442,8 +532,17 @@
         { "value": "Transparent", "label": "Transparent" },
         { "value": "VeryLightGray", "label": "Very Light Gray" },
         { "value": "White", "label": "White" },
-        { "value": "Yellow", "label": "Yellow" }
+        { "value": "Yellow", "label": "Yellow" },
+        { "value": "Custom", "label": "Custom" }
       ]
+    },
+    {
+      "id": "CustomGoldColor",
+      "type": "color",
+      "name": "Custom Gold Color",
+      "defaultValue": [255, 255, 255, 1.0],
+      "isAlphaHidden": true,
+      "visible": ["eq", ["value", "GoldColor"], "Custom"]
     }
   ]
 }

@@ -16,7 +16,7 @@
       "id": "keys",
       "type": "number",
       "name": "Keys",
-      "description": "Maximum stack size of all tomes (town portal / identfy).",
+      "description": "Maximum stack size of keys.",
       "defaultValue": 100
     },
     {

@@ -72,7 +72,6 @@ D2RMM.writeJson(mainMenuPanelHDFilename, mainMenuPanelHD);
 const characterSelectPanelHDFilename =
   'global\\ui\\layouts\\characterselectpanelhd.json';
 const characterSelectPanelHD = D2RMM.readJson(characterSelectPanelHDFilename);
-console.log(characterSelectPanelHD);
 const background = characterSelectPanelHD.children.find(
   (child) => child.name === 'Background'
 );

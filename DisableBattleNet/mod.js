@@ -68,7 +68,34 @@ mainMenuPanelHD.children = mainMenuPanelHD.children
   .filter((child) => child != null);
 D2RMM.writeJson(mainMenuPanelHDFilename, mainMenuPanelHD);
 
-// Character selection panel is in characterselectpanelhd.json
-// but can't disable anything in there without affecting singleplayer
-// and the tab control's enabled/disabled state is controlled by code
-// not by ui config
+// replace online/offline tabs with title
+const characterSelectPanelHDFilename =
+  'global\\ui\\layouts\\characterselectpanelhd.json';
+const characterSelectPanelHD = D2RMM.readJson(characterSelectPanelHDFilename);
+console.log(characterSelectPanelHD);
+const background = characterSelectPanelHD.children.find(
+  (child) => child.name === 'Background'
+);
+const backgroundCover = background.children.find(
+  (child) => child.name === 'BackgroundCover'
+);
+const tabs = backgroundCover.children.find((child) => child.name === 'Tabs');
+// don't remove the widget because code interacts with it - just move it offscreen
+tabs.fields.rect = { x: -10000, y: -10000 };
+backgroundCover.children.push({
+  type: 'TextBoxWidget',
+  name: 'ModdedTitle',
+  fields: {
+    text: 'Modded Characters',
+    rect: { x: 145, y: 29, width: 664, height: 71 },
+    fontType: '16pt',
+    style: {
+      alignment: { h: 'center', v: 'center' },
+      fontColor: '$CharacterListDetailsColor',
+      pointSize: '$XMediumFontSize',
+      spacing: '$ReducedSpacing',
+      dropShadow: '$DefaultDropShadow',
+    },
+  },
+});
+D2RMM.writeJson(characterSelectPanelHDFilename, characterSelectPanelHD);

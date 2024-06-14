@@ -3,6 +3,71 @@
   "description": "Increases stash size to 16x13. Based on https://www.nexusmods.com/diablo2resurrected/mods/13.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/173",
-  "version": "1.5"
+  "version": "1.6",
+  "config": [
+    {
+      "id": "IsCustomTabNamesEnabled",
+      "type": "checkbox",
+      "name": "Enable Custom Tab Names",
+      "description": "Enable the custom stash tab names set below.",
+      "defaultValue": true
+    },
+    {
+      "id": "tabNamePersonal",
+      "type": "text",
+      "name": "Personal Tab",
+      "description": "Set a custom name for the Personal stash tab. Leave blank to use the default name.",
+      "defaultValue": ""
+    },
+    {
+      "id": "tabNameShared1",
+      "type": "text",
+      "name": "Shared Tab 1",
+      "description": "Set a custom name for the first Shared stash tab. Leave blank to use the default name.",
+      "defaultValue": ""
+    },
+    {
+      "id": "tabNameShared2",
+      "type": "text",
+      "name": "Shared Tab 2",
+      "description": "Set a custom name for the second Shared stash tab. Leave blank to use the default name.",
+      "defaultValue": ""
+    },
+    {
+      "id": "tabNameShared3",
+      "type": "text",
+      "name": "Shared Tab 3",
+      "description": "Set a custom name for the third Shared stash tab. Leave blank to use the default name.",
+      "defaultValue": ""
+    },
+    {
+      "id": "tabNameShared4",
+      "type": "text",
+      "name": "Shared Tab 4",
+      "description": "Set a custom name for the fourth Shared stash tab. Leave blank to use the default name.",
+      "defaultValue": ""
+    },
+    {
+      "id": "tabNameShared5",
+      "type": "text",
+      "name": "Shared Tab 5",
+      "description": "Set a custom name for the fifth Shared stash tab. Leave blank to use the default name.",
+      "defaultValue": ""
+    },
+    {
+      "id": "tabNameShared6",
+      "type": "text",
+      "name": "Shared Tab 6",
+      "description": "Set a custom name for the sixth Shared stash tab. Leave blank to use the default name.",
+      "defaultValue": ""
+    },
+    {
+      "id": "tabNameShared7",
+      "type": "text",
+      "name": "Shared Tab 7",
+      "description": "Set a custom name for the seventh Shared stash tab. Leave blank to use the default name.",
+      "defaultValue": ""
+    }
+  ]
 }
 

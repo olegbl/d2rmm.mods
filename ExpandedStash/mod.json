@@ -9,64 +9,72 @@
       "id": "IsCustomTabNamesEnabled",
       "type": "checkbox",
       "name": "Enable Custom Tab Names",
-      "description": "Enable the custom stash tab names set below.",
-      "defaultValue": true
+      "description": "Set a custom name for each stash tab using the fields below.",
+      "defaultValue": false
     },
     {
       "id": "tabNamePersonal",
       "type": "text",
       "name": "Personal Tab",
       "description": "Set a custom name for the Personal stash tab. Leave blank to use the default name.",
-      "defaultValue": ""
+      "defaultValue": "",
+      "visible": ["eq", ["value", "IsCustomTabNamesEnabled"], true]
     },
     {
       "id": "tabNameShared1",
       "type": "text",
       "name": "Shared Tab 1",
       "description": "Set a custom name for the first Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": ""
+      "defaultValue": "",
+      "visible": ["eq", ["value", "IsCustomTabNamesEnabled"], true]
     },
     {
       "id": "tabNameShared2",
       "type": "text",
       "name": "Shared Tab 2",
       "description": "Set a custom name for the second Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": ""
+      "defaultValue": "",
+      "visible": ["eq", ["value", "IsCustomTabNamesEnabled"], true]
     },
     {
       "id": "tabNameShared3",
       "type": "text",
       "name": "Shared Tab 3",
       "description": "Set a custom name for the third Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": ""
+      "defaultValue": "",
+      "visible": ["eq", ["value", "IsCustomTabNamesEnabled"], true]
     },
     {
       "id": "tabNameShared4",
       "type": "text",
       "name": "Shared Tab 4",
       "description": "Set a custom name for the fourth Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": ""
+      "defaultValue": "",
+      "visible": ["eq", ["value", "IsCustomTabNamesEnabled"], true]
     },
     {
       "id": "tabNameShared5",
       "type": "text",
       "name": "Shared Tab 5",
       "description": "Set a custom name for the fifth Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": ""
+      "defaultValue": "",
+      "visible": ["eq", ["value", "IsCustomTabNamesEnabled"], true]
     },
     {
       "id": "tabNameShared6",
       "type": "text",
       "name": "Shared Tab 6",
       "description": "Set a custom name for the sixth Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": ""
+      "defaultValue": "",
+      "visible": ["eq", ["value", "IsCustomTabNamesEnabled"], true]
     },
     {
       "id": "tabNameShared7",
       "type": "text",
       "name": "Shared Tab 7",
       "description": "Set a custom name for the seventh Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": ""
+      "defaultValue": "",
+      "visible": ["eq", ["value", "IsCustomTabNamesEnabled"], true]
     }
   ]
 }

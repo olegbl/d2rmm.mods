@@ -3,14 +3,18 @@ if (D2RMM.getVersion == null || D2RMM.getVersion() < 1.6) {
   return;
 }
 
-const tabNamePersonal = (!config.IsCustomTabNamesEnabled || config.tabNamePersonal === "") ? "@personal" : config.tabNamePersonal;
-const tabNameShared1  = (!config.IsCustomTabNamesEnabled || config.tabNameShared1  === "") ? "@shared"   : config.tabNameShared1;
-const tabNameShared2  = (!config.IsCustomTabNamesEnabled || config.tabNameShared2  === "") ? "@shared"   : config.tabNameShared2;
-const tabNameShared3  = (!config.IsCustomTabNamesEnabled || config.tabNameShared3  === "") ? "@shared"   : config.tabNameShared3;
-const tabNameShared4  = (!config.IsCustomTabNamesEnabled || config.tabNameShared4  === "") ? "@shared"   : config.tabNameShared4;
-const tabNameShared5  = (!config.IsCustomTabNamesEnabled || config.tabNameShared5  === "") ? "@shared"   : config.tabNameShared5;
-const tabNameShared6  = (!config.IsCustomTabNamesEnabled || config.tabNameShared6  === "") ? "@shared"   : config.tabNameShared6;
-const tabNameShared7  = (!config.IsCustomTabNamesEnabled || config.tabNameShared7  === "") ? "@shared"   : config.tabNameShared7;
+function setTabName(setName, defaultName) {
+  return !config.isCustomTabsEnabled || setName === '' ? defaultName : setName;
+}
+
+const tabNamePersonal = setTabName(config.tabNamePersonal, '@personal');
+const tabNameShared1 = setTabName(config.tabNameShared1, '@shared');
+const tabNameShared2 = setTabName(config.tabNameShared2, '@shared');
+const tabNameShared3 = setTabName(config.tabNameShared3, '@shared');
+const tabNameShared4 = setTabName(config.tabNameShared4, '@shared');
+const tabNameShared5 = setTabName(config.tabNameShared5, '@shared');
+const tabNameShared6 = setTabName(config.tabNameShared6, '@shared');
+const tabNameShared7 = setTabName(config.tabNameShared7, '@shared');
 
 const inventoryFilename = 'global\\excel\\inventory.txt';
 const inventory = D2RMM.readTsv(inventoryFilename);

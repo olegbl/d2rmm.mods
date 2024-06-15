@@ -3,7 +3,7 @@
   "description": "Increases stash size to 16x13. Based on https://www.nexusmods.com/diablo2resurrected/mods/13.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/173",
-  "version": "1.6",
+  "version": "1.5",
   "config": [
     {
       "id": "isCustomTabsEnabled",
@@ -78,4 +78,3 @@
     }
   ]
 }
-

@@ -18,7 +18,7 @@
       "name": "Personal Tab",
       "description": "Set a custom name for the Personal stash tab. Leave blank to use the default name.",
       "defaultValue": "",
-      "visible": ["value", "IsCustomTabNamesEnabled"]
+      "visible": ["value", "isCustomTabsEnabled"]
     },
     {
       "id": "tabNameShared1",
@@ -26,7 +26,7 @@
       "name": "Shared Tab 1",
       "description": "Set a custom name for the first Shared stash tab. Leave blank to use the default name.",
       "defaultValue": "",
-      "visible": ["value", "IsCustomTabNamesEnabled"]
+      "visible": ["value", "isCustomTabsEnabled"]
     },
     {
       "id": "tabNameShared2",
@@ -34,7 +34,7 @@
       "name": "Shared Tab 2",
       "description": "Set a custom name for the second Shared stash tab. Leave blank to use the default name.",
       "defaultValue": "",
-      "visible": ["value", "IsCustomTabNamesEnabled"]
+      "visible": ["value", "isCustomTabsEnabled"]
     },
     {
       "id": "tabNameShared3",
@@ -42,7 +42,7 @@
       "name": "Shared Tab 3",
       "description": "Set a custom name for the third Shared stash tab. Leave blank to use the default name.",
       "defaultValue": "",
-      "visible": ["value", "IsCustomTabNamesEnabled"]
+      "visible": ["value", "isCustomTabsEnabled"]
     },
     {
       "id": "tabNameShared4",
@@ -50,7 +50,7 @@
       "name": "Shared Tab 4",
       "description": "Set a custom name for the fourth Shared stash tab. Leave blank to use the default name.",
       "defaultValue": "",
-      "visible": ["value", "IsCustomTabNamesEnabled"]
+      "visible": ["value", "isCustomTabsEnabled"]
     },
     {
       "id": "tabNameShared5",
@@ -58,7 +58,7 @@
       "name": "Shared Tab 5",
       "description": "Set a custom name for the fifth Shared stash tab. Leave blank to use the default name.",
       "defaultValue": "",
-      "visible": ["value", "IsCustomTabNamesEnabled"]
+      "visible": ["value", "isCustomTabsEnabled"]
     },
     {
       "id": "tabNameShared6",
@@ -66,7 +66,7 @@
       "name": "Shared Tab 6",
       "description": "Set a custom name for the sixth Shared stash tab. Leave blank to use the default name.",
       "defaultValue": "",
-      "visible": ["value", "IsCustomTabNamesEnabled"]
+      "visible": ["value", "isCustomTabsEnabled"]
     },
     {
       "id": "tabNameShared7",
@@ -74,7 +74,7 @@
       "name": "Shared Tab 7",
       "description": "Set a custom name for the seventh Shared stash tab. Leave blank to use the default name.",
       "defaultValue": "",
-      "visible": ["value", "IsCustomTabNamesEnabled"]
+      "visible": ["value", "isCustomTabsEnabled"]
     }
   ]
 }

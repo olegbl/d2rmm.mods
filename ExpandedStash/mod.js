@@ -309,16 +309,19 @@ const STASH_TAB = Buffer.from([
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
   0x4A, 0x4D, 0x00, 0x00                                                                          //  4 bytes
 ]);
-const stashData = D2RMM.readSaveFile('SharedStashSoftCoreV2.d2i');
-if (stashData == null) {
-  console.error(
-    'Unable to enable additional shared stash tabs in the save file: SharedStashSoftCoreV2.d2i was not found.'
-  );
-} else {
+
+const results = {};
+function modSaveFile(filename) {
+  const stashData = D2RMM.readSaveFile(filename);
+  if (stashData == null) {
+    console.debug(`Skipped ${filename} because the file was not found.`);
+    results[filename] = false;
+    return;
+  }
   // backup existing stash tab data if it doesn't exist
-  const stashDataBackup = D2RMM.readSaveFile('SharedStashSoftCoreV2.d2i.bak');
+  const stashDataBackup = D2RMM.readSaveFile(`${filename}.bak`);
   if (stashDataBackup == null) {
-    D2RMM.writeSaveFile('SharedStashSoftCoreV2.d2i.bak', stashData);
+    D2RMM.writeSaveFile(`${filename}.bak`, stashData);
   }
   // find number of times prefix appears in stashData
   const stashTabPrefix = STASH_TAB.slice(0, 10);
@@ -334,8 +337,28 @@ if (stashData == null) {
   // don't modify the save file if it doesn't need it
   if (tabsToAdd > 0) {
     D2RMM.writeSaveFile(
-      'SharedStashSoftCoreV2.d2i',
+      filename,
       Buffer.concat([stashData, ...new Array(tabsToAdd).fill(STASH_TAB)])
     );
+    console.debug(
+      `Added ${tabsToAdd} additional shared stash tabs to ${filename}.`
+    );
+  } else {
+    console.debug(
+      `Skipped ${filename} because it already has 7 shared stash tabs.`
+    );
   }
+  results[filename] = true;
+}
+
+const SOFTCORE_SAVE_FILE = 'SharedStashSoftCoreV2.d2i';
+const HARDCORE_SAVE_FILE = 'SharedStashHardCoreV2.d2i';
+
+modSaveFile(SOFTCORE_SAVE_FILE);
+modSaveFile(HARDCORE_SAVE_FILE);
+
+if (!results[SOFTCORE_SAVE_FILE] && !results[HARDCORE_SAVE_FILE]) {
+  console.warn(
+    `Unable to enable additional shared stash tabs. Neither ${SOFTCORE_SAVE_FILE} nor ${HARDCORE_SAVE_FILE} were found.`
+  );
 }

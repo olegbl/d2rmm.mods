@@ -3,8 +3,15 @@
   "description": "Increases stash size to 16x13. Based on https://www.nexusmods.com/diablo2resurrected/mods/13.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/173",
-  "version": "1.6",
+  "version": "1.7",
   "config": [
+    {
+      "id": "isExtraTabsEnabled",
+      "type": "checkbox",
+      "name": "Enable Extra Stash Tabs",
+      "description": "Modifies your stash save files to enable the additional 4 shared stash tabs. Requires the stash tab save files to already exist.",
+      "defaultValue": true
+    },
     {
       "id": "isCustomTabsEnabled",
       "type": "checkbox",

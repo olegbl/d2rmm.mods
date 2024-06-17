@@ -299,9 +299,10 @@ D2RMM.copyFile(
   true // overwrite any conflicts
 );
 
-// modify the stash save file to make sure it has 8 tab pages
-// prettier-ignore
-const STASH_TAB = Buffer.from([
+if (config.isExtraTabsEnabled) {
+  // modify the stash save file to make sure it has 8 tab pages
+  // prettier-ignore
+  const STASH_TAB = Buffer.from([
   // extracted from first 68 bytes of an empty stash save file (SharedStashSoftCoreV2.d2i) of D2R v1.6.80273
   0x55, 0xAA, 0x55, 0xAA, 0x01, 0x00, 0x00, 0x00, 0x63, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
@@ -310,55 +311,56 @@ const STASH_TAB = Buffer.from([
   0x4A, 0x4D, 0x00, 0x00                                                                          //  4 bytes
 ]);
 
-const results = {};
-function modSaveFile(filename) {
-  const stashData = D2RMM.readSaveFile(filename);
-  if (stashData == null) {
-    console.debug(`Skipped ${filename} because the file was not found.`);
-    results[filename] = false;
-    return;
+  const results = {};
+  function modSaveFile(filename) {
+    const stashData = D2RMM.readSaveFile(filename);
+    if (stashData == null) {
+      console.debug(`Skipped ${filename} because the file was not found.`);
+      results[filename] = false;
+      return;
+    }
+    // backup existing stash tab data if it doesn't exist
+    const stashDataBackup = D2RMM.readSaveFile(`${filename}.bak`);
+    if (stashDataBackup == null) {
+      D2RMM.writeSaveFile(`${filename}.bak`, stashData);
+    }
+    // find number of times prefix appears in stashData
+    const stashTabPrefix = STASH_TAB.slice(0, 8);
+    let existingTabsCount = -1;
+    let index = -1;
+    do {
+      existingTabsCount++;
+      index = stashData.indexOf(stashTabPrefix, index + 1);
+    } while (index !== -1);
+    // sanitize the data (each save files should have 3-7 shared tabs)
+    existingTabsCount = Math.max(3, Math.min(7, existingTabsCount));
+    const tabsToAdd = 7 - existingTabsCount;
+    // don't modify the save file if it doesn't need it
+    if (tabsToAdd > 0) {
+      D2RMM.writeSaveFile(
+        filename,
+        Buffer.concat([stashData, ...new Array(tabsToAdd).fill(STASH_TAB)])
+      );
+      console.debug(
+        `Added ${tabsToAdd} additional shared stash tabs to ${filename}.`
+      );
+    } else {
+      console.debug(
+        `Skipped ${filename} because it already has 7 shared stash tabs.`
+      );
+    }
+    results[filename] = true;
   }
-  // backup existing stash tab data if it doesn't exist
-  const stashDataBackup = D2RMM.readSaveFile(`${filename}.bak`);
-  if (stashDataBackup == null) {
-    D2RMM.writeSaveFile(`${filename}.bak`, stashData);
-  }
-  // find number of times prefix appears in stashData
-  const stashTabPrefix = STASH_TAB.slice(0, 10);
-  let existingTabsCount = -1;
-  let index = -1;
-  do {
-    existingTabsCount++;
-    index = stashData.indexOf(stashTabPrefix, index + 1);
-  } while (index !== -1);
-  // sanitize the data (each save files should have 3-7 shared tabs)
-  existingTabsCount = Math.max(3, Math.min(7, existingTabsCount));
-  const tabsToAdd = 7 - existingTabsCount;
-  // don't modify the save file if it doesn't need it
-  if (tabsToAdd > 0) {
-    D2RMM.writeSaveFile(
-      filename,
-      Buffer.concat([stashData, ...new Array(tabsToAdd).fill(STASH_TAB)])
-    );
-    console.debug(
-      `Added ${tabsToAdd} additional shared stash tabs to ${filename}.`
-    );
-  } else {
-    console.debug(
-      `Skipped ${filename} because it already has 7 shared stash tabs.`
+
+  const SOFTCORE_SAVE_FILE = 'SharedStashSoftCoreV2.d2i';
+  const HARDCORE_SAVE_FILE = 'SharedStashHardCoreV2.d2i';
+
+  modSaveFile(SOFTCORE_SAVE_FILE);
+  modSaveFile(HARDCORE_SAVE_FILE);
+
+  if (!results[SOFTCORE_SAVE_FILE] && !results[HARDCORE_SAVE_FILE]) {
+    console.warn(
+      `Unable to enable additional shared stash tabs. Neither ${SOFTCORE_SAVE_FILE} nor ${HARDCORE_SAVE_FILE} were found.`
     );
   }
-  results[filename] = true;
-}
-
-const SOFTCORE_SAVE_FILE = 'SharedStashSoftCoreV2.d2i';
-const HARDCORE_SAVE_FILE = 'SharedStashHardCoreV2.d2i';
-
-modSaveFile(SOFTCORE_SAVE_FILE);
-modSaveFile(HARDCORE_SAVE_FILE);
-
-if (!results[SOFTCORE_SAVE_FILE] && !results[HARDCORE_SAVE_FILE]) {
-  console.warn(
-    `Unable to enable additional shared stash tabs. Neither ${SOFTCORE_SAVE_FILE} nor ${HARDCORE_SAVE_FILE} were found.`
-  );
 }

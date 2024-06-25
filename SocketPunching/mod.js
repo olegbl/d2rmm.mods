@@ -12,17 +12,27 @@ if (config.unsocket) {
     '*eol': 0,
   };
 
-  cubemain.rows.push({
-    ...unsocketRecipe,
-    description: `${unsocketRecipe.description} On Armor`,
-    'input 1': `"armo,sock"`,
-  });
+  function addRecipe(code, name) {
+    cubemain.rows.push({
+      ...unsocketRecipe,
+      description: `${unsocketRecipe.description} On ${name}`,
+      'input 1': `"${code},sock"`,
+    });
+  }
 
-  cubemain.rows.push({
-    ...unsocketRecipe,
-    description: `${unsocketRecipe.description} On Weapon`,
-    'input 1': `"weap,sock"`,
-  });
+  if (config.weapon) {
+    addRecipe('weap', 'Weapon');
+  }
+
+  if (config.armor) {
+    // helm, gloves, boots, belt are subtypes of armo
+    addRecipe('armo', 'Armor');
+  }
+
+  if (config.jewelry) {
+    addRecipe('ring', 'Ring');
+    addRecipe('amul', 'Amulet');
+  }
 }
 for (let sockets = 1; sockets <= 6; sockets = sockets + 1) {
   if (config.socket) {
@@ -40,17 +50,29 @@ for (let sockets = 1; sockets <= 6; sockets = sockets + 1) {
       '*eol': 0,
     };
 
-    cubemain.rows.push({
-      ...socketRecipe,
-      description: `${socketRecipe.description} To Armor`,
-      'input 1': '"armo,nos"',
-    });
+    // input types come from itemtypes.text Code column
 
-    cubemain.rows.push({
-      ...socketRecipe,
-      description: `${socketRecipe.description} To Weapon`,
-      'input 1': '"weap,nos"',
-    });
+    function addRecipe(code, name) {
+      cubemain.rows.push({
+        ...socketRecipe,
+        description: `${socketRecipe.description} To ${name}`,
+        'input 1': `"${code},nos"`,
+      });
+    }
+
+    if (config.weapon) {
+      addRecipe('weap', 'Weapon');
+    }
+
+    if (config.armor) {
+      // helm, gloves, boots, belt are subtypes of armo
+      addRecipe('armo', 'Armor');
+    }
+
+    if (config.jewelry) {
+      addRecipe('ring', 'Ring');
+      addRecipe('amul', 'Amulet');
+    }
   }
 }
 D2RMM.writeTsv(cubemainFilename, cubemain);

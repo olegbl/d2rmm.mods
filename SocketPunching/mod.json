@@ -3,7 +3,7 @@
   "description": "Allows socketing and unsocketing an item using jewels.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/188",
-  "version": "1.1",
+  "version": "1.2",
   "config": [
     {
       "id": "socket",
@@ -32,6 +32,35 @@
         { "value": "rvl", "label": "Full Rejuvenation Potion" },
         { "value": "tsc", "label": "Scroll of Town Portal" },
         { "value": "isc", "label": "Scroll of Identify" }
+      ]
+    },
+    {
+      "id": "itemtypes",
+      "type": "section",
+      "name": "Item Types",
+      "defaultExpanded": false,
+      "children": [
+        {
+          "id": "weapon",
+          "type": "checkbox",
+          "name": "Weapons",
+          "description": "Enable socket punching on weapons.",
+          "defaultValue": true
+        },
+        {
+          "id": "armor",
+          "type": "checkbox",
+          "name": "Armor",
+          "description": "Enable socket punching on armor.",
+          "defaultValue": true
+        },
+        {
+          "id": "jewelry",
+          "type": "checkbox",
+          "name": "Jewelry",
+          "description": "Enable socket punching on jewelry. Note that jewelry is not socketable by default - so you'll need to pair this option with a mod that makes jewelry socketable.",
+          "defaultValue": false
+        }
       ]
     }
   ]

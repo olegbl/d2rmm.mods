@@ -334,6 +334,8 @@ if (config.isExtraTabsEnabled) {
         }
         if (value === needle[match]) {
           match++;
+        } else {
+          match = 0;
         }
         if (match === needle.length) {
           return true;
@@ -345,8 +347,10 @@ if (config.isExtraTabsEnabled) {
     let existingTabsCount = -1;
     let index = -1;
     do {
-      existingTabsCount++;
       index = indexOf(stashData, stashTabPrefix, index + 1);
+      if (index !== -1) {
+        existingTabsCount++;
+      }
     } while (index !== -1);
     // sanitize the data (each save files should have 3-7 shared tabs)
     existingTabsCount = Math.max(3, Math.min(7, existingTabsCount));

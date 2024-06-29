@@ -299,17 +299,56 @@ D2RMM.copyFile(
   true // overwrite any conflicts
 );
 
+// modify the stash save file to make sure it has 8 tab pages
 if (config.isExtraTabsEnabled) {
-  // modify the stash save file to make sure it has 8 tab pages
-  // prettier-ignore
-  const STASH_TAB = [
-    // extracted from first 68 bytes of an empty stash save file (SharedStashSoftCoreV2.d2i) of D2R v1.6.80273
-    0x55, 0xAA, 0x55, 0xAA, 0x01, 0x00, 0x00, 0x00, 0x63, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-    0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-    0x4A, 0x4D, 0x00, 0x00                                                                          //  4 bytes
-  ];
+  function getStashTabBinary(vers) {
+    // prettier-ignore
+    return [
+      // extracted from first 68 bytes of an empty stash save file (SharedStashSoftCoreV2.d2i) of D2R v1.6.80273
+      // the 9th byte seems to be related to the version of the game (e.g. 0x61, 0x62, 0x63) and a stash save
+      // that uses a *newer* version than the currently running version of the game will fail to load
+      0x55, 0xAA, 0x55, 0xAA, 0x01, 0x00, 0x00, 0x00, vers, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+      0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+      0x4A, 0x4D, 0x00, 0x00                                                                          //  4 bytes
+    ];
+  }
+
+  function indexOf(haystack, needle, startIndex = 0) {
+    let match = 0;
+    const index = haystack.findIndex((value, index) => {
+      if (index < startIndex) {
+        return false;
+      }
+      // null matches any value
+      if (needle[match] == null || value === needle[match]) {
+        match++;
+      } else {
+        match = 0;
+      }
+      if (match === needle.length) {
+        return true;
+      }
+      return false;
+    });
+    return index === -1 ? -1 : index - needle.length + 1;
+  }
+
+  function getStashTabStartIndices(stashData) {
+    const stashTabPrefix = getStashTabBinary(null).slice(0, 10);
+    const stashTabStartIndices = [];
+    let index = -1;
+    while (true) {
+      index = indexOf(stashData, stashTabPrefix, index + 1);
+      if (index !== -1) {
+        stashTabStartIndices.push(index);
+      } else {
+        break;
+      }
+    }
+    return stashTabStartIndices;
+  }
 
   const results = {};
   function modSaveFile(filename) {
@@ -325,42 +364,27 @@ if (config.isExtraTabsEnabled) {
       D2RMM.writeSaveFile(`${filename}.bak`, stashData);
     }
     // find number of times prefix appears in stashData
-    const stashTabPrefix = STASH_TAB.slice(0, 8);
-    function indexOf(haystack, needle, startIndex = 0) {
-      let match = 0;
-      const index = haystack.findIndex((value, index) => {
-        if (index < startIndex) {
-          return false;
-        }
-        if (value === needle[match]) {
-          match++;
-        } else {
-          match = 0;
-        }
-        if (match === needle.length) {
-          return true;
-        }
-        return false;
-      });
-      return index === -1 ? -1 : index - needle.length + 1;
-    }
-    let existingTabsCount = -1;
-    let index = -1;
-    do {
-      existingTabsCount++;
-      index = indexOf(stashData, stashTabPrefix, index + 1);
-    } while (index !== -1);
+    const stashTabIndices = getStashTabStartIndices(stashData);
+    // find latest version code used by the save file
+    const versionCode = Math.max(
+      ...stashTabIndices.map((index) => stashData[index + 8])
+    );
     // sanitize the data (each save files should have 3-7 shared tabs)
-    existingTabsCount = Math.max(3, Math.min(7, existingTabsCount));
+    const existingTabsCount = Math.max(3, Math.min(7, stashTabIndices.length));
     const tabsToAdd = 7 - existingTabsCount;
     // don't modify the save file if it doesn't need it
     if (tabsToAdd > 0) {
       D2RMM.writeSaveFile(
         filename,
-        [].concat.apply(stashData, new Array(tabsToAdd).fill(STASH_TAB))
+        [].concat.apply(
+          stashData,
+          new Array(tabsToAdd).fill(getStashTabBinary(versionCode))
+        )
       );
       console.debug(
-        `Added ${tabsToAdd} additional shared stash tabs to ${filename}.`
+        `Added ${tabsToAdd} additional shared stash tabs to ${filename} using version code 0x${versionCode.toString(
+          16
+        )}.`
       );
     } else {
       console.debug(

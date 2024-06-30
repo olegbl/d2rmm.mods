@@ -38,89 +38,193 @@ function UpdateRow(row, codeKey, minKey, maxKey) {
   }
 }
 
-const runesFilename = 'global\\excel\\runes.txt';
-const runes = D2RMM.readTsv(runesFilename);
-runes.rows.forEach((row) => {
-  UpdateRow(row, 'T1Code1', 'T1Min1', 'T1Max1');
-  UpdateRow(row, 'T1Code2', 'T1Min2', 'T1Max2');
-  UpdateRow(row, 'T1Code3', 'T1Min3', 'T1Max3');
-  UpdateRow(row, 'T1Code4', 'T1Min4', 'T1Max4');
-  UpdateRow(row, 'T1Code5', 'T1Min5', 'T1Max5');
-  UpdateRow(row, 'T1Code6', 'T1Min6', 'T1Max6');
-  UpdateRow(row, 'T1Code7', 'T1Min7', 'T1Max7');
-});
-D2RMM.writeTsv(runesFilename, runes);
-
-const automagicFilename = 'global\\excel\\automagic.txt';
-const automagic = D2RMM.readTsv(automagicFilename);
-automagic.rows.forEach((row) => {
-  UpdateRow(row, 'mod1code', 'mod1min', 'mod1max');
-  UpdateRow(row, 'mod2code', 'mod2min', 'mod2max');
-  UpdateRow(row, 'mod3code', 'mod3min', 'mod3max');
-
-  if (config.equalchances) {
-    // make all variants of the mod equally likely rather than
-    // low level variants appearing more frequently
-    row.frequency = 1;
+// some rows in automagic/magicprefix/magicaffix serve as lower tier affixes
+// for multiple different higher tier affixes (for example, a lower tier affix
+// might work for weapons and armor, but from then on, weapon and armor progression
+// follows different affixes)
+// here, we split those affixes into multiple rows, one for each item type
+function SplitAffixesIntoOneAffixPerItemType(rows) {
+  // we only need to do this if we're going to try to make affix tiers perfect
+  if (config.equalchances !== 'perfect') {
+    return;
   }
-});
-D2RMM.writeTsv(automagicFilename, automagic);
 
-const uniqueitemsFilename = 'global\\excel\\uniqueitems.txt';
-const uniqueitems = D2RMM.readTsv(uniqueitemsFilename);
-uniqueitems.rows.forEach((row) => {
-  UpdateRow(row, 'prop1', 'min1', 'max1');
-  UpdateRow(row, 'prop2', 'min2', 'max2');
-  UpdateRow(row, 'prop3', 'min3', 'max3');
-  UpdateRow(row, 'prop4', 'min4', 'max4');
-  UpdateRow(row, 'prop5', 'min5', 'max5');
-  UpdateRow(row, 'prop6', 'min6', 'max6');
-  UpdateRow(row, 'prop7', 'min7', 'max7');
-  UpdateRow(row, 'prop8', 'min8', 'max8');
-  UpdateRow(row, 'prop9', 'min9', 'max9');
-  UpdateRow(row, 'prop10', 'min10', 'max10');
-  UpdateRow(row, 'prop11', 'min11', 'max11');
-  UpdateRow(row, 'prop12', 'min12', 'max12');
-});
-D2RMM.writeTsv(uniqueitemsFilename, uniqueitems);
+  for (let i = 1; i < rows.length; i++) {
+    const row = rows[i];
 
-const setitemsFilename = 'global\\excel\\setitems.txt';
-const setitems = D2RMM.readTsv(setitemsFilename);
-setitems.rows.forEach((row) => {
-  UpdateRow(row, 'prop1', 'min1', 'max1');
-  UpdateRow(row, 'prop2', 'min2', 'max2');
-  UpdateRow(row, 'prop3', 'min3', 'max3');
-  UpdateRow(row, 'prop4', 'min4', 'max4');
-  UpdateRow(row, 'prop5', 'min5', 'max5');
-  UpdateRow(row, 'prop6', 'min6', 'max6');
-  UpdateRow(row, 'prop7', 'min7', 'max7');
-  UpdateRow(row, 'prop8', 'min8', 'max8');
-  UpdateRow(row, 'prop9', 'min9', 'max9');
+    const types = [
+      row.itype1,
+      row.itype2,
+      row.itype3,
+      row.itype4,
+      row.itype5,
+      row.itype6,
+      row.itype7,
+    ].filter((type) => type !== '');
 
-  // not sure if amin1a/amax1a/etc... should also be equalized
-  // they seem to be for the set item affixes, which shouldn't vary
-});
-D2RMM.writeTsv(setitemsFilename, setitems);
+    if (types.length > 1) {
+      // remove this row
+      rows.splice(i, 1);
 
-const qualityitemsFilename = 'global\\excel\\qualityitems.txt';
-const qualityitems = D2RMM.readTsv(qualityitemsFilename);
-qualityitems.rows.forEach((row) => {
-  row.mod1min = row.mod1max;
-  row.mod2min = row.mod2max;
-});
-D2RMM.writeTsv(qualityitemsFilename, qualityitems);
+      // insert new rows instead
+      for (const type of types) {
+        rows.splice(i, 0, {
+          ...row,
+          itype1: type,
+          itype2: '',
+          itype3: '',
+          itype4: '',
+          itype5: '',
+          itype6: '',
+          itype7: '',
+        });
+      }
+    }
+  }
+}
 
-const adjustAffixRow = (row) => {
+let affixTierMap = new Map();
+
+function getAffixTierKey(row) {
+  return `${row.group}:${row.itype1}:${row.mod1code}:${row.mod2code}:${row.mod3code}:${row.mod1param}:${row.mod2param}:${row.mod3param}`;
+}
+
+function CalculateAffixTierMap(rows) {
+  // we only need to do this if we're going to try to make affix tiers perfect
+  if (config.equalchances !== 'perfect') {
+    return;
+  }
+
+  affixTierMap = new Map();
+  for (const row of rows) {
+    const key = getAffixTierKey(row);
+    const set = affixTierMap.get(key) ?? new Set();
+    affixTierMap.set(key, set.add(row));
+  }
+}
+
+function getAllAffixTiers(row, rows) {
+  const key = getAffixTierKey(row);
+  const set = affixTierMap.get(key);
+  return (
+    [...set]
+      // sort by affix tier in descending order
+      .sort((a, b) => a.level - b.level)
+  );
+}
+
+function UpdateFrequency(row, rows) {
+  if (config.equalchances === true) {
+    if (row.frequency != '' && row.frequency != '0') {
+      // equalize the chances of all affix tiers within each group
+      row.frequency = '1';
+    }
+  }
+
+  if (config.equalchances === 'perfect') {
+    if (row.level == '') {
+      return;
+    }
+
+    // check if there's a previous affix tier for this affix
+    const affixes = getAllAffixTiers(row, rows);
+    const index = affixes.findIndex((r) => r.level == row.level);
+    const previousAffixTier = index > 0 ? affixes[index - 1] : null;
+
+    if (previousAffixTier != null) {
+      // frequency can only hold a maximum value of 255, so instead of making
+      // higher tiers of affixes *more likely* to drop, we just prevent lower
+      // tiers of affixes from being able to drop for a higher level item at all
+      previousAffixTier.maxlevel = row.level - 1;
+    }
+  }
+}
+
+if (config.runeword) {
+  const runesFilename = 'global\\excel\\runes.txt';
+  const runes = D2RMM.readTsv(runesFilename);
+  runes.rows.forEach((row) => {
+    UpdateRow(row, 'T1Code1', 'T1Min1', 'T1Max1');
+    UpdateRow(row, 'T1Code2', 'T1Min2', 'T1Max2');
+    UpdateRow(row, 'T1Code3', 'T1Min3', 'T1Max3');
+    UpdateRow(row, 'T1Code4', 'T1Min4', 'T1Max4');
+    UpdateRow(row, 'T1Code5', 'T1Min5', 'T1Max5');
+    UpdateRow(row, 'T1Code6', 'T1Min6', 'T1Max6');
+    UpdateRow(row, 'T1Code7', 'T1Min7', 'T1Max7');
+  });
+  D2RMM.writeTsv(runesFilename, runes);
+}
+
+if (config.automagic) {
+  const automagicFilename = 'global\\excel\\automagic.txt';
+  const automagic = D2RMM.readTsv(automagicFilename);
+  SplitAffixesIntoOneAffixPerItemType(automagic.rows);
+  CalculateAffixTierMap(automagic.rows);
+  automagic.rows.forEach((row, index, rows) => {
+    UpdateRow(row, 'mod1code', 'mod1min', 'mod1max');
+    UpdateRow(row, 'mod2code', 'mod2min', 'mod2max');
+    UpdateRow(row, 'mod3code', 'mod3min', 'mod3max');
+    UpdateFrequency(row, rows);
+  });
+  D2RMM.writeTsv(automagicFilename, automagic);
+}
+
+if (config.unique) {
+  const uniqueitemsFilename = 'global\\excel\\uniqueitems.txt';
+  const uniqueitems = D2RMM.readTsv(uniqueitemsFilename);
+  uniqueitems.rows.forEach((row) => {
+    UpdateRow(row, 'prop1', 'min1', 'max1');
+    UpdateRow(row, 'prop2', 'min2', 'max2');
+    UpdateRow(row, 'prop3', 'min3', 'max3');
+    UpdateRow(row, 'prop4', 'min4', 'max4');
+    UpdateRow(row, 'prop5', 'min5', 'max5');
+    UpdateRow(row, 'prop6', 'min6', 'max6');
+    UpdateRow(row, 'prop7', 'min7', 'max7');
+    UpdateRow(row, 'prop8', 'min8', 'max8');
+    UpdateRow(row, 'prop9', 'min9', 'max9');
+    UpdateRow(row, 'prop10', 'min10', 'max10');
+    UpdateRow(row, 'prop11', 'min11', 'max11');
+    UpdateRow(row, 'prop12', 'min12', 'max12');
+  });
+  D2RMM.writeTsv(uniqueitemsFilename, uniqueitems);
+}
+
+if (config.set) {
+  const setitemsFilename = 'global\\excel\\setitems.txt';
+  const setitems = D2RMM.readTsv(setitemsFilename);
+  setitems.rows.forEach((row) => {
+    UpdateRow(row, 'prop1', 'min1', 'max1');
+    UpdateRow(row, 'prop2', 'min2', 'max2');
+    UpdateRow(row, 'prop3', 'min3', 'max3');
+    UpdateRow(row, 'prop4', 'min4', 'max4');
+    UpdateRow(row, 'prop5', 'min5', 'max5');
+    UpdateRow(row, 'prop6', 'min6', 'max6');
+    UpdateRow(row, 'prop7', 'min7', 'max7');
+    UpdateRow(row, 'prop8', 'min8', 'max8');
+    UpdateRow(row, 'prop9', 'min9', 'max9');
+
+    // not sure if amin1a/amax1a/etc... should also be equalized
+    // they seem to be for the set item affixes, which shouldn't vary
+  });
+  D2RMM.writeTsv(setitemsFilename, setitems);
+}
+
+if (config.highquality) {
+  const qualityitemsFilename = 'global\\excel\\qualityitems.txt';
+  const qualityitems = D2RMM.readTsv(qualityitemsFilename);
+  qualityitems.rows.forEach((row) => {
+    row.mod1min = row.mod1max;
+    row.mod2min = row.mod2max;
+  });
+  D2RMM.writeTsv(qualityitemsFilename, qualityitems);
+}
+
+const adjustAffixRow = (row, index, rows) => {
   if (config.blue) {
     UpdateRow(row, 'mod1code', 'mod1min', 'mod1max');
     UpdateRow(row, 'mod2code', 'mod2min', 'mod2max');
     UpdateRow(row, 'mod3code', 'mod3min', 'mod3max');
-
-    if (config.equalchances && row.frequency !== '' && row.frequency !== '0') {
-      // make all variants of the mod equally likely rather than
-      // low level variants appearing more frequently
-      row.frequency = 1;
-    }
+    UpdateFrequency(row, rows);
   }
 
   // it would be nice to also be able to modify staffmods (+skill to single skill on class items)
@@ -144,11 +248,15 @@ const adjustAffixRow = (row) => {
 if (config.blue || config.skilltab3) {
   const magicprefixFilename = 'global\\excel\\magicprefix.txt';
   const magicprefix = D2RMM.readTsv(magicprefixFilename);
+  SplitAffixesIntoOneAffixPerItemType(magicprefix.rows);
+  CalculateAffixTierMap(magicprefix.rows);
   magicprefix.rows.forEach(adjustAffixRow);
   D2RMM.writeTsv(magicprefixFilename, magicprefix);
 
   const magicsuffixFilename = 'global\\excel\\magicsuffix.txt';
   const magicsuffix = D2RMM.readTsv(magicsuffixFilename);
+  SplitAffixesIntoOneAffixPerItemType(magicsuffix.rows);
+  CalculateAffixTierMap(magicsuffix.rows);
   magicsuffix.rows.forEach(adjustAffixRow);
   D2RMM.writeTsv(magicsuffixFilename, magicsuffix);
 }

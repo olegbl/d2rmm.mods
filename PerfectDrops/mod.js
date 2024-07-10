@@ -43,10 +43,21 @@ function UpdateRow(row, codeKey, minKey, maxKey) {
 // might work for weapons and armor, but from then on, weapon and armor progression
 // follows different affixes)
 // here, we split those affixes into multiple rows, one for each item type
-function SplitAffixesIntoOneAffixPerItemType(rows) {
+// in order to not break existing items, we have to make sure we're appending to the
+// end of the table, and not modifying any existing mods in terms of what item types
+// they can appear on, so instead, we set them to unspawnable
+function SplitAffixesIntoOneAffixPerItemType(rows, startIndex) {
   // we only need to do this if we're going to try to make affix tiers perfect
   if (config.equalchances !== 'perfect') {
     return;
+  }
+
+  // pad the rows so that we're always modifying the same index even
+  // after the game updates and adds more affixes
+  // this also enables to *very limited* compatibility with other mods
+  // that do this kind of thing
+  for (let i = rows.length; i < startIndex - 1; i++) {
+    rows.push({ multiply: '0', 'add\r': 0 });
   }
 
   for (let i = 1; i < rows.length; i++) {
@@ -62,23 +73,31 @@ function SplitAffixesIntoOneAffixPerItemType(rows) {
       row.itype7,
     ].filter((type) => type !== '');
 
-    if (types.length > 1) {
-      // remove this row
-      rows.splice(i, 1);
+    // ignore rows for affixes that can't naturally spawn anyway
+    if (row.spawnable != '1') {
+      continue;
+    }
 
-      // insert new rows instead
-      for (const type of types) {
-        rows.splice(i, 0, {
-          ...row,
-          itype1: type,
-          itype2: '',
-          itype3: '',
-          itype4: '',
-          itype5: '',
-          itype6: '',
-          itype7: '',
-        });
-      }
+    // ignore rows that already only influence one base item type
+    if (types.length <= 1) {
+      continue;
+    }
+
+    // set the raw as unspawnable
+    row.spawnable = 0;
+
+    // insert new rows instead
+    for (const type of types) {
+      rows.push({
+        ...row,
+        itype1: type,
+        itype2: '',
+        itype3: '',
+        itype4: '',
+        itype5: '',
+        itype6: '',
+        itype7: '',
+      });
     }
   }
 }
@@ -158,7 +177,7 @@ if (config.runeword) {
 if (config.automagic) {
   const automagicFilename = 'global\\excel\\automagic.txt';
   const automagic = D2RMM.readTsv(automagicFilename);
-  SplitAffixesIntoOneAffixPerItemType(automagic.rows);
+  SplitAffixesIntoOneAffixPerItemType(automagic.rows, 100);
   CalculateAffixTierMap(automagic.rows);
   automagic.rows.forEach((row, index, rows) => {
     UpdateRow(row, 'mod1code', 'mod1min', 'mod1max');
@@ -248,14 +267,14 @@ const adjustAffixRow = (row, index, rows) => {
 if (config.blue || config.skilltab3) {
   const magicprefixFilename = 'global\\excel\\magicprefix.txt';
   const magicprefix = D2RMM.readTsv(magicprefixFilename);
-  SplitAffixesIntoOneAffixPerItemType(magicprefix.rows);
+  SplitAffixesIntoOneAffixPerItemType(magicprefix.rows, 1000);
   CalculateAffixTierMap(magicprefix.rows);
   magicprefix.rows.forEach(adjustAffixRow);
   D2RMM.writeTsv(magicprefixFilename, magicprefix);
 
   const magicsuffixFilename = 'global\\excel\\magicsuffix.txt';
   const magicsuffix = D2RMM.readTsv(magicsuffixFilename);
-  SplitAffixesIntoOneAffixPerItemType(magicsuffix.rows);
+  SplitAffixesIntoOneAffixPerItemType(magicsuffix.rows, 1000);
   CalculateAffixTierMap(magicsuffix.rows);
   magicsuffix.rows.forEach(adjustAffixRow);
   D2RMM.writeTsv(magicsuffixFilename, magicsuffix);

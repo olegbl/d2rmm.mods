@@ -90,6 +90,7 @@ function SplitAffixesIntoOneAffixPerItemType(rows, startIndex) {
     for (const type of types) {
       rows.push({
         ...row,
+        spawnable: 1,
         itype1: type,
         itype2: '',
         itype3: '',

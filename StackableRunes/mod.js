@@ -217,13 +217,17 @@ itemRunes.forEach((item) => {
     // update all localizations
     for (const key in item) {
       if (key !== 'id' && key !== 'Key') {
-        if (item[key].indexOf('ÿc') !== 0) {
+        if (item[key].indexOf('ÿc') !== -1) {
           // if the rune is already colored by something else (e.g. another mod)
           // then respect that change and don't override it
-          return;
+          continue;
         }
         // no idea what this is, but color codes before [fs] don't work
-        const [, prefix = '', value] = item[key].match(/^(\[fs\])?(.*)$/);
+        const [, prefix = '', value] = item[key].match(/^(\[fs\])?(.*)$/) ?? [
+          '',
+          '',
+          item[key],
+        ];
         item[key] = `${prefix}ÿc8${value}`;
       }
     }

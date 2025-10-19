@@ -76,7 +76,7 @@ itemstatcost.rows.forEach((row) => {
       // existing items to still work, so instead of removing the effect altogether, we keep
       // it on the item but make it not do anything and not show up visually in the label
       'op stat1': isDamageReductionEnabled ? row['op stat1'] : null,
-      'op stat2': isDamageReductionEnabled ? row['op stat1'] : null,
+      'op stat2': isDamageReductionEnabled ? row['op stat2'] : null,
       // unlike item_mindamage_percent / item_maxdamage_percent, we do not want to modify
       // item_throw_mindamage or item_throw_maxdamage because this skill will not apply to
       // thrown weapons' damage calculations

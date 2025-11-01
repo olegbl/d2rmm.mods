@@ -45,9 +45,11 @@ function negateMagicResistantAffix(row) {
 function negateElementalEnchantedAffix(row, elementalAffix) {
   // https://d2mods.info/forum/viewtopic.php?t=37908
   // "Cold Enchanted" adds 75 to Cold Resistance
+  // "Fire Enchanted" adds 75 to Fire Resistance
+  // "Lightning Enchanted" adds 75 to Lightning Resistance
   for (const difficultyAffix of DIFFICULTY_AFFIXES) {
     const cell = `Res${elementalAffix}${difficultyAffix}`;
-    if (row[cell] !== '' && +row[cell] < 100) {
+    if (row[cell] !== '') {
       // negate the effect of the affix
       row[cell] = +row[cell] - 75;
     }

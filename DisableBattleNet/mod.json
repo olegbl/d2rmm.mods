@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Disable Battle.net",
   "description": "Disabled the menu buttons for playing with online characters.",
   "author": "olegbl",

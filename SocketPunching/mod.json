@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Socket Punching",
   "description": "Allows socketing and unsocketing an item using jewels.",
   "author": "olegbl",

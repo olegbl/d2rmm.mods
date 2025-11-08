@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Custom Item Colors",
   "description": "Customize the colors of various item types as they appear when on the ground. This does *not* change the color of items in their tooltips while in inventory/stash.",
   "author": "olegbl",

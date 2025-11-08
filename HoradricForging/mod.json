@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Horadric Forging",
   "description": "Adds new Horadric Cube recipes that allow rerolling items in various ways.",
   "author": "olegbl",

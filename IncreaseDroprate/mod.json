@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Increase Droprate",
   "description": "Increases the droprate of items.",
   "author": "olegbl",

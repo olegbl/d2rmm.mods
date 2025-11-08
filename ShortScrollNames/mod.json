@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Short Scroll Names",
   "description": "Makes scroll names much shorter (e.g. TP, ID) and colors them gray.",
   "author": "olegbl",

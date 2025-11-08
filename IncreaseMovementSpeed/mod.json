@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Increase Movement Speed",
   "description": "Increases movement speed of characters.",
   "author": "olegbl",

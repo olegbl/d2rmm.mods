@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Remove Monster Immunities",
   "description": "Reduces maximum elemental resistances of monsters to remove their immunities in nightmare and hell difficulties.",
   "author": "olegbl",

@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Town Cast",
   "description": "Allows you to cast more skills in town.",
   "author": "olegbl",

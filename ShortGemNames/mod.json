@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Short Gem Names",
   "description": "Makes gem names much shorter and colors them by type.",
   "author": "olegbl",

@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Stackable Runes",
   "description": "Adds another variation of runes that can stack together. Transmute a rune in the Cube to convert it between the two variants. Based on https://www.nexusmods.com/diablo2resurrected/mods/80 and https://www.nexusmods.com/diablo2resurrected/mods/77.",
   "author": "olegbl",

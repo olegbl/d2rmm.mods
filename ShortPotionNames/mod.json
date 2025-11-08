@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Short Potion Names",
   "description": "Makes potion names much shorter (e.g. HP1) and colors them by type.",
   "author": "olegbl",

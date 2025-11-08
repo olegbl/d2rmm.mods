@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Increase Monster Density",
   "description": "Increases the number of monster packs that spawn.",
   "author": "olegbl",

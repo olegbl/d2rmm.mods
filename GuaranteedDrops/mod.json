@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Guaranteed Drops",
   "description": "Modifies the nodrop chance for treasure categories to simulate a specific /players setup.",
   "author": "olegbl",

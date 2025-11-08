@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Expanded Cube",
   "description": "Increases cube size to 6x4.",
   "author": "olegbl",

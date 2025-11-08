@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Numbered Rune Names",
   "description": "Adds rune numbers to the end of rune item names.",
   "author": "olegbl",

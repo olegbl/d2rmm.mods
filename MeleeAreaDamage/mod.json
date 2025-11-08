@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Melee Area Damage",
   "description": "Adds a new Melee Area Damage item property.",
   "author": "olegbl",

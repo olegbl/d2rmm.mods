@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "GoMule",
   "description": "D2RMM wrapper for the GoMule editor (https://gomule.sourceforge.io/)",
   "author": "olegbl",

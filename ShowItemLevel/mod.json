@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Show Item Level",
   "description": "Shows item level in the name.",
   "author": "olegbl",

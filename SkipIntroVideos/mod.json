@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Skip Intro Videos",
   "description": "Skips intro videos when starting D2R by replacing them with empty files.",
   "author": "olegbl",

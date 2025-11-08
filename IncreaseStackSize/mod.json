@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Increase Stack Size",
   "description": "Increases stack size of various items.",
   "author": "olegbl",

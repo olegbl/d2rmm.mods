@@ -1,4 +1,5 @@
 {
+  "$schema": "../config-schema.json",
   "name": "Settings Font Fix",
   "description": "Fixed font size in the Settings menu when using any font that needs to modify _profilehd.json",
   "author": "olegbl",

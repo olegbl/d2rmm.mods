@@ -301,17 +301,29 @@ D2RMM.copyFile(
 
 // modify the stash save file to make sure it has 8 tab pages
 if (config.isExtraTabsEnabled) {
-  function getStashTabBinary(vers) {
-    // prettier-ignore
+  function getStashTabBinaries(vers) {
+    // extracted from first 68 bytes of an empty stash save file (SharedStashSoftCoreV2.d2i) of D2R
+    // the 9th byte seems to be related to the version of the game (e.g. 0x61, 0x62, 0x63) and a stash save
+    // that uses a *newer* version than the currently running version of the game will fail to load
     return [
-      // extracted from first 68 bytes of an empty stash save file (SharedStashSoftCoreV2.d2i) of D2R v1.6.80273
-      // the 9th byte seems to be related to the version of the game (e.g. 0x61, 0x62, 0x63) and a stash save
-      // that uses a *newer* version than the currently running version of the game will fail to load
-      0x55, 0xAA, 0x55, 0xAA, 0x01, 0x00, 0x00, 0x00, vers, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-      0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-      0x4A, 0x4D, 0x00, 0x00                                                                          //  4 bytes
+      // v1.6.80273
+      // prettier-ignore
+      [
+        0x55, 0xAA, 0x55, 0xAA, 0x01, 0x00, 0x00, 0x00, vers, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+        0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+        0x4A, 0x4D, 0x00, 0x00,                                                                         //  4 bytes
+      ],
+      // v1.7.90471
+      // prettier-ignore
+      [
+        0x55, 0xAA, 0x55, 0xAA, 0x02, 0x00, 0x00, 0x00, vers, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+        0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+        0x4A, 0x4D, 0x00, 0x00,                                                                         //  4 bytes
+      ],
     ];
   }
 
@@ -336,16 +348,20 @@ if (config.isExtraTabsEnabled) {
   }
 
   function getStashTabStartIndices(stashData) {
-    const stashTabPrefix = getStashTabBinary(null).slice(0, 10);
+    const stashTabPrefixes = getStashTabBinaries(null).map((stashTabPrefix) =>
+      stashTabPrefix.slice(0, 10)
+    );
     const stashTabStartIndices = [];
     let index = -1;
     while (true) {
-      index = indexOf(stashData, stashTabPrefix, index + 1);
-      if (index !== -1) {
-        stashTabStartIndices.push(index);
-      } else {
+      const indices = stashTabPrefixes
+        .map((stashTabPrefix) => indexOf(stashData, stashTabPrefix, index + 1))
+        .filter((index) => index !== -1);
+      if (indices.length === 0) {
         break;
       }
+      index = Math.min(...indices);
+      stashTabStartIndices.push(index);
     }
     return stashTabStartIndices;
   }
@@ -370,26 +386,45 @@ if (config.isExtraTabsEnabled) {
       ...stashTabIndices.map((index) => stashData[index + 8])
     );
     // sanitize the data (each save files should have 3-7 shared tabs)
-    const existingTabsCount = Math.max(3, Math.min(7, stashTabIndices.length));
-    const tabsToAdd = 7 - existingTabsCount;
+    const existingTabsCount = Math.max(3, stashTabIndices.length);
+    const tabsToAdd = Math.max(0, 7 - existingTabsCount);
+    // version 1.7.90471 changes things up and anyone who installed an older version of this mod after
+    // trying to play it on that version first would have ended up with >7 shared tabs, so we need to
+    // fix that retroactively...
+    const tabsToRemove = Math.max(0, existingTabsCount - 7);
+    let newStashData = null;
     // don't modify the save file if it doesn't need it
     if (tabsToAdd > 0) {
-      D2RMM.writeSaveFile(
-        filename,
-        [].concat.apply(
-          stashData,
-          new Array(tabsToAdd).fill(getStashTabBinary(versionCode))
-        )
+      newStashData = [].concat.apply(
+        stashData,
+        new Array(tabsToAdd).fill(getStashTabBinaries(versionCode).pop())
       );
       console.debug(
         `Added ${tabsToAdd} additional shared stash tabs to ${filename} using version code 0x${versionCode.toString(
           16
         )}.`
       );
+    } else if (tabsToRemove > 0) {
+      newStashData = stashData.slice(
+        0,
+        stashTabIndices[stashTabIndices.length - tabsToRemove]
+      );
+      console.debug(
+        `Removed ${tabsToRemove} abnormal shared stash tabs from ${filename}.`
+      );
     } else {
       console.debug(
         `Skipped ${filename} because it already has 7 shared stash tabs.`
       );
+    }
+    if (newStashData != null) {
+      // write a backup first, just in case
+      const timestamp = new Date()
+        .toISOString()
+        .slice(0, -5)
+        .replace(/[T:]/g, '-');
+      D2RMM.writeSaveFile(`${filename}.bak-${timestamp}`, stashData);
+      D2RMM.writeSaveFile(filename, newStashData);
     }
     results[filename] = true;
   }

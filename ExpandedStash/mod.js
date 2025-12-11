@@ -141,6 +141,7 @@ D2RMM.writeJson(bankOriginalLayoutHDFilename, bankOriginalLayoutHD);
 const bankExpansionLayoutHDFilename =
   'global\\ui\\layouts\\bankexpansionlayouthd.json';
 const bankExpansionLayoutHD = D2RMM.readJson(bankExpansionLayoutHDFilename);
+delete bankExpansionLayoutHD.fields.backgroundFile;
 bankExpansionLayoutHD.children = bankExpansionLayoutHD.children.filter(
   (child) => {
     if (
@@ -152,16 +153,16 @@ bankExpansionLayoutHD.children = bankExpansionLayoutHD.children.filter(
     if (child.name === 'grid') {
       child.fields.cellCount.x = 16;
       child.fields.cellCount.y = 13;
-      child.fields.rect.x = child.fields.rect.x - 37;
-      child.fields.rect.y = child.fields.rect.y - 58;
+      child.fields.rect.x = child.fields.rect.x - 37 + 2;
+      child.fields.rect.y = child.fields.rect.y - 58 + 26;
     }
     if (child.name === 'background') {
       child.fields.filename = 'PANEL\\Stash\\StashPanel_BG_Expanded';
     }
     if (child.name === 'BankTabs') {
       child.fields.filename = 'PANEL\\stash\\Stash_Tabs_Expanded';
-      child.fields.rect.x = child.fields.rect.x - 30;
-      child.fields.rect.y = child.fields.rect.y - 56;
+      child.fields.rect.x = child.fields.rect.x - 30 - 2;
+      child.fields.rect.y = child.fields.rect.y - 56 + 18;
       child.fields.tabCount = 8;
       // 249 x 80 -> 197 x 80 (bottom 5 pixels are overlay)
       child.fields.tabSize = { x: 197, y: 75 };
@@ -243,6 +244,7 @@ const bankExpansionControllerLayoutHDFilename =
 const bankExpansionControllerLayoutHD = D2RMM.readJson(
   bankExpansionControllerLayoutHDFilename
 );
+delete bankExpansionControllerLayoutHD.fields.backgroundFile;
 bankExpansionControllerLayoutHD.children =
   bankExpansionControllerLayoutHD.children.filter((child) => {
     if (

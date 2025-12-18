@@ -4,15 +4,8 @@
   "description": "Increases stash size to 16x13. Based on https://www.nexusmods.com/diablo2resurrected/mods/13.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/173",
-  "version": "1.11",
+  "version": "1.12",
   "config": [
-    {
-      "id": "isExtraTabsEnabled",
-      "type": "checkbox",
-      "name": "Enable Extra Stash Tabs",
-      "description": "Modifies your stash save files to enable the additional 4 shared stash tabs. Requires the stash tab save files to already exist.",
-      "defaultValue": true
-    },
     {
       "id": "isCustomTabsEnabled",
       "type": "checkbox",
@@ -49,38 +42,6 @@
       "type": "text",
       "name": "Shared Tab 3",
       "description": "Set a custom name for the third Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": "",
-      "visible": ["value", "isCustomTabsEnabled"]
-    },
-    {
-      "id": "tabNameShared4",
-      "type": "text",
-      "name": "Shared Tab 4",
-      "description": "Set a custom name for the fourth Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": "",
-      "visible": ["value", "isCustomTabsEnabled"]
-    },
-    {
-      "id": "tabNameShared5",
-      "type": "text",
-      "name": "Shared Tab 5",
-      "description": "Set a custom name for the fifth Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": "",
-      "visible": ["value", "isCustomTabsEnabled"]
-    },
-    {
-      "id": "tabNameShared6",
-      "type": "text",
-      "name": "Shared Tab 6",
-      "description": "Set a custom name for the sixth Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": "",
-      "visible": ["value", "isCustomTabsEnabled"]
-    },
-    {
-      "id": "tabNameShared7",
-      "type": "text",
-      "name": "Shared Tab 7",
-      "description": "Set a custom name for the seventh Shared stash tab. Leave blank to use the default name.",
       "defaultValue": "",
       "visible": ["value", "isCustomTabsEnabled"]
     }

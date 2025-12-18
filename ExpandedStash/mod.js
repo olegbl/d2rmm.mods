@@ -12,10 +12,6 @@ const STASH_TAB_NAMES = [
   getTabName(config.tabNameShared1, '@shared'),
   getTabName(config.tabNameShared2, '@shared'),
   getTabName(config.tabNameShared3, '@shared'),
-  getTabName(config.tabNameShared4, '@shared'),
-  getTabName(config.tabNameShared5, '@shared'),
-  getTabName(config.tabNameShared6, '@shared'),
-  getTabName(config.tabNameShared7, '@shared'),
 ];
 
 const inventoryFilename = 'global\\excel\\inventory.txt';
@@ -91,7 +87,7 @@ bankExpansionLayout.children = bankExpansionLayout.children.map((child) => {
     child.fields.cellCount.y = 13;
   }
   if (child.name === 'BankTabs') {
-    child.fields.tabCount = 8;
+    child.fields.tabCount = 4;
     child.fields.textStrings = STASH_TAB_NAMES;
   }
   return true;
@@ -153,8 +149,8 @@ bankExpansionLayoutHD.children = bankExpansionLayoutHD.children.filter(
     if (child.name === 'grid') {
       child.fields.cellCount.x = 16;
       child.fields.cellCount.y = 13;
-      child.fields.rect.x = child.fields.rect.x - 37 + 2;
-      child.fields.rect.y = child.fields.rect.y - 58 + 26;
+      child.fields.rect.x = child.fields.rect.x - 37 + 6;
+      child.fields.rect.y = child.fields.rect.y - 58 + 16;
     }
     if (child.name === 'background') {
       child.fields.filename = 'PANEL\\Stash\\StashPanel_BG_Expanded';
@@ -163,7 +159,7 @@ bankExpansionLayoutHD.children = bankExpansionLayoutHD.children.filter(
       child.fields.filename = 'PANEL\\stash\\Stash_Tabs_Expanded';
       child.fields.rect.x = child.fields.rect.x - 30 - 2;
       child.fields.rect.y = child.fields.rect.y - 56 + 18;
-      child.fields.tabCount = 8;
+      child.fields.tabCount = 4;
       // 249 x 80 -> 197 x 80 (bottom 5 pixels are overlay)
       child.fields.tabSize = { x: 197, y: 75 };
       child.fields.tabPadding = { x: 0, y: 0 };
@@ -278,7 +274,7 @@ bankExpansionControllerLayoutHD.children =
         'Controller/HoverImages/StashTab_Hover_Expanded';
       child.fields.rect.x = child.fields.rect.x - 300;
       child.fields.rect.y = child.fields.rect.y + 10;
-      child.fields.tabCount = 8;
+      child.fields.tabCount = 4;
       child.fields.tabSize = { x: 175, y: 120 };
       child.fields.tabPadding = { x: 0, y: 0 };
       child.fields.inactiveFrames = [1, 1, 1, 1, 1, 1, 1, 1];
@@ -300,146 +296,3 @@ D2RMM.copyFile(
   'hd', // <diablo 2 folder>\mods\<modname>\<modname>.mpq\data\hd
   true // overwrite any conflicts
 );
-
-// modify the stash save file to make sure it has 8 tab pages
-if (config.isExtraTabsEnabled) {
-  function getStashTabBinaries(vers) {
-    // extracted from first 68 bytes of an empty stash save file (SharedStashSoftCoreV2.d2i) of D2R
-    // the 9th byte seems to be related to the version of the game (e.g. 0x61, 0x62, 0x63) and a stash save
-    // that uses a *newer* version than the currently running version of the game will fail to load
-    return [
-      // v1.6.80273
-      // prettier-ignore
-      [
-        0x55, 0xAA, 0x55, 0xAA, 0x01, 0x00, 0x00, 0x00, vers, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-        0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-        0x4A, 0x4D, 0x00, 0x00,                                                                         //  4 bytes
-      ],
-      // v1.7.90471
-      // prettier-ignore
-      [
-        0x55, 0xAA, 0x55, 0xAA, 0x02, 0x00, 0x00, 0x00, vers, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-        0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
-        0x4A, 0x4D, 0x00, 0x00,                                                                         //  4 bytes
-      ],
-    ];
-  }
-
-  function indexOf(haystack, needle, startIndex = 0) {
-    let match = 0;
-    const index = haystack.findIndex((value, index) => {
-      if (index < startIndex) {
-        return false;
-      }
-      // null matches any value
-      if (needle[match] == null || value === needle[match]) {
-        match++;
-      } else {
-        match = 0;
-      }
-      if (match === needle.length) {
-        return true;
-      }
-      return false;
-    });
-    return index === -1 ? -1 : index - needle.length + 1;
-  }
-
-  function getStashTabStartIndices(stashData) {
-    const stashTabPrefixes = getStashTabBinaries(null).map((stashTabPrefix) =>
-      stashTabPrefix.slice(0, 10)
-    );
-    const stashTabStartIndices = [];
-    let index = -1;
-    while (true) {
-      const indices = stashTabPrefixes
-        .map((stashTabPrefix) => indexOf(stashData, stashTabPrefix, index + 1))
-        .filter((index) => index !== -1);
-      if (indices.length === 0) {
-        break;
-      }
-      index = Math.min(...indices);
-      stashTabStartIndices.push(index);
-    }
-    return stashTabStartIndices;
-  }
-
-  const results = {};
-  function modSaveFile(filename) {
-    const stashData = D2RMM.readSaveFile(filename);
-    if (stashData == null) {
-      console.debug(`Skipped ${filename} because the file was not found.`);
-      results[filename] = false;
-      return;
-    }
-    // backup existing stash tab data if it doesn't exist
-    const stashDataBackup = D2RMM.readSaveFile(`${filename}.bak`);
-    if (stashDataBackup == null) {
-      D2RMM.writeSaveFile(`${filename}.bak`, stashData);
-    }
-    // find number of times prefix appears in stashData
-    const stashTabIndices = getStashTabStartIndices(stashData);
-    // find latest version code used by the save file
-    const versionCode = Math.max(
-      ...stashTabIndices.map((index) => stashData[index + 8])
-    );
-    // sanitize the data (each save files should have 3-7 shared tabs)
-    const existingTabsCount = Math.max(3, stashTabIndices.length);
-    const tabsToAdd = Math.max(0, 7 - existingTabsCount);
-    // version 1.7.90471 changes things up and anyone who installed an older version of this mod after
-    // trying to play it on that version first would have ended up with >7 shared tabs, so we need to
-    // fix that retroactively...
-    const tabsToRemove = Math.max(0, existingTabsCount - 7);
-    let newStashData = null;
-    // don't modify the save file if it doesn't need it
-    if (tabsToAdd > 0) {
-      newStashData = [].concat.apply(
-        stashData,
-        new Array(tabsToAdd).fill(getStashTabBinaries(versionCode).pop())
-      );
-      console.debug(
-        `Added ${tabsToAdd} additional shared stash tabs to ${filename} using version code 0x${versionCode.toString(
-          16
-        )}.`
-      );
-    } else if (tabsToRemove > 0) {
-      newStashData = stashData.slice(
-        0,
-        stashTabIndices[stashTabIndices.length - tabsToRemove]
-      );
-      console.debug(
-        `Removed ${tabsToRemove} abnormal shared stash tabs from ${filename}.`
-      );
-    } else {
-      console.debug(
-        `Skipped ${filename} because it already has 7 shared stash tabs.`
-      );
-    }
-    if (newStashData != null) {
-      // write a backup first, just in case
-      const timestamp = new Date()
-        .toISOString()
-        .slice(0, -5)
-        .replace(/[T:]/g, '-');
-      D2RMM.writeSaveFile(`${filename}.bak-${timestamp}`, stashData);
-      D2RMM.writeSaveFile(filename, newStashData);
-    }
-    results[filename] = true;
-  }
-
-  const SOFTCORE_SAVE_FILE = 'SharedStashSoftCoreV2.d2i';
-  const HARDCORE_SAVE_FILE = 'SharedStashHardCoreV2.d2i';
-
-  modSaveFile(SOFTCORE_SAVE_FILE);
-  modSaveFile(HARDCORE_SAVE_FILE);
-
-  if (!results[SOFTCORE_SAVE_FILE] && !results[HARDCORE_SAVE_FILE]) {
-    console.warn(
-      `Unable to enable additional shared stash tabs. Neither ${SOFTCORE_SAVE_FILE} nor ${HARDCORE_SAVE_FILE} were found.`
-    );
-  }
-}

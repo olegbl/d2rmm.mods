@@ -85,8 +85,9 @@ playerInventoryOriginalLayoutHD.children =
       child.fields.rect.x = child.fields.rect.x + (1382 - 1162);
     }
     if (child.name === 'grid') {
-      // NOTE: setting cellCount crashes the game when
-      //       opening the UI panel, breaking this mod
+      // NOTE: modifying cellCount crashes the game
+      //       when opening the related UI *unless*
+      //       the character is a RotW character.
       child.fields.cellCount.x = 13;
       child.fields.cellCount.y = 8;
       child.fields.rect.x = child.fields.rect.x - 37;

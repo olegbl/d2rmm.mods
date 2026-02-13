@@ -18,26 +18,14 @@ const profileLVFilename = 'global\\ui\\layouts\\_profilelv.json';
 const profileLV = D2RMM.readJson(profileLVFilename);
 D2RMM.writeJson(profileLVFilename, profileLV);
 
-const horadricCubeLayoutFilename =
-  'global\\ui\\layouts\\horadriccubelayout.json';
-const horadricCubeLayout = D2RMM.readJson(horadricCubeLayoutFilename);
-horadricCubeLayout.children.forEach((child) => {
-  if (child.name === 'grid') {
-    child.fields.cellCount.x = 6;
-    child.fields.cellCount.y = 4;
-    // TODO: shift left for new sprite
-    // one cell = 29px, add 1 column to left and 2 columns to right of original space
-    child.fields.rect.x = child.fields.rect.x - 29;
-  }
-  // TODO: new sprite
-});
-D2RMM.writeJson(horadricCubeLayoutFilename, horadricCubeLayout);
-
 const horadricCubeLayoutHDFilename =
   'global\\ui\\layouts\\horadriccubelayouthd.json';
 const horadricCubeHDLayout = D2RMM.readJson(horadricCubeLayoutHDFilename);
 horadricCubeHDLayout.children.forEach((child) => {
   if (child.name === 'grid') {
+    // NOTE: modifying cellCount crashes the game
+    //       when opening the related UI *unless*
+    //       the character is a RotW character.
     child.fields.cellCount.x = 6;
     child.fields.cellCount.y = 4;
     child.fields.rect.x = child.fields.rect.x - 144;
@@ -51,7 +39,7 @@ D2RMM.writeJson(horadricCubeLayoutHDFilename, horadricCubeHDLayout);
 const controllerHoradricCubeHDLayoutFilename =
   'global\\ui\\layouts\\controller\\horadriccubelayouthd.json';
 const controllerHoradricCubeHDLayout = D2RMM.readJson(
-  controllerHoradricCubeHDLayoutFilename
+  controllerHoradricCubeHDLayoutFilename,
 );
 controllerHoradricCubeHDLayout.children.forEach((child) => {
   if (child.name === 'grid') {
@@ -64,11 +52,11 @@ controllerHoradricCubeHDLayout.children.forEach((child) => {
 });
 D2RMM.writeJson(
   controllerHoradricCubeHDLayoutFilename,
-  controllerHoradricCubeHDLayout
+  controllerHoradricCubeHDLayout,
 );
 
 D2RMM.copyFile(
   'hd', // <mod folder>\hd
   'hd', // <diablo 2 folder>\mods\<modname>\<modname>.mpq\data\hd
-  true // overwrite any conflicts
+  true, // overwrite any conflicts
 );

@@ -124,8 +124,9 @@ D2RMM.writeJson(bankOriginalLayoutHDFilename, bankOriginalLayoutHD);
 
     if (name === 'grid' && node.fields) {
       if (!node.fields.cellCount) node.fields.cellCount = {};
-      // NOTE: setting cellCount crashes the game when
-      //       opening the UI panel, breaking this mod
+      // NOTE: modifying cellCount crashes the game
+      //       when opening the related UI *unless*
+      //       the character is a RotW character.
       node.fields.cellCount.x = 16;
       node.fields.cellCount.y = 13;
       if (!node.fields.rect) node.fields.rect = {};

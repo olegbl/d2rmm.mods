@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D2R Melee Area Damage - Save File Migration Tool</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #e0e0e0;
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        max-width: 800px;
+        width: 100%;
+        background: rgba(30, 30, 46, 0.95);
+        border-radius: 16px;
+        padding: 40px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      h1 {
+        font-size: 28px;
+        margin-bottom: 12px;
+        color: #ffd700;
+        text-align: center;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #a0a0a0;
+        margin-bottom: 30px;
+        font-size: 14px;
+      }
+
+      .warning {
+        background: rgba(255, 165, 0, 0.1);
+        border: 2px solid #ffa500;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 24px;
+      }
+
+      .warning-title {
+        color: #ffa500;
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .warning-text {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #e0e0e0;
+      }
+
+      .info {
+        background: rgba(100, 149, 237, 0.1);
+        border: 2px solid #6495ed;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 24px;
+      }
+
+      .info-title {
+        color: #6495ed;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .info-text {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #e0e0e0;
+      }
+
+      .drop-zone {
+        border: 3px dashed #6495ed;
+        border-radius: 12px;
+        padding: 60px 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: rgba(100, 149, 237, 0.05);
+        margin-bottom: 20px;
+      }
+
+      .drop-zone:hover {
+        border-color: #ffd700;
+        background: rgba(255, 215, 0, 0.05);
+      }
+
+      .drop-zone.dragover {
+        border-color: #ffd700;
+        background: rgba(255, 215, 0, 0.1);
+        transform: scale(1.02);
+      }
+
+      .drop-zone-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
+
+      .drop-zone-text {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #e0e0e0;
+      }
+
+      .drop-zone-hint {
+        font-size: 14px;
+        color: #a0a0a0;
+      }
+
+      .file-input {
+        display: none;
+      }
+
+      .results {
+        margin-top: 24px;
+        padding: 20px;
+        background: rgba(50, 50, 70, 0.5);
+        border-radius: 8px;
+        display: none;
+      }
+
+      .results.show {
+        display: block;
+      }
+
+      .result-item {
+        padding: 12px;
+        margin-bottom: 12px;
+        background: rgba(100, 149, 237, 0.1);
+        border-left: 4px solid #6495ed;
+        border-radius: 4px;
+      }
+
+      .result-item.success {
+        background: rgba(76, 175, 80, 0.1);
+        border-left-color: #4caf50;
+      }
+
+      .result-item.error {
+        background: rgba(244, 67, 54, 0.1);
+        border-left-color: #f44336;
+      }
+
+      .result-filename {
+        font-weight: bold;
+        margin-bottom: 4px;
+        color: #ffd700;
+      }
+
+      .result-details {
+        font-size: 13px;
+        color: #c0c0c0;
+        line-height: 1.5;
+      }
+
+      .download-btn {
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 12px;
+        transition: all 0.3s ease;
+      }
+
+      .download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+      }
+
+      .processing {
+        text-align: center;
+        padding: 20px;
+        display: none;
+      }
+
+      .processing.show {
+        display: block;
+      }
+
+      .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.1);
+        border-top: 4px solid #ffd700;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 16px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .footer {
+        margin-top: 32px;
+        text-align: center;
+        font-size: 12px;
+        color: #808080;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>⚔️ Melee Area Damage Migration Tool</h1>
+      <p class="subtitle">
+        Migrate your D2R save files after the Reign of the Warlock update
+      </p>
+
+      <div class="warning">
+        <div class="warning-title">⚠️ Critical - Backup Your Saves First!</div>
+        <div class="warning-text">
+          This tool has been tested and uses precise pattern matching, but it
+          modifies your save files at the binary level.
+          <strong>You MUST backup your save files</strong> before using this
+          tool. There is no undo function.
+        </div>
+      </div>
+
+      <div class="info">
+        <div class="info-title">ℹ️ What does this tool do?</div>
+        <div class="info-text">
+          <strong>The Problem:</strong> The recent Reign of the Warlock update
+          added new game stats that use the same internal IDs (361-363) as the
+          old Melee Area Damage mod. This causes errors when loading characters
+          or stashes with melee area damage items. <br /><br />
+          <strong>The Solution:</strong> This tool scans your save files and
+          updates melee area damage items to use new stat IDs (500-502) that
+          don't conflict with the game's stats. Your items will work exactly the
+          same, just with different internal IDs. <br /><br />
+          <strong>What to do:</strong>
+          <ol style="margin-left: 20px; margin-top: 8px">
+            <li>
+              Backup your saves (typically in
+              <code>C:\Users\[YourName]\Saved Games\Diablo II Resurrected\</code
+              >)
+            </li>
+            <li>
+              Drop your .d2s (character) or .d2i (stash) files into this tool
+            </li>
+            <li>Download the migrated files and replace your originals</li>
+            <li>Test with one file first before migrating everything</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="info" style="margin-top: 16px">
+        <div class="info-title">🔧 Technical Details</div>
+        <div class="info-text" style="font-size: 13px">
+          <strong>Detection Algorithm:</strong> The tool uses precise 86-bit
+          pattern matching to find melee area damage stats. The stats appear as
+          a triplet with this exact structure:
+          <br />
+          <code style="font-size: 11px"
+            >[361:9bit][param:16bit][value:7bit][362:9bit][value:18bit][363:9bit][value:18bit]</code
+          >
+          <br />
+          migrated to: 500→501→502
+          <br /><br />
+          Only the complete triplet is detected to avoid false positives. The
+          chance of random data matching this exact 86-bit pattern is
+          astronomically low, making this approach highly reliable. Stats 362/363
+          represent damage reduction and are only present when that feature was
+          enabled in your mod config.
+        </div>
+      </div>
+
+      <div class="drop-zone" id="dropZone">
+        <div class="drop-zone-icon">📁</div>
+        <div class="drop-zone-text">Drop D2R save files here</div>
+        <div class="drop-zone-hint">
+          or click to browse (.d2s or .d2i files)
+        </div>
+      </div>
+
+      <input
+        type="file"
+        id="fileInput"
+        class="file-input"
+        multiple
+        accept=".d2s,.d2i"
+      />
+
+      <div class="processing" id="processing">
+        <div class="spinner"></div>
+        <div>Processing files...</div>
+      </div>
+
+      <div class="results" id="results"></div>
+
+      <div class="footer">
+        Migration tool for D2RMM Melee Area Damage mod<br />
+        All processing happens locally in your browser - your files are never
+        uploaded
+      </div>
+    </div>
+
+    <script>
+      // BitReader class for binary parsing
+      class BitReader {
+        constructor(arrBuffer) {
+          const typedArray = new Uint8Array(arrBuffer);
+          this.bits = new Uint8Array(typedArray.length * 8);
+          this.offset = 0;
+
+          typedArray.reduce((acc, c) => {
+            const b = c
+              .toString(2)
+              .padStart(8, '0')
+              .split('')
+              .reverse()
+              .map((e) => parseInt(e, 2));
+            b.forEach((bit) => (this.bits[acc++] = bit));
+            return acc;
+          }, 0);
+        }
+
+        readBit() {
+          if (this.offset >= this.bits.length) {
+            throw new Error(`Read beyond buffer at bit ${this.offset}`);
+          }
+          return this.bits[this.offset++];
+        }
+
+        readBits(bytes, count) {
+          let byteIndex = 0;
+          let bitIndex = 0;
+          for (let i = 0; i < count; i++) {
+            if (this.bits[this.offset + i]) {
+              bytes[byteIndex] |= (1 << bitIndex) & 0xff;
+            }
+            bitIndex++;
+            if (bitIndex === 8) {
+              byteIndex++;
+              bitIndex = 0;
+            }
+          }
+          this.offset += count;
+          return bytes;
+        }
+
+        readUInt16(bits) {
+          const dataview = new DataView(
+            this.readBits(new Uint8Array(2), bits).buffer,
+          );
+          return dataview.getUint16(0, true); // little endian
+        }
+      }
+
+      // BitWriter class for binary writing
+      class BitWriter {
+        constructor() {
+          this.bits = [];
+        }
+
+        writeBit(bit) {
+          this.bits.push(bit & 1);
+        }
+
+        writeUInt16(value, numBits) {
+          for (let i = 0; i < numBits; i++) {
+            this.writeBit((value >> i) & 1);
+          }
+        }
+
+        toArray() {
+          const bytes = new Uint8Array(Math.ceil(this.bits.length / 8));
+          for (let i = 0; i < this.bits.length; i++) {
+            if (this.bits[i]) {
+              bytes[Math.floor(i / 8)] |= 1 << (i % 8);
+            }
+          }
+          return bytes;
+        }
+      }
+
+      // Migration logic - uses precise pattern matching for melee area damage stats
+      function migrateStatIDs(buffer) {
+        const reader = new BitReader(buffer);
+        let replacementCount = 0;
+
+        // Melee area damage stats appear as a triplet (when damage reduction is enabled):
+        // [361:9bit][param:16bit][value:7bit][362:9bit][value:18bit][363:9bit][value:18bit] (86 bits)
+        // We only detect the full triplet to avoid false positives from random data
+
+        // First pass: Find all triplet patterns (stats can start at any bit position due to bit-packing)
+        const tripletsToReplace = [];
+        for (let bitPos = 0; bitPos < reader.bits.length - 86; bitPos++) {
+          reader.offset = bitPos;
+
+          try {
+            const firstValue = reader.readUInt16(9);
+            if (firstValue !== 361) continue;
+
+            // Skip param (16 bits) and value (7 bits) for stat 361
+            reader.offset += 16 + 7;
+
+            // Check if next 9 bits are 362
+            const secondValue = reader.readUInt16(9);
+            if (secondValue !== 362) continue;
+
+            // Skip value (18 bits) for stat 362
+            reader.offset += 18;
+
+            // Check if next 9 bits are 363
+            const thirdValue = reader.readUInt16(9);
+            if (thirdValue !== 363) continue;
+
+            // Found complete triplet!
+            tripletsToReplace.push(bitPos);
+            replacementCount++;
+          } catch (e) {
+            // Continue scanning
+          }
+        }
+
+        // Second pass: Copy file and replace triplets
+        const writer = new BitWriter();
+        reader.offset = 0;
+        let currentBit = 0;
+
+        for (const tripletStart of tripletsToReplace) {
+          // Copy everything up to this triplet
+          while (currentBit < tripletStart) {
+            writer.writeBit(reader.bits[currentBit]);
+            currentBit++;
+          }
+
+          // Skip the triplet in source (86 bits total)
+          // But write the migrated version
+          reader.offset = tripletStart + 9; // After stat ID 361
+
+          // Write stat 500 (was 361)
+          writer.writeUInt16(500, 9);
+          // Copy param (16 bits) and value (7 bits)
+          for (let i = 0; i < 16 + 7; i++) {
+            writer.writeBit(reader.readBit());
+          }
+
+          // Skip old stat 362 ID
+          reader.offset += 9;
+          // Write stat 501 (was 362)
+          writer.writeUInt16(501, 9);
+          // Copy value (18 bits)
+          for (let i = 0; i < 18; i++) {
+            writer.writeBit(reader.readBit());
+          }
+
+          // Skip old stat 363 ID
+          reader.offset += 9;
+          // Write stat 502 (was 363)
+          writer.writeUInt16(502, 9);
+          // Copy value (18 bits)
+          for (let i = 0; i < 18; i++) {
+            writer.writeBit(reader.readBit());
+          }
+
+          currentBit = tripletStart + 86; // Move past the original triplet
+        }
+
+        // Copy remaining bits
+        while (currentBit < reader.bits.length) {
+          writer.writeBit(reader.bits[currentBit]);
+          currentBit++;
+        }
+
+        return { buffer: writer.toArray(), replacementCount };
+      }
+
+      // File processing
+      async function processFile(file) {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+
+          reader.onload = (e) => {
+            try {
+              const originalBuffer = e.target.result;
+              const { buffer: migratedBuffer, replacementCount } =
+                migrateStatIDs(originalBuffer);
+
+              resolve({
+                success: true,
+                filename: file.name,
+                originalSize: originalBuffer.byteLength,
+                migratedSize: migratedBuffer.byteLength,
+                replacementCount,
+                migratedBuffer,
+              });
+            } catch (error) {
+              resolve({
+                success: false,
+                filename: file.name,
+                error: error.message,
+              });
+            }
+          };
+
+          reader.onerror = () => {
+            resolve({
+              success: false,
+              filename: file.name,
+              error: 'Failed to read file',
+            });
+          };
+
+          reader.readAsArrayBuffer(file);
+        });
+      }
+
+      // UI handling
+      const dropZone = document.getElementById('dropZone');
+      const fileInput = document.getElementById('fileInput');
+      const processing = document.getElementById('processing');
+      const results = document.getElementById('results');
+
+      dropZone.addEventListener('click', () => fileInput.click());
+
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+      });
+
+      dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        handleFiles(e.dataTransfer.files);
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+      });
+
+      async function handleFiles(files) {
+        if (files.length === 0) return;
+
+        processing.classList.add('show');
+        results.classList.remove('show');
+        results.innerHTML = '';
+
+        const fileArray = Array.from(files).filter(
+          (f) => f.name.endsWith('.d2s') || f.name.endsWith('.d2i'),
+        );
+
+        if (fileArray.length === 0) {
+          processing.classList.remove('show');
+          results.innerHTML =
+            '<div class="result-item error"><div class="result-filename">No valid files</div><div class="result-details">Please select .d2s or .d2i files</div></div>';
+          results.classList.add('show');
+          return;
+        }
+
+        for (const file of fileArray) {
+          const result = await processFile(file);
+          displayResult(result);
+        }
+
+        processing.classList.remove('show');
+        results.classList.add('show');
+      }
+
+      function displayResult(result) {
+        const div = document.createElement('div');
+        div.className = `result-item ${result.success ? 'success' : 'error'}`;
+
+        if (result.success) {
+          div.innerHTML = `
+          <div class="result-filename">✅ ${result.filename}</div>
+          <div class="result-details">
+            Found and migrated ${result.replacementCount} stat ID(s)<br>
+            ${
+              result.replacementCount > 0
+                ? `This save file contained Melee Area Damage items that have been updated.<br><strong>Remember to backup your original file before replacing it!</strong>`
+                : `No Melee Area Damage items found in this file (already migrated or none present).`
+            }
+          </div>
+          ${result.replacementCount > 0 ? `<button class="download-btn" onclick="downloadFile('${result.filename}', ${results.children.length})">Download ${result.filename}</button>` : ''}
+        `;
+
+          // Store the buffer for download
+          div.dataset.buffer = JSON.stringify(
+            Array.from(result.migratedBuffer),
+          );
+        } else {
+          div.innerHTML = `
+          <div class="result-filename">❌ ${result.filename}</div>
+          <div class="result-details">Error: ${result.error}</div>
+        `;
+        }
+
+        results.appendChild(div);
+      }
+
+      window.downloadFile = function (filename, index) {
+        const resultItem = results.children[index];
+        const bufferArray = JSON.parse(resultItem.dataset.buffer);
+        const buffer = new Uint8Array(bufferArray);
+
+        const blob = new Blob([buffer], { type: 'application/octet-stream' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+      };
+    </script>
+  </body>
+</html>

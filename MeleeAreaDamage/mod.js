@@ -20,10 +20,12 @@ function getDamageReduction(chance) {
 ].forEach((fileName) => {
   const fileContent = D2RMM.readTsv(fileName);
   if (!fileContent) return;
-  let itemstatcostID = Math.max(...fileContent.rows.map((row) => row['*ID']));
+  // Use fixed stat IDs starting at 500 to avoid conflicts with future Blizzard updates
+  // Previous versions used dynamic IDs (361-363) which conflicted with Reign of the Warlock update
+  let itemstatcostID = 499;
   fileContent.rows.push({
     Stat: 'item_meleeareadamage',
-    '*ID': (itemstatcostID = itemstatcostID + 1),
+    '*ID': (itemstatcostID = itemstatcostID + 1), // 500
     Signed: 1, // value is signed
     'Send Bits': 7, // number of bits used to represent the chance, 7 allows us to reach 100%
     'Send Param Bits': 16, // number of bits used to represent the skill, 16 allows all skills to be selected

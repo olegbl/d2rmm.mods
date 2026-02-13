@@ -1,26 +1,30 @@
-const inventoryFilename = 'global\\excel\\inventory.txt';
-const inventory = D2RMM.readTsv(inventoryFilename);
-inventory.rows.forEach((row) => {
-  const id = row.class;
-  const classes = [
-    'Amazon',
-    'Assassin',
-    'Barbarian',
-    'Druid',
-    'Necromancer',
-    'Paladin',
-    'Sorceress',
-    'Warlock',
-  ];
-  if (
-    classes.indexOf(id) !== -1 ||
-    classes.map((cls) => `${cls}2`).indexOf(id) !== -1
-  ) {
-    row.gridX = 13;
-    row.gridY = 8;
-  }
-});
-D2RMM.writeTsv(inventoryFilename, inventory);
+['global\\excel\\inventory.txt', 'global\\excel\\base\\inventory.txt'].forEach(
+  (fileName) => {
+    const fileContent = D2RMM.readTsv(fileName);
+    if (!fileContent) return;
+    fileContent.rows.forEach((row) => {
+      const id = row.class;
+      const classes = [
+        'Amazon',
+        'Assassin',
+        'Barbarian',
+        'Druid',
+        'Necromancer',
+        'Paladin',
+        'Sorceress',
+        'Warlock',
+      ];
+      if (
+        classes.indexOf(id) !== -1 ||
+        classes.map((cls) => `${cls}2`).indexOf(id) !== -1
+      ) {
+        row.gridX = 13;
+        row.gridY = 8;
+      }
+    });
+    D2RMM.writeTsv(fileName, fileContent);
+  },
+);
 
 const profileHDFilename = 'global\\ui\\layouts\\_profilehd.json';
 const profileHD = D2RMM.readJson(profileHDFilename);
@@ -85,9 +89,6 @@ playerInventoryOriginalLayoutHD.children =
       child.fields.rect.x = child.fields.rect.x + (1382 - 1162);
     }
     if (child.name === 'grid') {
-      // NOTE: modifying cellCount crashes the game
-      //       when opening the related UI *unless*
-      //       the character is a RotW character.
       child.fields.cellCount.x = 13;
       child.fields.cellCount.y = 8;
       child.fields.rect.x = child.fields.rect.x - 37;

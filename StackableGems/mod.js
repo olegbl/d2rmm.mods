@@ -50,60 +50,73 @@ for (const index in miscFilenames) {
   D2RMM.writeJson(miscStackFilename, miscStack);
 }
 
-const itemtypesFilename = 'global\\excel\\itemtypes.txt';
-const itemtypes = D2RMM.readTsv(itemtypesFilename);
-itemtypes.rows.forEach((itemtype) => {
-  if (itemtype.Code === SINGLE_ITEM_CODE) {
-    itemtypes.rows.push({
-      ...itemtype,
-      ItemType: `${itemtype.ItemType} Stack`,
-      Code: STACK_ITEM_CODE,
-      Equiv1: 'misc',
-      AutoStack: 1,
+['global\\excel\\itemtypes.txt', 'global\\excel\\base\\itemtypes.txt'].forEach(
+  (fileName) => {
+    const fileContent = D2RMM.readTsv(fileName);
+    if (!fileContent) return;
+    fileContent.rows.forEach((itemtype) => {
+      if (itemtype.Code === SINGLE_ITEM_CODE) {
+        fileContent.rows.push({
+          ...itemtype,
+          ItemType: `${itemtype.ItemType} Stack`,
+          Code: STACK_ITEM_CODE,
+          Equiv1: 'misc',
+          AutoStack: 1,
+        });
+      }
     });
-  }
-});
-D2RMM.writeTsv(itemtypesFilename, itemtypes);
+    D2RMM.writeTsv(fileName, fileContent);
+  },
+);
 
 if (config.default) {
-  const treasureclassexFilename = 'global\\excel\\treasureclassex.txt';
-  const treasureclassex = D2RMM.readTsv(treasureclassexFilename);
-  treasureclassex.rows.forEach((treasureclass) => {
-    treasureclass.Item1 = converItemTypeToStackItemType(treasureclass.Item1);
-    treasureclass.Item2 = converItemTypeToStackItemType(treasureclass.Item2);
-    treasureclass.Item3 = converItemTypeToStackItemType(treasureclass.Item3);
-    treasureclass.Item4 = converItemTypeToStackItemType(treasureclass.Item4);
-    treasureclass.Item5 = converItemTypeToStackItemType(treasureclass.Item5);
-    treasureclass.Item6 = converItemTypeToStackItemType(treasureclass.Item6);
-    treasureclass.Item7 = converItemTypeToStackItemType(treasureclass.Item7);
+  [
+    'global\\excel\\treasureclassex.txt',
+    'global\\excel\\base\\treasureclassex.txt',
+  ].forEach((fileName) => {
+    const fileContent = D2RMM.readTsv(fileName);
+    if (!fileContent) return;
+    fileContent.rows.forEach((treasureclass) => {
+      treasureclass.Item1 = converItemTypeToStackItemType(treasureclass.Item1);
+      treasureclass.Item2 = converItemTypeToStackItemType(treasureclass.Item2);
+      treasureclass.Item3 = converItemTypeToStackItemType(treasureclass.Item3);
+      treasureclass.Item4 = converItemTypeToStackItemType(treasureclass.Item4);
+      treasureclass.Item5 = converItemTypeToStackItemType(treasureclass.Item5);
+      treasureclass.Item6 = converItemTypeToStackItemType(treasureclass.Item6);
+      treasureclass.Item7 = converItemTypeToStackItemType(treasureclass.Item7);
+    });
+    D2RMM.writeTsv(fileName, fileContent);
   });
-  D2RMM.writeTsv(treasureclassexFilename, treasureclassex);
 }
 
-const miscFilename = 'global\\excel\\misc.txt';
-const misc = D2RMM.readTsv(miscFilename);
-misc.rows.forEach((item) => {
-  if (ITEM_TYPES.indexOf(item.code) !== -1) {
-    const itemStack = {
-      ...item,
-      name: `${item.name} Stack`,
-      compactsave: 0,
-      type: STACK_ITEM_CODE,
-      code: converItemTypeToStackItemType(item.code),
-      stackable: 1,
-      minstack: 1,
-      maxstack: config.maxStack,
-      spawnstack: 1,
-      spelldesc: 2,
-      spelldescstr: 'StackableGem',
-      spelldesccolor: 0,
-    };
-    delete itemStack.type2;
-    misc.rows.push(itemStack);
-    item.spawnable = 0;
-  }
-});
-D2RMM.writeTsv(miscFilename, misc);
+['global\\excel\\misc.txt', 'global\\excel\\base\\misc.txt'].forEach(
+  (fileName) => {
+    const fileContent = D2RMM.readTsv(fileName);
+    if (!fileContent) return;
+    fileContent.rows.forEach((item) => {
+      if (ITEM_TYPES.indexOf(item.code) !== -1) {
+        const itemStack = {
+          ...item,
+          name: `${item.name} Stack`,
+          compactsave: 0,
+          type: STACK_ITEM_CODE,
+          code: converItemTypeToStackItemType(item.code),
+          stackable: 1,
+          minstack: 1,
+          maxstack: config.maxStack,
+          spawnstack: 1,
+          spelldesc: 2,
+          spelldescstr: 'StackableGem',
+          spelldesccolor: 0,
+        };
+        delete itemStack.type2;
+        fileContent.rows.push(itemStack);
+        item.spawnable = 0;
+      }
+    });
+    D2RMM.writeTsv(fileName, fileContent);
+  },
+);
 
 const itemNamesFilename = 'local\\lng\\strings\\item-names.json';
 const itemNames = D2RMM.readJson(itemNamesFilename);
@@ -141,119 +154,124 @@ itemModifiers.push({
 });
 D2RMM.writeJson(itemModifiersFilename, itemModifiers);
 
-const cubemainFilename = 'global\\excel\\cubemain.txt';
-const cubemain = D2RMM.readTsv(cubemainFilename);
-for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
-  const itemtype = ITEM_TYPES[i];
-  const stacktype = converItemTypeToStackItemType(itemtype);
-  // convert from single to stack
-  cubemain.rows.push({
-    description: `${itemtype} -> ${stacktype}`,
-    enabled: 1,
-    version: 100,
-    numinputs: 1,
-    'input 1': itemtype,
-    output: stacktype,
-    '*eol': 0,
-  });
-  // convert from stack to single
-  cubemain.rows.push({
-    description: `${stacktype} -> ${itemtype}`,
-    enabled: 1,
-    version: 100,
-    op: 18, // skip recipe if item's Stat.Accr(param) != value
-    param: 70, // quantity (itemstatcost.txt)
-    value: 1, // only execute rule if quantity == 1
-    numinputs: 1,
-    'input 1': stacktype,
-    output: itemtype,
-    '*eol': 0,
-  });
-}
-
-// this is behind a config option because it's *a lot* of recipes...
-if (config.convertWhenDestacking) {
-  for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
-    const itemtype = ITEM_TYPES[i];
-    const stacktype = converItemTypeToStackItemType(itemtype);
-    for (let j = 2; j <= config.maxStack; j = j + 1) {
-      cubemain.rows.push({
-        description: `Stack of ${j} ${itemtype} -> Stack of ${
-          j - 1
-        } and Stack of 1`,
+['global\\excel\\cubemain.txt', 'global\\excel\\base\\cubemain.txt'].forEach(
+  (fileName) => {
+    const fileContent = D2RMM.readTsv(fileName);
+    if (!fileContent) return;
+    for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
+      const itemtype = ITEM_TYPES[i];
+      const stacktype = converItemTypeToStackItemType(itemtype);
+      // convert from single to stack
+      fileContent.rows.push({
+        description: `${itemtype} -> ${stacktype}`,
         enabled: 1,
-        version: 0,
+        version: 100,
+        numinputs: 1,
+        'input 1': itemtype,
+        output: stacktype,
+        '*eol': 0,
+      });
+      // convert from stack to single
+      fileContent.rows.push({
+        description: `${stacktype} -> ${itemtype}`,
+        enabled: 1,
+        version: 100,
         op: 18, // skip recipe if item's Stat.Accr(param) != value
         param: 70, // quantity (itemstatcost.txt)
-        value: j, // only execute rule if quantity == j
+        value: 1, // only execute rule if quantity == 1
         numinputs: 1,
         'input 1': stacktype,
-        output: `"${stacktype},qty=${j - 1}"`,
-        'output b': `"${itemtype},qty=1"`,
+        output: itemtype,
         '*eol': 0,
       });
     }
-  }
-}
-// if another mod already added destacking, don't add it again
-else if (
-  cubemain.rows.find(
-    (row) => row.description === 'Stack of 2 -> Stack of 1 and Stack of 1'
-  ) == null
-) {
-  for (let i = 2; i <= config.maxStack; i = i + 1) {
-    cubemain.rows.push({
-      description: `Stack of ${i} -> Stack of ${i - 1} and Stack of 1`,
-      enabled: 1,
-      version: 0,
-      op: 18, // skip recipe if item's Stat.Accr(param) != value
-      param: 70, // quantity (itemstatcost.txt)
-      value: i, // only execute rule if quantity == i
-      numinputs: 1,
-      'input 1': 'misc',
-      output: `"usetype,qty=${i - 1}"`,
-      'output b': `"usetype,qty=1"`,
-      '*eol': 0,
-    });
-  }
-}
 
-if (config.bulkUpgrade) {
-  for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
-    // no upgrade for perfect gems
-    if ((i + 1) % 5 == 0) {
-      continue;
+    // this is behind a config option because it's *a lot* of recipes...
+    if (config.convertWhenDestacking) {
+      for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
+        const itemtype = ITEM_TYPES[i];
+        const stacktype = converItemTypeToStackItemType(itemtype);
+        for (let j = 2; j <= config.maxStack; j = j + 1) {
+          fileContent.rows.push({
+            description: `Stack of ${j} ${itemtype} -> Stack of ${
+              j - 1
+            } and Stack of 1`,
+            enabled: 1,
+            version: 0,
+            op: 18, // skip recipe if item's Stat.Accr(param) != value
+            param: 70, // quantity (itemstatcost.txt)
+            value: j, // only execute rule if quantity == j
+            numinputs: 1,
+            'input 1': stacktype,
+            output: `"${stacktype},qty=${j - 1}"`,
+            'output b': `"${itemtype},qty=1"`,
+            '*eol': 0,
+          });
+        }
+      }
     }
-    const itemtype = ITEM_TYPES[i];
-    const stacktype = converItemTypeToStackItemType(itemtype);
-    const upgradedItemtype = ITEM_TYPES[i + 1];
-    const upgradedStacktype = converItemTypeToStackItemType(upgradedItemtype);
-    for (let j = 30; j <= config.maxStack; j = j + 1) {
-      cubemain.rows.push({
-        description:
-          `Stack of ${j} ${itemtype} + 1 id scroll -> Stack` +
-          ` of 10 ${upgradedItemtype} + Stack of ${j - 30} ${itemtype} + 1` +
-          ` id scroll`,
-        enabled: 1,
-        version: 0,
-        op: 18, // skip recipe if item's Stat.Accr(param) != value
-        param: 70, // quantity (itemstatcost.txt)
-        value: j, // only execute rule if quantity == j
-        numinputs: 2,
-        'input 1': stacktype,
-        'input 2': 'isc',
-        output: `"${upgradedStacktype},qty=10"`,
-        'output b': j == 30 ? null : `"${stacktype},qty=${j - 30}"`,
-        'output c': 'isc',
-        '*eol': 0,
-      });
+    // if another mod already added destacking, don't add it again
+    else if (
+      fileContent.rows.find(
+        (row) => row.description === 'Stack of 2 -> Stack of 1 and Stack of 1',
+      ) == null
+    ) {
+      for (let i = 2; i <= config.maxStack; i = i + 1) {
+        fileContent.rows.push({
+          description: `Stack of ${i} -> Stack of ${i - 1} and Stack of 1`,
+          enabled: 1,
+          version: 0,
+          op: 18, // skip recipe if item's Stat.Accr(param) != value
+          param: 70, // quantity (itemstatcost.txt)
+          value: i, // only execute rule if quantity == i
+          numinputs: 1,
+          'input 1': 'misc',
+          output: `"usetype,qty=${i - 1}"`,
+          'output b': `"usetype,qty=1"`,
+          '*eol': 0,
+        });
+      }
     }
-  }
-}
-D2RMM.writeTsv(cubemainFilename, cubemain);
+
+    if (config.bulkUpgrade) {
+      for (let i = 0; i < ITEM_TYPES.length; i = i + 1) {
+        // no upgrade for perfect gems
+        if ((i + 1) % 5 == 0) {
+          continue;
+        }
+        const itemtype = ITEM_TYPES[i];
+        const stacktype = converItemTypeToStackItemType(itemtype);
+        const upgradedItemtype = ITEM_TYPES[i + 1];
+        const upgradedStacktype =
+          converItemTypeToStackItemType(upgradedItemtype);
+        for (let j = 30; j <= config.maxStack; j = j + 1) {
+          fileContent.rows.push({
+            description:
+              `Stack of ${j} ${itemtype} + 1 id scroll -> Stack` +
+              ` of 10 ${upgradedItemtype} + Stack of ${j - 30} ${itemtype} + 1` +
+              ` id scroll`,
+            enabled: 1,
+            version: 0,
+            op: 18, // skip recipe if item's Stat.Accr(param) != value
+            param: 70, // quantity (itemstatcost.txt)
+            value: j, // only execute rule if quantity == j
+            numinputs: 2,
+            'input 1': stacktype,
+            'input 2': 'isc',
+            output: `"${upgradedStacktype},qty=10"`,
+            'output b': j == 30 ? null : `"${stacktype},qty=${j - 30}"`,
+            'output c': 'isc',
+            '*eol': 0,
+          });
+        }
+      }
+    }
+    D2RMM.writeTsv(fileName, fileContent);
+  },
+);
 
 D2RMM.copyFile(
   'hd', // <mod folder>\hd
   'hd', // <diablo 2 folder>\mods\<modname>\<modname>.mpq\data\hd
-  true // overwrite any conflicts
+  true, // overwrite any conflicts
 );

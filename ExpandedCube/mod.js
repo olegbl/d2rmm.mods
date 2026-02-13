@@ -1,14 +1,18 @@
-const inventoryFilename = 'global\\excel\\inventory.txt';
-const inventory = D2RMM.readTsv(inventoryFilename);
-inventory.rows.forEach((row) => {
-  if (
-    row.class === 'Transmogrify Box Page 1' ||
-    row.class === 'Transmogrify Box2'
-  ) {
-    row.gridX = 6;
-  }
-});
-D2RMM.writeTsv(inventoryFilename, inventory);
+['global\\excel\\inventory.txt', 'global\\excel\\base\\inventory.txt'].forEach(
+  (fileName) => {
+    const fileContent = D2RMM.readTsv(fileName);
+    if (!fileContent) return;
+    fileContent.rows.forEach((row) => {
+      if (
+        row.class === 'Transmogrify Box Page 1' ||
+        row.class === 'Transmogrify Box2'
+      ) {
+        row.gridX = 6;
+      }
+    });
+    D2RMM.writeTsv(fileName, fileContent);
+  },
+);
 
 const profileHDFilename = 'global\\ui\\layouts\\_profilehd.json';
 const profileHD = D2RMM.readJson(profileHDFilename);
@@ -23,9 +27,6 @@ const horadricCubeLayoutHDFilename =
 const horadricCubeHDLayout = D2RMM.readJson(horadricCubeLayoutHDFilename);
 horadricCubeHDLayout.children.forEach((child) => {
   if (child.name === 'grid') {
-    // NOTE: modifying cellCount crashes the game
-    //       when opening the related UI *unless*
-    //       the character is a RotW character.
     child.fields.cellCount.x = 6;
     child.fields.cellCount.y = 4;
     child.fields.rect.x = child.fields.rect.x - 144;

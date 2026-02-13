@@ -10,6 +10,7 @@ inventory.rows.forEach((row) => {
     'Necromancer',
     'Paladin',
     'Sorceress',
+    'Warlock',
   ];
   if (
     classes.indexOf(id) !== -1 ||
@@ -54,27 +55,10 @@ profileLV.RightPanelRect_ExpandedInventory = {
 };
 D2RMM.writeJson(profileLVFilename, profileLV);
 
-const playerInventoryOriginalLayoutFilename =
-  'global\\ui\\layouts\\playerinventoryoriginallayout.json';
-const playerInventoryOriginalLayout = D2RMM.readJson(
-  playerInventoryOriginalLayoutFilename
-);
-// TODO: new sprite & layout for classic UI
-playerInventoryOriginalLayout.children.forEach((child) => {
-  if (child.name === 'grid') {
-    child.fields.cellCount.x = 13;
-    child.fields.cellCount.y = 8;
-  }
-});
-D2RMM.writeJson(
-  playerInventoryOriginalLayoutFilename,
-  playerInventoryOriginalLayout
-);
-
 const playerInventoryOriginalLayoutHDFilename =
   'global\\ui\\layouts\\playerinventoryoriginallayouthd.json';
 const playerInventoryOriginalLayoutHD = D2RMM.readJson(
-  playerInventoryOriginalLayoutHDFilename
+  playerInventoryOriginalLayoutHDFilename,
 );
 playerInventoryOriginalLayoutHD.fields.rect =
   '$RightPanelRect_ExpandedInventory';
@@ -101,6 +85,8 @@ playerInventoryOriginalLayoutHD.children =
       child.fields.rect.x = child.fields.rect.x + (1382 - 1162);
     }
     if (child.name === 'grid') {
+      // NOTE: setting cellCount crashes the game when
+      //       opening the UI panel, breaking this mod
       child.fields.cellCount.x = 13;
       child.fields.cellCount.y = 8;
       child.fields.rect.x = child.fields.rect.x - 37;
@@ -154,13 +140,13 @@ playerInventoryOriginalLayoutHD.children =
   });
 D2RMM.writeJson(
   playerInventoryOriginalLayoutHDFilename,
-  playerInventoryOriginalLayoutHD
+  playerInventoryOriginalLayoutHD,
 );
 
 const playerInventoryExpansionLayoutHDFilename =
   'global\\ui\\layouts\\playerinventoryexpansionlayouthd.json';
 const playerInventoryExpansionLayoutHD = D2RMM.readJson(
-  playerInventoryExpansionLayoutHDFilename
+  playerInventoryExpansionLayoutHDFilename,
 );
 playerInventoryExpansionLayoutHD.children =
   playerInventoryExpansionLayoutHD.children.filter((child) => {
@@ -195,13 +181,13 @@ playerInventoryExpansionLayoutHD.children =
   });
 D2RMM.writeJson(
   playerInventoryExpansionLayoutHDFilename,
-  playerInventoryExpansionLayoutHD
+  playerInventoryExpansionLayoutHD,
 );
 
 const playerInventoryOriginalControllerLayoutHDFilename =
   'global\\ui\\layouts\\controller\\playerinventoryoriginallayouthd.json';
 const playerInventoryOriginalControllerLayoutHD = D2RMM.readJson(
-  playerInventoryOriginalControllerLayoutHDFilename
+  playerInventoryOriginalControllerLayoutHDFilename,
 );
 playerInventoryOriginalControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'background') {
@@ -265,13 +251,13 @@ playerInventoryOriginalControllerLayoutHD.children.forEach((child) => {
 });
 D2RMM.writeJson(
   playerInventoryOriginalControllerLayoutHDFilename,
-  playerInventoryOriginalControllerLayoutHD
+  playerInventoryOriginalControllerLayoutHD,
 );
 
 const playerInventoryExpansionControllerLayoutHDFilename =
   'global\\ui\\layouts\\controller\\playerinventoryexpansionlayouthd.json';
 const playerInventoryExpansionControllerLayoutHD = D2RMM.readJson(
-  playerInventoryExpansionControllerLayoutHDFilename
+  playerInventoryExpansionControllerLayoutHDFilename,
 );
 playerInventoryExpansionControllerLayoutHD.children.forEach((child) => {
   if (child.name === 'background') {
@@ -301,11 +287,11 @@ playerInventoryExpansionControllerLayoutHD.children.forEach((child) => {
 });
 D2RMM.writeJson(
   playerInventoryExpansionControllerLayoutHDFilename,
-  playerInventoryExpansionControllerLayoutHD
+  playerInventoryExpansionControllerLayoutHD,
 );
 
 D2RMM.copyFile(
   'hd', // <mod folder>\hd
   'hd', // <diablo 2 folder>\mods\<modname>\<modname>.mpq\data\hd
-  true // overwrite any conflicts
+  true, // overwrite any conflicts
 );

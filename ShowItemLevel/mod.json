@@ -4,7 +4,7 @@
   "description": "Shows item level in the name.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/174",
-  "version": "1.3",
+  "version": "1.4",
   "config": [
     {
       "id": "weapons",

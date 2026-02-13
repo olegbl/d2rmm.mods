@@ -4,7 +4,7 @@
   "description": "Adds new Horadric Cube recipes that allow rerolling items in various ways.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/229",
-  "version": "1.5",
+  "version": "1.6",
   "config": [
     {
       "id": "reforge-section",

@@ -4,7 +4,7 @@
   "description": "Increases the number of monster packs that spawn.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/184",
-  "version": "1.0",
+  "version": "1.1",
   "config": [
     {
       "id": "multiplier",

@@ -4,7 +4,7 @@
   "description": "Increases movement speed of characters.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/250",
-  "version": "1.1",
+  "version": "1.2",
   "config": [
     {
       "id": "walk",

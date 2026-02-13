@@ -4,7 +4,7 @@
   "description": "Reduces maximum elemental resistances of monsters to remove their immunities in nightmare and hell difficulties.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/185",
-  "version": "1.1",
+  "version": "1.2",
   "config": [
     {
       "id": "maxres",

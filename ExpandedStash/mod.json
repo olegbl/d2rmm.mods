@@ -4,46 +4,5 @@
   "description": "Increases stash size to 16x13. Based on https://www.nexusmods.com/diablo2resurrected/mods/13.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/173",
-  "version": "1.14",
-  "config": [
-    {
-      "id": "isCustomTabsEnabled",
-      "type": "checkbox",
-      "name": "Enable Custom Tab Names",
-      "description": "Set a custom name for each stash tab using the fields below.",
-      "defaultValue": false
-    },
-    {
-      "id": "tabNamePersonal",
-      "type": "text",
-      "name": "Personal Tab",
-      "description": "Set a custom name for the Personal stash tab. Leave blank to use the default name.",
-      "defaultValue": "",
-      "visible": ["value", "isCustomTabsEnabled"]
-    },
-    {
-      "id": "tabNameShared1",
-      "type": "text",
-      "name": "Shared Tab 1",
-      "description": "Set a custom name for the first Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": "",
-      "visible": ["value", "isCustomTabsEnabled"]
-    },
-    {
-      "id": "tabNameShared2",
-      "type": "text",
-      "name": "Shared Tab 2",
-      "description": "Set a custom name for the second Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": "",
-      "visible": ["value", "isCustomTabsEnabled"]
-    },
-    {
-      "id": "tabNameShared3",
-      "type": "text",
-      "name": "Shared Tab 3",
-      "description": "Set a custom name for the third Shared stash tab. Leave blank to use the default name.",
-      "defaultValue": "",
-      "visible": ["value", "isCustomTabsEnabled"]
-    }
-  ]
+  "version": "1.14"
 }

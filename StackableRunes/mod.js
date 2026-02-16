@@ -81,6 +81,23 @@ if (config.default) {
   (fileName) => {
     const fileContent = D2RMM.readTsv(fileName);
     if (!fileContent) return;
+
+    // fix the vanilla incompatibility between misc.txt and base\misc.txt
+    // where "Crafted Sunder Charm" is missing from the latter
+    if (
+      fileName.includes('\\base\\') &&
+      fileContent.rows.find((row) => row.code === 'cs2') == null
+    ) {
+      fileContent.rows.push({
+        code: 'cs2',
+        compactsave: 0,
+        name: 'Crafted Sunder Charm',
+        spawnable: 0,
+        type: 'misc',
+        version: 100,
+      });
+    }
+
     fileContent.rows.forEach((item) => {
       if (ITEM_TYPES.indexOf(item.code) !== -1) {
         fileContent.rows.push({

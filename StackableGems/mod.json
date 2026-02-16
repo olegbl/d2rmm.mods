@@ -4,7 +4,7 @@
   "description": "Adds another variation of gems that can stack together. Transmute a gem in the Cube to convert it between the two variants. Based on https://www.nexusmods.com/diablo2resurrected/mods/80.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/176",
-  "version": "1.8",
+  "version": "1.9",
   "config": [
     {
       "id": "default",

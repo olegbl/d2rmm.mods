@@ -7,13 +7,16 @@
     const treasureClass = row['Treasure Class'];
     // not all rows are valid entries
     if (treasureClass !== '') {
-      // Sunder Charms have a massive default NoDrop rate of 23899
-      // if this is set to "0" (e.g. /players 0), then a charm is dropped
-      // from practically every single monster, which is not desireable
-      const players =
-        treasureClass === 'Sunder Charms'
-          ? config.sunderplayers
-          : config.players;
+      let players = config.players;
+
+      if (treasureClass === 'Sunder Charms') {
+        // Sunder Charms have a massive default NoDrop rate of 23899
+        players = config.sunderplayers;
+      } else if (treasureClass.includes('Terrorize Act Consumable')) {
+        // Terrorize Act Consumables have a high NoDrop rate of 6000
+        players = config.terrorizeplayers;
+      }
+
       if (players === 0) {
         row.NoDrop = 0;
       } else if (row.NoDrop !== '') {

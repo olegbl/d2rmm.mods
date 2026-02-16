@@ -4,7 +4,7 @@
   "description": "Modifies the nodrop chance for treasure categories to simulate a specific /players setup.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/171",
-  "version": "1.4",
+  "version": "1.5",
   "config": [
     {
       "id": "players",
@@ -27,7 +27,15 @@
       "name": "Sunder Charms",
       "description": "The /players value to use for Sunder Charms. If you set 0 here, you'll get a Sunder Charm from every monster, so don't do that.",
       "defaultValue": 1,
-      "minValue": 1
+      "minValue": 0
+    },
+    {
+      "id": "terrorizeplayers",
+      "type": "number",
+      "name": "Terrorize Consumables",
+      "description": "The /players value to use for Terrorize Act Consumables (Worldstone Shards). If you set 0 here, you'll be swimming in Worldstone Shards, so don't do that.",
+      "defaultValue": 1,
+      "minValue": 0
     }
   ]
 }

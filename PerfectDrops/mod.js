@@ -337,3 +337,17 @@ if (config.crafted) {
     },
   );
 }
+
+[
+  'global\\excel\\propertygroups.txt',
+  'global\\excel\\base\\propertygroups.txt',
+].forEach((fileName) => {
+  const fileContent = D2RMM.readTsv(fileName);
+  if (!fileContent) return;
+  fileContent.rows.forEach((row) => {
+    for (let i = 1; i <= 8; i++) {
+      UpdateRow(row, `Prop${i}`, `ModMin${i}`, `ModMax${i}`);
+    }
+  });
+  D2RMM.writeTsv(fileName, fileContent);
+});

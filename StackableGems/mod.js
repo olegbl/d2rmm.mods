@@ -125,6 +125,8 @@ if (config.default) {
           spelldesc: 2,
           spelldescstr: 'StackableGem',
           spelldesccolor: 0,
+          // prevent stackable gems from... stacking in RotW advanced stash tabs
+          AdvancedStashStackable: '',
         };
         delete itemStack.type2;
         fileContent.rows.push(itemStack);

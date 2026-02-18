@@ -113,6 +113,8 @@ if (config.default) {
           spelldesc: 2,
           spelldescstr: 'StackableRune',
           spelldesccolor: 0,
+          // prevent stackable runes from... stacking in RotW advanced stash tabs
+          AdvancedStashStackable: '',
         });
         item.spawnable = 0;
       }

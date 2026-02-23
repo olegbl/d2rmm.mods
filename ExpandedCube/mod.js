@@ -69,7 +69,7 @@ function findNode(node, name) {
 }
 
 {
-  // RotW Advanced Tabs
+  // (Keyboard/Mouse) RotW Advanced Tabs
   const fileName = 'global\\ui\\layouts\\bankexpansionlayouthd.json';
   const fileContent = D2RMM.readJson(fileName);
   const grid = findNode(fileContent, 'horadriccube_grid');
@@ -93,6 +93,40 @@ function findNode(node, name) {
     ) {
       console.debug(
         'Detected Expanded Stash mod. Updating sprites to expanded cube sprites.',
+      );
+    }
+  }
+  D2RMM.writeJson(fileName, fileContent);
+}
+
+{
+  // (Controller) RotW Advanced Tabs
+  const fileName =
+    'global\\ui\\layouts\\controller\\bankexpansionlayouthd.json';
+  const fileContent = D2RMM.readJson(fileName);
+  const grid = findNode(fileContent, 'horadriccube_grid');
+  // update cell count
+  if (grid?.fields?.cellCount) {
+    grid.fields.cellCount.x = 6;
+  }
+  // sprites don't need an explicit change - we just package new versions in hd folder
+  // detect Expanded Stash mod and switch its sprites
+  if (Array.isArray(fileContent?.fields?.backgroundFile)) {
+    fileContent.fields.backgroundFile = fileContent.fields.backgroundFile.map(
+      (file) =>
+        file === 'Controller/Panel/Stash/V2/AdvancedStash_Expanded_Controller'
+          ? 'Controller/Panel/Stash/V2/AdvancedStash_Expanded_Cube_Controller'
+          : file,
+    );
+    if (
+      fileContent.fields.backgroundFile.some(
+        (file) =>
+          file ===
+          'Controller/Panel/Stash/V2/AdvancedStash_Expanded_Cube_Controller',
+      )
+    ) {
+      console.debug(
+        'Detected Expanded Stash mod. Updating sprites to expanded cube sprites. (Controller UI)',
       );
     }
   }

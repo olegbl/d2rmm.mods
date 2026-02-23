@@ -120,7 +120,7 @@ function processNodes(node, handler) {
     }
 
     if (name === 'background' && node.fields) {
-      node.fields.filename = 'PANEL\\Stash\\StashPanel_BG_Expanded';
+      node.fields.filename = 'PANEL\\Stash\\BasicStash_Expanded';
       node.fields.rect = { x: 0, y: 0 };
     }
 
@@ -462,7 +462,7 @@ function processNodes(node, handler) {
     }
 
     if (name === 'background' && node.fields) {
-      node.fields.filename = 'PANEL\\Stash\\StashPanel_BG_Expanded';
+      node.fields.filename = 'PANEL\\Stash\\BasicStash_Expanded';
     }
 
     if (name === 'BankTabs' && node.fields) {
@@ -537,6 +537,9 @@ function processNodes(node, handler) {
   D2RMM.writeJson(fileName, fileContent);
 }
 
+const CONTROLLER_PANEL_OFFSET_X = -368;
+const CONTROLLER_PANEL_OFFSET_Y = -176;
+
 {
   const fileName = 'global\\ui\\layouts\\controller\\bankoriginallayouthd.json';
   const fileContent = D2RMM.readJson(fileName);
@@ -580,23 +583,299 @@ function processNodes(node, handler) {
       return false;
     }
 
+    // for materials and runes advanced stash tabs, remove their contents
+    if (['advancedstash_materials', 'advancedstash_runes'].includes(name)) {
+      node.children = [];
+    }
+
+    // for gems advanced stash tab, apply the new layout
+    if (name === 'advancedstash_gems') {
+      node.children = [];
+
+      // add gems
+      {
+        const itemCodes = [
+          'gcw',
+          'gfw',
+          'gsw',
+          'glw',
+          'gpw',
+          'gcg',
+          'gfg',
+          'gsg',
+          'glg',
+          'gpg',
+          'gcr',
+          'gfr',
+          'gsr',
+          'glr',
+          'gpr',
+          'gcy',
+          'gfy',
+          'gsy',
+          'gly',
+          'gpy',
+          'gcv',
+          'gfv',
+          'gsv',
+          'gzv',
+          'gpv',
+          'gcb',
+          'gfb',
+          'gsb',
+          'glb',
+          'gpb',
+          'skc',
+          'skf',
+          'sku',
+          'skl',
+          'skz',
+        ];
+        const x = 130 + CELL_OFFSET_X + CONTROLLER_PANEL_OFFSET_X;
+        const y = 1028 + CELL_OFFSET_Y + CONTROLLER_PANEL_OFFSET_Y;
+        for (const index in itemCodes) {
+          const itemCode = itemCodes[index];
+          node.children.push({
+            type: 'AdvancedStashSlotWidget',
+            name: itemCode,
+            fields: {
+              rect: {
+                width: 98,
+                height: 98,
+                x: x + Math.floor(index / 5) * 100,
+                y: y + (index % 5) * 100,
+              },
+              itemCode,
+            },
+          });
+        }
+      }
+
+      // add runes
+      {
+        const x = 920 + CELL_OFFSET_X + CONTROLLER_PANEL_OFFSET_X;
+        const y = 1028 + CELL_OFFSET_Y + CONTROLLER_PANEL_OFFSET_Y;
+        for (let index = 0; index < 33; index++) {
+          const itemCode = `r${(index + 1).toString().padStart(2, '0')}`;
+          node.children.push({
+            type: 'AdvancedStashSlotWidget',
+            name: itemCode,
+            fields: {
+              rect: {
+                width: 98,
+                height: 98,
+                x: x + ((index % 7) + (index >= 28 ? 1 : 0)) * 100,
+                y: y + Math.floor(index / 7) * 100,
+              },
+              itemCode,
+            },
+          });
+        }
+      }
+
+      // add statues
+      {
+        const x = 130 + CELL_OFFSET_X + CONTROLLER_PANEL_OFFSET_X;
+        const y = 314 + CELL_OFFSET_Y + CONTROLLER_PANEL_OFFSET_Y;
+        const itemCodes = ['ua1', 'ua2', 'ua3', 'ua4', 'ua5'];
+        for (const index in itemCodes) {
+          const itemCode = itemCodes[index];
+          node.children.push({
+            type: 'AdvancedStashSlotWidget',
+            name: itemCode,
+            fields: {
+              rect: {
+                width: 98,
+                height: 196,
+                x: x + index * 100,
+                y,
+              },
+              itemCode,
+            },
+          });
+        }
+      }
+
+      // add keys
+      {
+        const x = 660 + CELL_OFFSET_X + CONTROLLER_PANEL_OFFSET_X;
+        const y = 314 + CELL_OFFSET_Y + CONTROLLER_PANEL_OFFSET_Y;
+        const itemCodes = ['pk1', 'pk2', 'pk3'];
+        for (const index in itemCodes) {
+          const itemCode = itemCodes[index];
+          node.children.push({
+            type: 'AdvancedStashSlotWidget',
+            name: itemCode,
+            fields: {
+              rect: {
+                width: 98,
+                height: 196,
+                x: x + index * 100,
+                y,
+              },
+              itemCode,
+            },
+          });
+        }
+      }
+
+      // add potions
+      {
+        const x = 990 + CELL_OFFSET_X + CONTROLLER_PANEL_OFFSET_X;
+        const y = 314 + CELL_OFFSET_Y + CONTROLLER_PANEL_OFFSET_Y;
+        const itemCodes = ['rvs', 'rvl'];
+        for (const index in itemCodes) {
+          const itemCode = itemCodes[index];
+          node.children.push({
+            type: 'AdvancedStashSlotWidget',
+            name: itemCode,
+            fields: {
+              rect: {
+                width: 98,
+                height: 98,
+                x,
+                y: y + index * 100,
+              },
+              itemCode,
+            },
+          });
+        }
+      }
+
+      // add shards
+      {
+        const x = 1120 + CELL_OFFSET_X + CONTROLLER_PANEL_OFFSET_X;
+        const y = 314 + CELL_OFFSET_Y + CONTROLLER_PANEL_OFFSET_Y;
+        const itemCodes = ['xa1', 'xa2', 'xa3', 'xa4', 'xa5'];
+        for (const index in itemCodes) {
+          const itemCode = itemCodes[index];
+          node.children.push({
+            type: 'AdvancedStashSlotWidget',
+            name: itemCode,
+            fields: {
+              rect: {
+                width: 98,
+                height: 98,
+                x: x + index * 100,
+                y,
+              },
+              itemCode,
+            },
+          });
+        }
+      }
+
+      // add essences
+      {
+        const x = 1120 + CELL_OFFSET_X + CONTROLLER_PANEL_OFFSET_X;
+        const y = 414 + CELL_OFFSET_Y + CONTROLLER_PANEL_OFFSET_Y;
+        const itemCodes = ['toa', 'tes', 'ceh', 'bet', 'fed'];
+        for (const index in itemCodes) {
+          const itemCode = itemCodes[index];
+          node.children.push({
+            type: 'AdvancedStashSlotWidget',
+            name: itemCode,
+            fields: {
+              rect: {
+                width: 98,
+                height: 98,
+                x: x + index * 100,
+                y,
+              },
+              itemCode,
+            },
+          });
+        }
+      }
+
+      // add organs
+      {
+        const x = 1320 + CELL_OFFSET_X + CONTROLLER_PANEL_OFFSET_X;
+        const y = 514 + CELL_OFFSET_Y + CONTROLLER_PANEL_OFFSET_Y;
+        const itemCodes = ['dhn', 'bey', 'mbr'];
+        for (const index in itemCodes) {
+          const itemCode = itemCodes[index];
+          node.children.push({
+            type: 'AdvancedStashSlotWidget',
+            name: itemCode,
+            fields: {
+              rect: {
+                width: 98,
+                height: 98,
+                x: x + index * 100,
+                y,
+              },
+              itemCode,
+            },
+          });
+        }
+      }
+    }
+
+    if (name === 'advancedstash_horadriccube' && node.fields) {
+      if (!node.fields.rect) node.fields.rect = {};
+      node.fields.rect.x = 0;
+      node.fields.rect.y = 0;
+    }
+
+    if (name === 'horadriccube_grid' && node.fields) {
+      if (!node.fields.rect) node.fields.rect = {};
+      node.fields.rect.x = 581 + CONTROLLER_PANEL_OFFSET_X;
+      node.fields.rect.y = 568 + CONTROLLER_PANEL_OFFSET_Y;
+    }
+
+    if (name === 'horadriccube_cover' && node.fields) {
+      if (!node.fields.rect) node.fields.rect = {};
+      node.fields.rect.x = 582 + CONTROLLER_PANEL_OFFSET_X;
+      node.fields.rect.y = 569 + CONTROLLER_PANEL_OFFSET_Y;
+    }
+
+    if (name === 'convert' && node.fields) {
+      if (!node.fields.rect) node.fields.rect = {};
+      node.fields.rect.x = 412 + CONTROLLER_PANEL_OFFSET_X;
+      node.fields.rect.y = 707 + CONTROLLER_PANEL_OFFSET_Y;
+    }
+
+    // TODO: withdraw_button inside of horadric cube - what is it?
+
     if (
       name === 'BankExpansionLayout' &&
       node.fields &&
       node.fields.backgroundFile
     ) {
-      node.fields.backgroundFile = node.fields.backgroundFile.map((file) =>
-        [
-          'Controller/Panel/Stash/V2/StashPanelBGPersonal',
-          'Controller/Panel/Stash/V2/StashPanelBGShared',
-        ].includes(file)
-          ? 'Controller/Panel/Stash/V2/StashPanelBG_Expanded'
-          : file,
+      const basicStashTabBackground =
+        'Controller/Panel/Stash/V2/BasicStash_Expanded_Controller';
+      const isExpandedCubeInstalled =
+        findNode(fileContent, 'horadriccube_grid')?.fields?.cellCount?.x === 6;
+      console.debug(
+        isExpandedCubeInstalled
+          ? 'Found Expanded Cube mod. Defaulting to expanded cube sprites. (Controller UI)'
+          : 'Did not find Expanded Cube mod. Defaulting to normal cube sprites. (Controller UI)',
+        findNode(fileContent, 'horadriccube_grid'),
+      );
+      const advancedStashTabBackground = isExpandedCubeInstalled
+        ? 'Controller/Panel/Stash/V2/AdvancedStash_Expanded_Cube_Controller'
+        : 'Controller/Panel/Stash/V2/AdvancedStash_Expanded_Controller';
+      node.fields.backgroundFile = node.fields.backgroundFile.map(
+        (file) =>
+          ({
+            'Controller/Panel/Stash/V2/StashPanelBGPersonal':
+              basicStashTabBackground,
+            'Controller/Panel/Stash/V2/StashPanelBGShared':
+              basicStashTabBackground,
+            'Controller/Panel/Stash/V2/AdditionalStash/AdvancedStash_Gems_Console':
+              advancedStashTabBackground,
+            'Controller/Panel/Stash/V2/AdditionalStash/AdvancedStash_Consumables_Console':
+              advancedStashTabBackground,
+            'Controller/Panel/Stash/V2/AdditionalStash/AdvancedStash_Runes_Console':
+              advancedStashTabBackground,
+          })[file] ?? file,
       );
     }
 
     if (name === 'background') {
-      node.fields.filename = 'Controller/Panel/Stash/V2/StashPanelBG_Expanded';
+      node.fields.filename =
+        'Controller/Panel/Stash/V2/BasicStash_Expanded_Controller';
       node.fields.rect.x = node.fields.rect.x - 285 - 81;
       node.fields.rect.y = node.fields.rect.y + 17 - 293;
     }
@@ -624,19 +903,37 @@ function processNodes(node, handler) {
     }
 
     if (name === 'BankTabs') {
-      node.fields.filename = 'Controller/Panel/Stash/V2/StashTabs_Expanded';
-      node.fields.focusIndicatorFilename =
-        'Controller/HoverImages/StashTab_Hover_Expanded';
       node.fields.rect.x = node.fields.rect.x - 300;
       node.fields.rect.y = node.fields.rect.y + 10;
-      node.fields.tabSize = { x: 175, y: 120 };
-      node.fields.tabPadding = { x: 0, y: 0 };
+      // node.fields.tabSize = { x: 175, y: 120 };
+      // node.fields.tabPadding = { x: 0, y: 0 };
       node.fields.tabLeftIndicatorPosition = { x: -42, y: -2 };
       node.fields.tabRightIndicatorPosition = { x: 1135 + 300, y: -2 };
+
+      // hide gems and runes advanced stash tabs from the tab list
+      // we keep the materials stash tab since it has the most
+      // appropriate default localization
+      const indices = [
+        node.fields.textStrings.indexOf('@gems'),
+        node.fields.textStrings.indexOf('@runes'),
+      ].filter((index) => index !== -1);
+      node.fields.tabCount -= indices.length;
+      node.fields.inactiveFrames = node.fields.inactiveFrames.filter(
+        (_, i) => !indices.includes(i),
+      );
+      node.fields.activeFrames = node.fields.activeFrames.filter(
+        (_, i) => !indices.includes(i),
+      );
+      node.fields.disabledFrames = node.fields.disabledFrames.filter(
+        (_, i) => !indices.includes(i),
+      );
+      node.fields.textStrings = node.fields.textStrings.filter(
+        (_, i) => !indices.includes(i),
+      );
     }
 
     if (name === 'StashNavigation' && node.fields && node.fields.rect) {
-      node.fields.rect.x = 100;
+      node.fields.rect.x = -166;
       node.fields.rect.y = 1490;
     }
 

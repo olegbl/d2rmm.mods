@@ -106,6 +106,7 @@ if (config.default) {
           compactsave: 0,
           type: STACK_ITEM_CODE,
           code: converItemTypeToStackItemType(item.code),
+          spawnable: config.default ? 1 : 0,
           stackable: 1,
           minstack: 1,
           maxstack: config.maxStack,
@@ -116,7 +117,9 @@ if (config.default) {
           // prevent stackable runes from... stacking in RotW advanced stash tabs
           AdvancedStashStackable: '',
         });
-        item.spawnable = 0;
+        if (config.default) {
+          item.spawnable = 0;
+        }
       }
     });
     D2RMM.writeTsv(fileName, fileContent);

@@ -11,6 +11,7 @@
             'Battle Command',
             'Battle Orders',
             'Charge',
+            'Eldritch Blast',
             'Hurricane',
             'Leap',
             'Shout',

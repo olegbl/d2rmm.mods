@@ -495,6 +495,7 @@ if (config.unique) {
       par4: null,
       min4: null,
       max4: null,
+      carry1: null, // can carry more than 1
       '*eol\r': 0,
     });
     D2RMM.writeTsv(fileName, fileContent);

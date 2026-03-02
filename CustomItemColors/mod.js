@@ -33,26 +33,26 @@ const COLORS = {
   Yellow: '$FontColorYellow',
 };
 
-// https://imgur.com/a/lrqE6J1
+// Pre-RotW: https://imgur.com/a/lrqE6J1
+// Post-RotW: https://imgur.com/a/6SiXKtT
 const LOCALIZATION_COLORS = {
   White: 'ÿc0',
   Gray: 'ÿc5',
   Black: 'ÿc6',
   LightRed: 'ÿc1',
-  BrightRed: 'ÿcU',
+  BrightRed: 'ÿcV',
   Gold: 'ÿc4',
   Yellow: 'ÿc9',
   Orange: 'ÿc8',
   BrightGreen: 'ÿc2',
   DarkGreen: 'ÿcA',
   LightTeal: 'ÿcI',
-  BrightTeal: 'ÿcK',
-  LightCyan: 'ÿcT',
-  BrightCyan: 'ÿcN',
-  LightBlue: 'ÿcP',
+  LightCyan: 'ÿcU',
+  BrightCyan: 'ÿcO',
+  LightBlue: 'ÿcQ',
   Blue: 'ÿc3',
   Purple: 'ÿc;',
-  Pink: 'ÿcO',
+  Pink: 'ÿcP',
 };
 
 const VARIABLES = [
@@ -122,7 +122,7 @@ itemRunes.forEach((item) => {
     if (color === undefined) {
       // something went wrong
       console.warn(
-        `Unknown color ${colorName} for ${category} rune #${runeNumber} (${itemtype})`
+        `Unknown color ${colorName} for ${category} rune #${runeNumber} (${itemtype})`,
       );
       return;
     }

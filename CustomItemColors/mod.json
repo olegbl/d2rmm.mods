@@ -4,7 +4,7 @@
   "description": "Customize the colors of various item types as they appear when on the ground. This does *not* change the color of items in their tooltips while in inventory/stash.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/190",
-  "version": "1.2",
+  "version": "1.3",
   "config": [
     {
       "id": "DefaultColor",
@@ -763,7 +763,6 @@
         { "value": "BrightGreen", "label": "Bright Green" },
         { "value": "DarkGreen", "label": "Dark Green" },
         { "value": "LightTeal", "label": "Light Teal" },
-        { "value": "BrightTeal", "label": "Bright Teal" },
         { "value": "LightCyan", "label": "Light Cyan" },
         { "value": "BrightCyan", "label": "Bright Cyan" },
         { "value": "LightBlue", "label": "Light Blue" },
@@ -794,7 +793,6 @@
         { "value": "BrightGreen", "label": "Bright Green" },
         { "value": "DarkGreen", "label": "Dark Green" },
         { "value": "LightTeal", "label": "Light Teal" },
-        { "value": "BrightTeal", "label": "Bright Teal" },
         { "value": "LightCyan", "label": "Light Cyan" },
         { "value": "BrightCyan", "label": "Bright Cyan" },
         { "value": "LightBlue", "label": "Light Blue" },
@@ -825,7 +823,6 @@
         { "value": "BrightGreen", "label": "Bright Green" },
         { "value": "DarkGreen", "label": "Dark Green" },
         { "value": "LightTeal", "label": "Light Teal" },
-        { "value": "BrightTeal", "label": "Bright Teal" },
         { "value": "LightCyan", "label": "Light Cyan" },
         { "value": "BrightCyan", "label": "Bright Cyan" },
         { "value": "LightBlue", "label": "Light Blue" },

@@ -1,4 +1,35 @@
+// Returns the value from either a preset select or a paired custom number field.
+// Preset select values are the desired value as a string (e.g. "2.5", "10");
+// "custom" means fall back to the paired number field.
+function getPresetValue(preset, custom) {
+  if (preset === 'custom') {
+    return custom;
+  }
+  return parseFloat(preset);
+}
+
+// Converts a % chance to the itemratio.txt divisor value.
+// Lower divisor = higher drop rate. 0% is treated as effectively impossible.
+function processValue(value) {
+  if (value === 0) {
+    return 1000000000;
+  }
+  return Math.round(100 / value);
+}
+
+// Returns the minimum rarity floor for the itemratio.txt *Min column.
+// 0% means disable that quality tier entirely (floor set to impossibly high).
+// Any other value uses 1 (no meaningful floor — lets the chance scale freely).
+function processMinValue(value) {
+  if (value === 0) {
+    return 1000000000;
+  }
+  return 1;
+}
+
 if (config.runes) {
+  const runesScalingValue = getPresetValue(config.runesPreset, config.runesScaling);
+
   [
     'global\\excel\\treasureclassex.txt',
     'global\\excel\\base\\treasureclassex.txt',
@@ -16,8 +47,8 @@ if (config.runes) {
 
           row[restGroupColumn] = Math.floor(
             Math.max(
-              row[restGroupColumn] / config.runesScaling,
-              2 * Math.sqrt(config.runesScaling),
+              row[restGroupColumn] / runesScalingValue,
+              2 * Math.sqrt(runesScalingValue),
             ),
           );
         }
@@ -27,43 +58,35 @@ if (config.runes) {
   });
 }
 
-function processValue(value) {
-  // if user wants a 0% droprate for this rarity
-  // then set the rarity to a very high value
-  // this will not actually be 0%, but it's the best we can do here
-  if (value === 0) {
-    return 1000000000;
-  }
-  return Math.round(100 / value);
-}
-
-function processMinValue(value) {
-  // if user wants a 0% droprate for this rarity
-  // then set the minimum rarity to a very high value
-  if (value === 0) {
-    return 1000000000;
-  }
-  return 1;
-}
-
 if (config.equipment) {
+  const uniqueChance = getPresetValue(config.uniquePreset, config.unique);
+  const setChance = getPresetValue(config.setPreset, config.set);
+  const rareChance = getPresetValue(config.rarePreset, config.rare);
+  const magicChance = getPresetValue(config.magicPreset, config.magic);
+  const hiqualityChance = getPresetValue(config.hiqualityPreset, config.hiquality);
+
   [
     'global\\excel\\itemratio.txt',
     'global\\excel\\base\\itemratio.txt',
-  ].forEach((treasureclassexFilename) => {
-    const treasureclassex = D2RMM.readTsv(treasureclassexFilename);
-    treasureclassex.rows.forEach((row) => {
-      row.Unique = processValue(config.unique);
-      row.Set = processValue(config.set);
-      row.Rare = processValue(config.rare);
-      row.Magic = processValue(config.magic);
-      row.HiQuality = processValue(config.hiquality);
+  ].forEach((itemratioFilename) => {
+    const itemratio = D2RMM.readTsv(itemratioFilename);
+    itemratio.rows.forEach((row) => {
+      row.Unique = processValue(uniqueChance);
+      row.Set = processValue(setChance);
+      row.Rare = processValue(rareChance);
+      row.Magic = processValue(magicChance);
+      row.HiQuality = processValue(hiqualityChance);
 
-      if (config.disableminimumrarity) {
-        row.UniqueMin = processMinValue(config.unique);
-        row.SetMin = processMinValue(config.set);
-        row.RareMin = processMinValue(config.rare);
-        row.MagicMin = processMinValue(config.magic);
+      // Only disable the minimum rarity floor when level scaling is also
+      // disabled. If level scaling is active, the scaling formula can drive
+      // the quality divisor all the way to 1 (= 100% unique), and removing
+      // the floor makes that worse. The UI enforces this via overrideValue,
+      // but we also guard here for safety.
+      if (config.disableminimumrarity && config.disablelevelscaling) {
+        row.UniqueMin = processMinValue(uniqueChance);
+        row.SetMin = processMinValue(setChance);
+        row.RareMin = processMinValue(rareChance);
+        row.MagicMin = processMinValue(magicChance);
       }
 
       if (config.disablelevelscaling) {
@@ -75,6 +98,6 @@ if (config.equipment) {
         row.NormalDivisor = 1000000000;
       }
     });
-    D2RMM.writeTsv(treasureclassexFilename, treasureclassex);
+    D2RMM.writeTsv(itemratioFilename, itemratio);
   });
 }

@@ -4,8 +4,15 @@
   "description": "Increases the droprate of items.",
   "author": "olegbl",
   "website": "https://www.nexusmods.com/diablo2resurrected/mods/180",
-  "version": "1.4",
+  "version": "1.5",
   "config": [
+    {
+      "id": "how-it-works-section",
+      "type": "section",
+      "name": "How This Mod Works",
+      "description": "This mod changes the QUALITY of items (Unique / Set / Rare / Magic / Superior), not the QUANTITY. You will not get more drops — the items you do get are more likely to be high quality. Important: many item bases have no Unique or Set variant, so those items silently roll as Rare instead.",
+      "defaultExpanded": false
+    },
     {
       "id": "runes-section",
       "type": "section",
@@ -15,90 +22,377 @@
     {
       "id": "runes",
       "type": "checkbox",
-      "name": "Adjust Rune Droprate",
-      "description": "Disable to not modify the droprate of runes.",
+      "name": "Adjust Rune Drop Distribution",
+      "description": "When enabled, redistributes rune drops toward higher runes. Disable to leave rune distribution at vanilla rates.",
       "defaultValue": true
+    },
+    {
+      "id": "runesPreset",
+      "type": "select",
+      "name": "Rune Drop Redistribution",
+      "description": "How aggressively to shift rune drops away from low runes and toward high runes. Does NOT increase the total number of runes you find — the same number of runes drop overall, but the mix shifts. Higher values mean more high runes but fewer low and mid runes.",
+      "defaultValue": "10",
+      "visible": ["value", "runes"],
+      "options": [
+        {
+          "label": "Vanilla (1 — no change)",
+          "value": "1",
+          "description": "Original game distribution. Mostly low runes, very rare high runes."
+        },
+        {
+          "label": "Light (5)",
+          "value": "5",
+          "description": "Mild redistribution toward higher runes. Low runes still common."
+        },
+        {
+          "label": "Moderate (10) — Default",
+          "value": "10",
+          "description": "Zod drops ~10x more often than vanilla. Low runes become noticeably less frequent."
+        },
+        {
+          "label": "Heavy (25)",
+          "value": "25",
+          "description": "Strong shift toward high runes. Low runes are rare."
+        },
+        {
+          "label": "Maximum (100) — roughly even spread",
+          "value": "100",
+          "description": "All rune tiers drop at roughly similar rates. Low runes become uncommon."
+        },
+        {
+          "label": "Custom",
+          "value": "custom",
+          "description": "Enter a specific value below. 1 = vanilla, higher = more high runes."
+        }
+      ]
     },
     {
       "id": "runesScaling",
       "type": "number",
-      "name": "Rune Droprate Multiplier",
-      "description": "1 = vanilla. 10 = Zod is about 10x as likely, more mid runes, fewer low runes. 100 = fairly even distribution, but more HRs than LRs/MRs.",
+      "name": "Custom Rune Redistribution Value",
+      "description": "1 = vanilla distribution. Higher values shift drops toward high runes at the cost of low runes. Max 100.",
       "defaultValue": 10,
       "minValue": 1,
-      "maxValue": 100
+      "maxValue": 100,
+      "visible": [
+        "and",
+        ["value", "runes"],
+        ["eq", ["value", "runesPreset"], "custom"]
+      ]
     },
     {
       "id": "equipment-section",
       "type": "section",
-      "name": "Equipment",
+      "name": "Equipment Item Quality",
+      "description": "Controls the quality tier of dropped equipment. Higher settings mean more items drop as Unique, Set, Rare, etc. instead of Normal. This does NOT affect how many items drop — only their quality. Quality is checked in order: Unique first, then Set, then Rare, then Magic, then Superior — an item uses the first tier it qualifies for.",
       "defaultExpanded": false
     },
     {
       "id": "equipment",
       "type": "checkbox",
-      "name": "Adjust Equipment Droprate",
-      "description": "Disable to not modify the droprate of equipment.",
+      "name": "Adjust Equipment Quality",
+      "description": "Disable to leave equipment drop quality at vanilla rates.",
       "defaultValue": true
+    },
+    {
+      "id": "uniquePreset",
+      "type": "select",
+      "name": "Unique Item Chance",
+      "description": "How likely eligible items are to drop as Unique (gold). Vanilla is 0.25% (1-in-400). Note: items with no Unique variant silently become Rare instead. Magic Find has severe diminishing returns for Uniques — even 1000% MF only provides about a 3x improvement. The 10x preset already exceeds what any amount of in-game MF can achieve.",
+      "defaultValue": "2.5",
+      "visible": ["value", "equipment"],
+      "options": [
+        {
+          "label": "Vanilla (0.25% — 1-in-400)",
+          "value": "0.25",
+          "description": "Original game rates. Uniques are very rare — many runs may not produce any."
+        },
+        {
+          "label": "2x (0.5% ≈ 167 MF)",
+          "value": "0.5",
+          "description": "Roughly equivalent to having 167 permanent Magic Find for Unique items."
+        },
+        {
+          "label": "4x (1% ≈ practical MF cap)",
+          "value": "1.0",
+          "description": "Roughly equivalent to stacking Magic Find to its practical ceiling (~400 MF)."
+        },
+        {
+          "label": "10x (2.5% — beyond max MF)",
+          "value": "2.5",
+          "description": "Stronger than any Magic Find achievable in-game. About 1-in-40 eligible items will be Unique."
+        },
+        {
+          "label": "20x (5%)",
+          "value": "5",
+          "description": "Very high — 1-in-20 eligible items will be Unique. Expect frequent gold text on the ground."
+        },
+        {
+          "label": "Custom",
+          "value": "custom",
+          "description": "Enter a specific percentage below. 0.25% is vanilla."
+        }
+      ]
     },
     {
       "id": "unique",
       "type": "number",
-      "name": "Chance of Unique Item Dropping",
-      "description": "Assuming the base item that dropped can be a unique item in this area level, this is the chance of it being a unique item. Vanilla value is 0.25%.",
-      "defaultValue": 5,
+      "name": "Custom Unique Chance (%)",
+      "description": "0.25% is vanilla. Higher = more Unique items. Setting to 0 effectively disables Uniques.",
+      "defaultValue": 2.5,
       "minValue": 0,
-      "maxValue": 100
+      "maxValue": 100,
+      "visible": [
+        "and",
+        ["value", "equipment"],
+        ["eq", ["value", "uniquePreset"], "custom"]
+      ]
+    },
+    {
+      "id": "setPreset",
+      "type": "select",
+      "name": "Set Item Chance",
+      "description": "How likely eligible items are to drop as Set (green). Vanilla is 0.625%. Set is checked after Unique — items that don't roll Unique are then tested for Set.",
+      "defaultValue": "6.25",
+      "visible": ["value", "equipment"],
+      "options": [
+        {
+          "label": "Vanilla (0.625%)",
+          "value": "0.625",
+          "description": "Original game rates."
+        },
+        {
+          "label": "2x (1.25%)",
+          "value": "1.25",
+          "description": "Twice as likely as vanilla."
+        },
+        {
+          "label": "4x (2.5%)",
+          "value": "2.5",
+          "description": "Four times as likely as vanilla."
+        },
+        {
+          "label": "10x (6.25%)",
+          "value": "6.25",
+          "description": "Ten times as likely as vanilla."
+        },
+        {
+          "label": "20x (12.5%)",
+          "value": "12.5",
+          "description": "Twenty times as likely as vanilla."
+        },
+        {
+          "label": "Custom",
+          "value": "custom",
+          "description": "Enter a specific percentage below. 0.625% is vanilla."
+        }
+      ]
     },
     {
       "id": "set",
       "type": "number",
-      "name": "Chance of Set Item Dropping",
-      "description": "Assuming the base item that dropped can be a set item in this area level, this is the chance of it being a set item. Vanilla value is 0.625%.",
-      "defaultValue": 10,
+      "name": "Custom Set Chance (%)",
+      "description": "0.625% is vanilla. Higher = more Set items.",
+      "defaultValue": 6.25,
       "minValue": 0,
-      "maxValue": 100
+      "maxValue": 100,
+      "visible": [
+        "and",
+        ["value", "equipment"],
+        ["eq", ["value", "setPreset"], "custom"]
+      ]
+    },
+    {
+      "id": "rarePreset",
+      "type": "select",
+      "name": "Rare Item Chance",
+      "description": "How likely eligible items are to drop as Rare (yellow). Vanilla is 1%. Rare is checked after Unique and Set.",
+      "defaultValue": "10",
+      "visible": ["value", "equipment"],
+      "options": [
+        {
+          "label": "Vanilla (1%)",
+          "value": "1",
+          "description": "Original game rates."
+        },
+        {
+          "label": "2x (2%)",
+          "value": "2",
+          "description": "Twice as likely as vanilla."
+        },
+        {
+          "label": "4x (4%)",
+          "value": "4",
+          "description": "Four times as likely as vanilla."
+        },
+        {
+          "label": "10x (10%)",
+          "value": "10",
+          "description": "Ten times as likely as vanilla."
+        },
+        {
+          "label": "20x (20%)",
+          "value": "20",
+          "description": "Twenty times as likely as vanilla."
+        },
+        {
+          "label": "Custom",
+          "value": "custom",
+          "description": "Enter a specific percentage below. 1% is vanilla."
+        }
+      ]
     },
     {
       "id": "rare",
       "type": "number",
-      "name": "Chance of Rare Item Dropping",
-      "description": "Assuming the base item that dropped can be a rare item, this is the chance of it being a rare item. Vanilla value is 1%.",
-      "defaultValue": 20,
+      "name": "Custom Rare Chance (%)",
+      "description": "1% is vanilla. Higher = more Rare items.",
+      "defaultValue": 10,
       "minValue": 0,
-      "maxValue": 100
+      "maxValue": 100,
+      "visible": [
+        "and",
+        ["value", "equipment"],
+        ["eq", ["value", "rarePreset"], "custom"]
+      ]
+    },
+    {
+      "id": "magicPreset",
+      "type": "select",
+      "name": "Magic Item Chance",
+      "description": "How likely eligible items are to drop as Magic (blue). Vanilla is ~3%. Magic is checked after Unique, Set, and Rare.",
+      "defaultValue": "30",
+      "visible": ["value", "equipment"],
+      "options": [
+        {
+          "label": "Vanilla (≈3%)",
+          "value": "3",
+          "description": "Original game rates."
+        },
+        {
+          "label": "2x (6%)",
+          "value": "6",
+          "description": "Twice as likely as vanilla."
+        },
+        {
+          "label": "4x (12%)",
+          "value": "12",
+          "description": "Four times as likely as vanilla."
+        },
+        {
+          "label": "10x (30%)",
+          "value": "30",
+          "description": "Ten times as likely as vanilla."
+        },
+        {
+          "label": "20x (60%)",
+          "value": "60",
+          "description": "Twenty times as likely as vanilla. Most drops will be Magic or better."
+        },
+        {
+          "label": "Custom",
+          "value": "custom",
+          "description": "Enter a specific percentage below. ~3% is vanilla."
+        }
+      ]
     },
     {
       "id": "magic",
       "type": "number",
-      "name": "Chance of Magic Item Dropping",
-      "description": "Assuming the base item that dropped can be a magic item, this is the chance of it being a magic item. Vanilla value is 2.94%.",
-      "defaultValue": 20,
+      "name": "Custom Magic Chance (%)",
+      "description": "~3% is vanilla. Higher = more Magic items.",
+      "defaultValue": 30,
       "minValue": 0,
-      "maxValue": 100
+      "maxValue": 100,
+      "visible": [
+        "and",
+        ["value", "equipment"],
+        ["eq", ["value", "magicPreset"], "custom"]
+      ]
+    },
+    {
+      "id": "hiqualityPreset",
+      "type": "select",
+      "name": "Superior Item Chance",
+      "description": "How likely white items are to drop as Superior (+% Enhanced Damage/Defense). Vanilla is ~8%. Superior items are the best base for runewords. Checked after all other quality tiers.",
+      "defaultValue": "33",
+      "visible": ["value", "equipment"],
+      "options": [
+        {
+          "label": "Vanilla (≈8%)",
+          "value": "8",
+          "description": "Original game rates."
+        },
+        {
+          "label": "2x (17%)",
+          "value": "17",
+          "description": "Twice as likely as vanilla."
+        },
+        {
+          "label": "4x (33%)",
+          "value": "33",
+          "description": "Four times as likely as vanilla. About 1-in-3 white items will be Superior."
+        },
+        {
+          "label": "10x (83%)",
+          "value": "83",
+          "description": "Ten times as likely as vanilla. Most white items will be Superior."
+        },
+        {
+          "label": "Always Superior (100%)",
+          "value": "100",
+          "description": "Every white item that drops will be Superior — ideal for runeword crafting."
+        },
+        {
+          "label": "Custom",
+          "value": "custom",
+          "description": "Enter a specific percentage below. ~8% is vanilla."
+        }
+      ]
     },
     {
       "id": "hiquality",
       "type": "number",
-      "name": "Chance of High Quality Item Dropping",
-      "description": "Assuming the base item that dropped can be a high quality item, this is the chance of it being a high quality item. Vanilla value is 8.33%.",
-      "defaultValue": 50,
+      "name": "Custom Superior Chance (%)",
+      "description": "~8% is vanilla. Higher = more Superior (white) items.",
+      "defaultValue": 33,
       "minValue": 0,
-      "maxValue": 100
+      "maxValue": 100,
+      "visible": [
+        "and",
+        ["value", "equipment"],
+        ["eq", ["value", "hiqualityPreset"], "custom"]
+      ]
     },
     {
-      "id": "disableminimumrarity",
-      "type": "checkbox",
-      "name": "Disable Minimum Rarity",
-      "description": "By default, unique, set and rare items have a minimum rarity that they cannot fall below despite magic find, etc... Turn this option on to disable this mechanic.",
-      "defaultValue": true
+      "id": "advanced-section",
+      "type": "section",
+      "name": "Advanced Options",
+      "description": "Options that affect how the game's internal drop formula works. The defaults are strongly recommended for most players — only change these if you understand D2's itemratio.txt system.",
+      "defaultExpanded": false,
+      "visible": ["value", "equipment"]
     },
     {
       "id": "disablelevelscaling",
       "type": "checkbox",
       "name": "Disable Level Scaling",
-      "description": "By default, items are more likely to be higher quality if dropped from a higher level monster. Turn this option on to disable this mechanic.",
-      "defaultValue": true
+      "description": "Recommended: ON. When ON, item quality chances are flat and consistent regardless of monster level — what you set is what you get. When OFF, the game's vanilla formula applies: higher-level monsters produce better quality items. Warning: turning this OFF while keeping Disable Minimum Rarity Floor ON can cause 100% Unique drop rates, because the scaling can reduce the quality divisor all the way to 1.",
+      "defaultValue": true,
+      "visible": ["value", "equipment"]
+    },
+    {
+      "id": "disableminimumrarity",
+      "type": "checkbox",
+      "name": "Disable Minimum Rarity Floor",
+      "description": "When ON, item quality has no minimum floor — chances scale all the way down to near-0% (effectively removing that quality tier). Only configurable when Disable Level Scaling is also ON; when level scaling is active, the minimum floor is automatically kept in place to prevent 100% Unique drop rates.",
+      "defaultValue": true,
+      "visible": ["value", "equipment"],
+      "overrideValue": [
+        "if",
+        ["not", ["value", "disablelevelscaling"]],
+        false,
+        null
+      ]
     }
   ]
 }
